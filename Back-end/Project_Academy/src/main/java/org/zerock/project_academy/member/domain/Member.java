@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "roleSet")
+@ToString(exclude = {"roleSet", "lectureList_m"})
 @Builder
 public class Member extends BaseEntity{
     @Id
@@ -34,7 +34,7 @@ public class Member extends BaseEntity{
             orphanRemoval = true)
     @Builder.Default
     @BatchSize(size = 20)
-    private List<LectureList> lectureSet_m = new ArrayList<>();
+    private List<LectureList> lectureList_m = new ArrayList<>();
 
     public void changePassword(String m_password) {
         this.m_password = m_password;

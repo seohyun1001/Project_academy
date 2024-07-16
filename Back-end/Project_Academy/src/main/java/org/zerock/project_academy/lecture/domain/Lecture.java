@@ -5,15 +5,13 @@ import lombok.*;
 import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "lectureSet")
+@ToString(exclude = "lectureList_l")
 @Builder
 public class Lecture extends BaseEntity {
     @Id
@@ -30,6 +28,6 @@ public class Lecture extends BaseEntity {
                 orphanRemoval = true)
     @Builder.Default
     @BatchSize(size = 20)
-    private List<LectureList> lectureSet_l = new ArrayList<>();
+    private List<LectureList> lectureList_l = new ArrayList<>();
 
 }

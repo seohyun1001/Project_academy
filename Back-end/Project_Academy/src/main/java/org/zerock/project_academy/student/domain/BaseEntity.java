@@ -1,4 +1,4 @@
-package org.zerock.project_academy;
+package org.zerock.project_academy.student.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
