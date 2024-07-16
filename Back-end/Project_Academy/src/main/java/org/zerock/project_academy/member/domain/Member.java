@@ -1,12 +1,13 @@
 package org.zerock.project_academy.member.domain;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
+import org.zerock.project_academy.lecture.domain.LectureList;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,18 +19,25 @@ import java.util.Set;
 public class Member extends BaseEntity{
     @Id
     private Long mno;
-    private String name;
-    private String password;
-    private String phone;
-    private String email;
+    private String m_name;
+    private String m_password;
+    private String m_phone;
+    private String m_email;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
 
+    @OneToMany(mappedBy = "member",
+            cascade = {CascadeType.ALL},
+            fetch = FetchType.LAZY,
+            orphanRemoval = true)
+    @Builder.Default
+    @BatchSize(size = 20)
+    private List<LectureList> lectureSet_m = new ArrayList<>();
 
-    public void changePassword(String password) {
-        this.password = password;
+    public void changePassword(String m_password) {
+        this.m_password = m_password;
     }
 
 }
