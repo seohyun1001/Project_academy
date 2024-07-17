@@ -25,7 +25,7 @@ public interface LectureService {
     PageResponseDTO<LectureDTO> searchLecture(PageRequestDTO pageRequestDTO);
 
     // update
-    void modifyLecture(LectureDTO lectureDTO);
+    Lecture modifyLecture(LectureDTO lectureDTO);
 
     // delete
     void deleteLecture(String lno);
