@@ -41,5 +41,4 @@ public class Member extends BaseEntity{
     public void changePassword(String m_password) {
         this.m_password = m_password;
     }
-
 }
