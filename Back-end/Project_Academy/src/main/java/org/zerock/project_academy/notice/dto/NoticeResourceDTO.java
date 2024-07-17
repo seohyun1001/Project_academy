@@ -1,4 +1,4 @@
-package org.zerock.project_academy.notice.domain.dto;
+package org.zerock.project_academy.notice.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

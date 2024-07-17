@@ -1,4 +1,4 @@
-package org.zerock.project_academy.notice.domain.dto;
+package org.zerock.project_academy.notice.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NoticeDTO {
-    private int nno;
+    @NotNull
+    private Long nno;
     private String title;
     private String content;
     private String image;

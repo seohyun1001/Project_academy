@@ -1,4 +1,4 @@
-package org.zerock.project_academy.reference.domain.dto;
+package org.zerock.project_academy.reference.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReferenceDTO {
-    private int rno;
+    private Long rno;
     private String r_title;
     private String r_content;
     private String r_image;
