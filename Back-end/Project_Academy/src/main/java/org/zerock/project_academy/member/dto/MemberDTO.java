@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberDTO {
 
+public class MemberDTO {
     @NotEmpty
     private int mno;
     @NotEmpty
