@@ -22,9 +22,18 @@
     .nav_link {
       font-size: 20px;
       color: black;
+      border-left: 1px dotted rgb(134, 134, 134);
+      padding-top: 0px;
+      padding-bottom: 0px;
     }
 
-    .content {
+    .nav_link_last {
+      border-right: 1px dotted rgb(134, 134, 134);
+    }
+
+    .body_content {
+      padding-top: 30px;
+      padding-bottom: 30px;
       padding-left: 50px;
       padding-right: 50px;
       margin-left: 150px;
@@ -32,10 +41,10 @@
     }
 
     .con_menubar {
-      margin-top: 8px;
       margin-bottom: 16px;
       padding-bottom: 16px;
-      border-bottom: 1px solid rgb(134, 134, 134);
+      padding-top: 16px;
+      border-bottom: 1px solid rgb(164, 164, 164);
     }
   </style>
 </head>
@@ -94,7 +103,7 @@
           <a class="nav-link active nav_link" aria-current="page" href="#">공지사항</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active nav_link" aria-current="page" href="#">자료실</a>
+          <a class="nav-link active nav_link nav_link_last" aria-current="page" href="#">자료실</a>
         </li>
 
         <!-- class="nav-link" -->
@@ -132,7 +141,7 @@
   </div>
   <!-- menubar end -->
 
-  <div class="row row-cols-1 row-cols-md-3 mb-3 text-center content">
+  <div class="row row-cols-1 row-cols-md-3 text-center body_content">
     <div class="col">
       <div class="card mb-4 rounded-3 shadow-sm">
         <div class="card-header py-3">
@@ -146,10 +155,13 @@
             <li>Email support</li>
             <li>Help center access</li>
           </ul>
-          <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+          <!-- <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button> -->
         </div>
       </div>
     </div>
+
+
+
     <div class=" container">
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
@@ -164,7 +176,7 @@
               <li>Email support</li>
               <li>Help center access</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+            <!-- <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button> -->
           </div>
         </div>
       </div>
@@ -181,50 +193,60 @@
               <li>Email support</li>
               <li>Help center access</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+            <!-- <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button> -->
           </div>
         </div>
       </div>
     </div>
 
+
+
     <div class="container">
-    <div class="col">
-      <div class="card mb-4 rounded-3 shadow-sm">
-        <div class="card-header py-3">
-          <h4 class="my-0 fw-normal">Free</h4>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Free</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/mo</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>10 users included</li>
+              <li>2 GB of storage</li>
+              <li>Email support</li>
+              <li>Help center access</li>
+            </ul>
+            <!-- <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button> -->
+          </div>
         </div>
-        <div class="card-body">
-          <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/mo</small></h1>
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>10 users included</li>
-            <li>2 GB of storage</li>
-            <li>Email support</li>
-            <li>Help center access</li>
-          </ul>
-          <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Free</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/mo</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>10 users included</li>
+              <li>2 GB of storage</li>
+              <li>Email support</li>
+              <li>Help center access</li>
+            </ul>
+            <!-- <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button> -->
+          </div>
         </div>
       </div>
     </div>
-    <div class="col">
-      <div class="card mb-4 rounded-3 shadow-sm">
-        <div class="card-header py-3">
-          <h4 class="my-0 fw-normal">Free</h4>
-        </div>
-        <div class="card-body">
-          <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/mo</small></h1>
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>10 users included</li>
-            <li>2 GB of storage</li>
-            <li>Email support</li>
-            <li>Help center access</li>
-          </ul>
-          <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
+
+
+  <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+    <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    <p class="mb-0">
+      <a href="#">Back to top</a>
+    </p>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
