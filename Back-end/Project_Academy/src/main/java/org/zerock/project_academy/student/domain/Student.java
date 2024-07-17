@@ -23,6 +23,8 @@ public class Student extends BaseEntity {
     private String s_email;
     private String s_phone;
     private String s_status;
+    private String s_address1;
+    private String s_address2;
 
     @OneToMany(mappedBy = "student",
             cascade = {CascadeType.ALL},
