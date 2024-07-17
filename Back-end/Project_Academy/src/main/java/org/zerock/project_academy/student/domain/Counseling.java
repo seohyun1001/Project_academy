@@ -10,7 +10,7 @@ import org.zerock.project_academy.lecture.domain.Lecture;
 @AllArgsConstructor
 @ToString(exclude = {"student_c", "lecture_c"})
 @Builder
-public class Counseling extends BaseEntity{
+public class Counseling extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cno;

@@ -20,7 +20,6 @@ public class Lecture extends BaseEntity {
     private String l_name;
     private String l_category;
     private String l_classroom;
-    private Long mno;
 
     @OneToMany(mappedBy = "lecture",
                 cascade = {CascadeType.ALL},

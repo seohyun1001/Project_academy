@@ -23,6 +23,8 @@ public class Member extends BaseEntity{
     private String m_password;
     private String m_phone;
     private String m_email;
+    private String m_address1;
+    private String m_address2;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
