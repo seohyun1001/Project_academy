@@ -38,10 +38,10 @@ public class LectureServiceImpl implements LectureService {
         return lectureRepository.findById(lno);
     }
 
-    @Override
-    public LectureDTO readOne(String lno) {
-        return null;
-    }
+//    @Override
+//    public LectureDTO readOne(String lno) {
+//        return null;
+//    }
 
     @Override
     public PageResponseDTO<LectureDTO> searchLecture(PageRequestDTO pageRequestDTO) {
@@ -55,6 +55,6 @@ public class LectureServiceImpl implements LectureService {
 
     @Override
     public void deleteLecture(String lno) {
-
+        lectureRepository.deleteById(lno);
     }
 }

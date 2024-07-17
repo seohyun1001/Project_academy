@@ -19,7 +19,7 @@ public interface LectureService {
     // select one
     Optional<Lecture> findOneLectureById(String lno);
 
-    LectureDTO readOne(String lno);
+//    LectureDTO readOne(String lno);
 
     // search list
     PageResponseDTO<LectureDTO> searchLecture(PageRequestDTO pageRequestDTO);

@@ -38,4 +38,10 @@ public class LectureController {
         }
     }
 
+    @DeleteMapping("{lno}")
+    public ResponseEntity<Object> deleteLecture(@PathVariable String lno) {
+        lectureService.deleteLecture(lno);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
