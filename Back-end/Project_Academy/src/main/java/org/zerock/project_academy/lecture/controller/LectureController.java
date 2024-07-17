@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.zerock.project_academy.lecture.domain.Lecture;
 import org.zerock.project_academy.lecture.service.LectureService;
 
+import java.util.Optional;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/lecture")
@@ -19,9 +21,21 @@ public class LectureController {
         return new ResponseEntity<>(lectureService.registerLecture(lecture), HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<Object> getAllLectures() {
         return new ResponseEntity<>(lectureService.findAllLectures(), HttpStatus.OK);
+    }
+
+    @GetMapping("/read")
+    public ResponseEntity<Object> getLectureById(@RequestParam String lno) {
+        // postman에서 'form-data' key=lno, value=1로 조회함
+        Optional<Lecture> oneLecture = lectureService.findOneLectureById(lno);
+
+        if (oneLecture.isPresent()) {
+            return ResponseEntity.ok(oneLecture.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lecture not found with id " + lno);
+        }
     }
 
 }

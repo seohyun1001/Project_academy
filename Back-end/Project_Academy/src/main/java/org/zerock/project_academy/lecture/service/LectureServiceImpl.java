@@ -35,7 +35,7 @@ public class LectureServiceImpl implements LectureService {
 
     @Override
     public Optional<Lecture> findOneLectureById(String lno) {
-        return Optional.empty();
+        return lectureRepository.findById(lno);
     }
 
     @Override
