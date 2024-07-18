@@ -14,12 +14,10 @@ public class NoticeResource implements Comparable<NoticeResource> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long nrno;
-
     private String nr_name;
     private String nr_path;
     private String nr_type;
-    // 카톡에 올려준 create문에는 type이 int로 되어 있는데 int 맞는지
-    // -> 일단 String으로 함
+    private Long file_size;
     private int nr_ord;
 
     @ManyToOne
