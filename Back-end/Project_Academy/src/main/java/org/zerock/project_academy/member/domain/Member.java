@@ -12,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"roleSet", "lectureList_m"})
@@ -41,5 +42,4 @@ public class Member extends BaseEntity{
     public void changePassword(String m_password) {
         this.m_password = m_password;
     }
-
 }

@@ -1,0 +1,47 @@
+package org.zerock.project_academy.security.util;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import java.security.Key;
+import java.util.Map;
+
+@Component
+@Log4j2
+public class JWTUtil {
+
+    @Value("${org.zerock.jwt.secret}")
+    private String jwtSecret;
+
+    private Key getSigningKey() {
+        // HMAC-SHA 알고리즘을 위한 충분히 강력한 키를 생성합니다.
+        return Keys.secretKeyFor(SignatureAlgorithm.HS512);
+    }
+
+    public String generateToken(Map<String, Object> claims) {
+        return Jwts.builder()
+                .setClaims(claims)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
+                .compact();
+    }
+
+    public Claims validateToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    public boolean validateToken(String token, UserDetails userDetails) {
+        Claims claims = validateToken(token);
+        String username = claims.getSubject();
+        return username.equals(userDetails.getUsername());
+    }
+}
