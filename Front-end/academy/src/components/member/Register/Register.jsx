@@ -23,7 +23,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/members/register', member);
+            const response = await axios.post('/member/register', member);
             if (response.status === 201) {
                 alert('회원 등록이 성공적으로 완료되었습니다.');
                 navigate('/'); // 회원 등록 후 홈 페이지로 이동

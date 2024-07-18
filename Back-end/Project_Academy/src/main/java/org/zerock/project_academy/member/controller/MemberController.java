@@ -20,20 +20,25 @@ import java.util.Optional;
 @Log4j2
 @RestController
 @RequestMapping("/member")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MemberController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
-    private final MemberServiceImpl memberServiceImpl;
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody MemberDTO memberDTO) {
         log.info("Member registration request: {}", memberDTO);
 
         memberService.register(memberDTO);
 
-        return new ResponseEntity<>("Member registered successfully", HttpStatus.CREATED);
+        try {
+            memberService.register(memberDTO);
+            return new ResponseEntity<>("Member registered successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            log.error("Error during member registration: {}", e.getMessage());
+            return new ResponseEntity<>("Member registration failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/modify")
