@@ -29,4 +29,9 @@ public class MemberServiceImpl implements MemberService {
 
         memberRepository.save(member);
     }
+
+    public Member findByMno(Long mno){
+        Member member = memberRepository.findByMno(mno).get();
+        return member;
+    }
 }
