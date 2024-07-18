@@ -14,11 +14,12 @@ const Login = () => {
                 mno,
                 password
             });
-            const { accessToken, refreshToken } = response.data;
+            const { accessToken, mno: userMno, m_name } = response.data;
 
-            // JWT 토큰을 로컬 스토리지에 저장
+            // JWT 토큰과 사용자 정보를 로컬 스토리지에 저장
             localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('refreshToken', refreshToken);
+            localStorage.setItem('mno', userMno);
+            localStorage.setItem('m_name', m_name);
 
             alert('로그인 성공');
             navigate('/'); // 로그인 후 홈 페이지로 이동

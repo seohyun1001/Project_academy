@@ -28,8 +28,8 @@ public class RegisterMemberTest {
         // 테스트에 사용할 MemberDTO 생성
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setMno(1001L);
-        memberDTO.setM_name("Test User");
-        memberDTO.setM_password("password123");
+        memberDTO.setM_name("admin");
+        memberDTO.setM_password("1234");
         memberDTO.setM_email("test@example.com");
         memberDTO.setM_phone("010-1234-5678");
         memberDTO.setM_address1("Address 1");

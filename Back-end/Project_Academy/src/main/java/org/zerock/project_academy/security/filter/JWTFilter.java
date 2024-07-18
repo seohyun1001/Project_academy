@@ -22,13 +22,21 @@ import java.util.Map;
 
 @Log4j2
 @RequiredArgsConstructor
-public class JWTAuthenticationFilter extends OncePerRequestFilter {
+public class JWTFilter extends OncePerRequestFilter {
 
     private final CustomUserDetailService customUserDetailsService;
     private final JWTUtil jwtUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        String requestURI = request.getRequestURI();
+
+        // 회원가입 경로는 필터를 거치지 않도록 예외 처리
+        if ("/members/register".equals(requestURI)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         String headerStr = request.getHeader("Authorization");
 
@@ -41,9 +49,9 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             Map<String, Object> claims = jwtUtil.validateToken(tokenStr);
-            Long mno = Long.valueOf((String) claims.get("mid"));
+            String username = (String) claims.get("username");
 
-            UserDetails userDetails = customUserDetailsService.loadUserByUsername(String.valueOf(mno));
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -69,3 +77,4 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
+

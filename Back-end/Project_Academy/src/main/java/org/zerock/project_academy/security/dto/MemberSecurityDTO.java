@@ -29,7 +29,7 @@ public class MemberSecurityDTO extends User {
                              String address1,
                              String address2,
                              Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
+        super(String.valueOf(mno), password, authorities);
 
         this.mno = mno;
         this.m_name = username;
