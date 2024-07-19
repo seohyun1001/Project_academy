@@ -55,6 +55,8 @@ public class CustomSecurityConfig {
                 .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
                 .requestMatchers(HttpMethod.POST,"/member/register").permitAll()
                 .requestMatchers(HttpMethod.POST,"/error").permitAll()
+                .requestMatchers(HttpMethod.GET, "/student/**").permitAll() // 추가
+                .requestMatchers(HttpMethod.POST, "/student/**").permitAll() // 추가
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
