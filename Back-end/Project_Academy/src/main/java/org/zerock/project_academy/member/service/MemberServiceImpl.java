@@ -42,4 +42,8 @@ public class MemberServiceImpl implements MemberService {
         // 회원 정보 저장
         memberRepository.save(member);
     }
+
+    public boolean AvailableMno(String mno) {
+        return !memberRepository.existsByMno(mno);
+    }
 }

@@ -22,17 +22,19 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     @Query("SELECT m FROM Member m JOIN FETCH m.roleSet WHERE m.mno = :username")
     Optional<Member> findByIdWithRoles(@Param("username") String username);
 
-    @Modifying
-    @Transactional
-    @Query("update Member m set m.m_name = :mName, m.m_password = :mPassword, m.m_phone = :mPhone, " +
-            "m.m_email = :mEmail, m.m_address1 = :mAddress1, m.m_address2 = :mAddress2 where m.mno = :mno")
-    void updateMember(
-            @Param("mno") String mno,
-            @Param("mName") String mName,
-            @Param("mPassword") String mPassword,
-            @Param("mPhone") String mPhone,
-            @Param("mEmail") String mEmail,
-            @Param("mAddress1") String mAddress1,
-            @Param("mAddress2") String mAddress2
-    );
+    boolean existsByMno(String mno);
+
+//    @Modifying
+//    @Transactional
+//    @Query("update Member m set m.m_name = :mName, m.m_password = :mPassword, m.m_phone = :mPhone, " +
+//            "m.m_email = :mEmail, m.m_address1 = :mAddress1, m.m_address2 = :mAddress2 where m.mno = :mno")
+//    void updateMember(
+//            @Param("mno") String mno,
+//            @Param("mName") String mName,
+//            @Param("mPassword") String mPassword,
+//            @Param("mPhone") String mPhone,
+//            @Param("mEmail") String mEmail,
+//            @Param("mAddress1") String mAddress1,
+//            @Param("mAddress2") String mAddress2
+//    );
 }

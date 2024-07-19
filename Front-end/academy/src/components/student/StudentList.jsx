@@ -27,6 +27,7 @@ const StudentList = () => {
                         <th>이메일</th>
                         <th>전화번호</th>
                         <th>주소</th>
+                        <th>추가정보</th>
                         <th>상세보기</th>
                     </tr>
 
