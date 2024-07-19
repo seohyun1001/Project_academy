@@ -23,10 +23,26 @@ public class Lecture extends BaseEntity {
 
     @OneToMany(mappedBy = "lecture",
                 cascade = {CascadeType.ALL},
-                fetch = FetchType.LAZY,
-                orphanRemoval = true)
+                fetch = FetchType.LAZY)
     @Builder.Default
     @BatchSize(size = 20)
     private List<LectureList> lectureList_l = new ArrayList<>();
 
+    public void changeLecture(String l_name, String l_category, String l_classroom) {
+        this.l_name = l_name;
+        this.l_category = l_category;
+        this.l_classroom = l_classroom;
+    }
+
+    // 컬렉션 요소 추가 메서드
+//    public void addLectureList(LectureList lectureList) {
+//        lectureList_l.add(lectureList);
+//        lectureList.setLecture(this);
+//    }
+
+    // 컬렉션 요소 제거 메서드
+//    public void removeLectureList(LectureList lectureList) {
+//        lectureList_l.remove(lectureList);
+//        lectureList.setLecture(null);
+//    }
 }

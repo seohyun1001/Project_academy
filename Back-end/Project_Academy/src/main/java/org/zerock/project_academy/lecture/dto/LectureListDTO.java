@@ -1,10 +1,10 @@
 package org.zerock.project_academy.lecture.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
-@ToString
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,6 +18,4 @@ public class LectureListDTO {
     private String m_name;
     private Long sno;
     private String s_name;
-    private LocalDateTime regdate;
-    private LocalDateTime moddate;
 }

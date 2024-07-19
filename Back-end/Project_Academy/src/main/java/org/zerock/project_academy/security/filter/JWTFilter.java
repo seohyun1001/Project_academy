@@ -28,7 +28,10 @@ public class JWTFilter extends OncePerRequestFilter {
     private final JWTUtil jwtUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
+            throws ServletException, IOException {
 
         String requestURI = request.getRequestURI();
 
@@ -49,9 +52,10 @@ public class JWTFilter extends OncePerRequestFilter {
 
         try {
             Map<String, Object> claims = jwtUtil.validateToken(tokenStr);
-            String username = (String) claims.get("username");
+            String mno = (String) claims.get("mno");
+            log.info("----------------------- mno : " + mno);
 
-            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(mno);
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);

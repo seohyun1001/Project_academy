@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ public class JWTUtil {
 
     @Value("${org.zerock.jwt.secret}")
     private String jwtSecret;
+    public static final String ROLE_PREFIX = "ROLE_";
 
     private Key getSigningKey() {
         // jwtSecret를 Base64로 인코딩하고 SecretKeySpec을 사용하여 키를 생성합니다.
@@ -46,5 +48,10 @@ public class JWTUtil {
         Claims claims = validateToken(token);
         String username = claims.getSubject();
         return username.equals(userDetails.getUsername());
+    }
+
+    public static SimpleGrantedAuthority convertToAuthority(String role){
+        String formatRole=role.startsWith(ROLE_PREFIX)? role: ROLE_PREFIX + role;
+        return new SimpleGrantedAuthority(formatRole);
     }
 }
