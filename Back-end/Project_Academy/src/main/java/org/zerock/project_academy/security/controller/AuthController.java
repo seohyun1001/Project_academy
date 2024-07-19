@@ -39,6 +39,7 @@ public class AuthController {
         MemberSecurityDTO userDetails = (MemberSecurityDTO) authentication.getPrincipal();
         String mName = userDetails.getM_name();
 
+
         return ResponseEntity.ok().body(Map.of("accessToken", jwt, "mno", mno, "m_name", mName));
     }
 

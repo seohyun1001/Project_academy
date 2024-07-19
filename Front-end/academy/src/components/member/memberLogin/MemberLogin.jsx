@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const MemberLogin = () => {
     const [mno, setMno] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -57,4 +57,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default MemberLogin;

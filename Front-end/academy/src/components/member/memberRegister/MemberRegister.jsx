@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const MemberRegister = () => {
     const [member, setMember] = useState({
         mno: '',
         m_name: '',
@@ -113,4 +113,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default MemberRegister;
