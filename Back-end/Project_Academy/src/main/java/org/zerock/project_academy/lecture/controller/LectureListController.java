@@ -22,6 +22,21 @@ public class LectureListController {
     public ResponseEntity<Object> register(@RequestBody LectureList lectureList) {
         return new ResponseEntity<>(lectureListService.registerLectureList(lectureList), HttpStatus.CREATED);
     }
+    // -> 아래와 같은 형식으로 넣어야 함
+//    {
+//        "lecture": {
+//        "lno": "3",
+//                "l_name": "database"
+//    },
+//        "member": {
+//        "mno": "3002",
+//                "m_name": "강사2"
+//    },
+//        "student": {
+//        "sno": "2407001",
+//                "s_name": "학생1"
+//    }
+//    }
 
     @GetMapping("/list")
     public ResponseEntity<Object> getLectureList() {
