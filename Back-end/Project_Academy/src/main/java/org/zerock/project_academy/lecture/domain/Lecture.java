@@ -2,16 +2,12 @@ package org.zerock.project_academy.lecture.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "lectureList_l")
+@ToString //(exclude = "lectureList_l")
 @Builder
 public class Lecture extends BaseEntity {
     @Id
@@ -21,12 +17,12 @@ public class Lecture extends BaseEntity {
     private String l_category;
     private String l_classroom;
 
-    @OneToMany(mappedBy = "lecture",
-                cascade = {CascadeType.ALL},
-                fetch = FetchType.LAZY)
-    @Builder.Default
-    @BatchSize(size = 20)
-    private List<LectureList> lectureList_l = new ArrayList<>();
+//    @OneToMany(mappedBy = "lecture",
+//                cascade = {CascadeType.ALL},
+//                fetch = FetchType.LAZY)
+//    @Builder.Default
+//    @BatchSize(size = 20)
+//    private List<LectureList> lectureList_l = new ArrayList<>();
 
     public void changeLecture(String l_name, String l_category, String l_classroom) {
         this.l_name = l_name;

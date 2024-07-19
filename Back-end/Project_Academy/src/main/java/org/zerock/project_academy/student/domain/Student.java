@@ -2,18 +2,12 @@ package org.zerock.project_academy.student.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
-import org.zerock.project_academy.lecture.domain.LectureList;
-
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "lectureList_s")
+@ToString
 @Builder
 public class Student extends BaseEntity {
     @Id
@@ -26,11 +20,11 @@ public class Student extends BaseEntity {
     private String s_address1;
     private String s_address2;
 
-    @OneToMany(mappedBy = "student",
-            cascade = {CascadeType.ALL},
-            fetch = FetchType.LAZY,
-            orphanRemoval = true)
-    @Builder.Default
-    @BatchSize(size = 20)
-    private List<LectureList> lectureList_s = new ArrayList<>();
+//    @OneToMany(mappedBy = "student",
+//            cascade = {CascadeType.ALL},
+//            fetch = FetchType.LAZY,
+//            orphanRemoval = true)
+//    @Builder.Default
+//    @BatchSize(size = 20)
+//    private List<LectureList> lectureList_s = new ArrayList<>();
 }
