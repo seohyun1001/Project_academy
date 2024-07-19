@@ -19,7 +19,7 @@ import java.util.Set;
 @Builder
 public class Member extends BaseEntity{
     @Id
-    private Long mno;
+    private String mno;
     private String m_name;
     private String m_password;
     private String m_phone;
@@ -27,7 +27,7 @@ public class Member extends BaseEntity{
     private String m_address1;
     private String m_address2;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
 
