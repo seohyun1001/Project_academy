@@ -2,8 +2,10 @@ package org.zerock.project_academy.member.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import org.zerock.project_academy.member.domain.MemberRole;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @ToString
 @Data
@@ -13,14 +15,16 @@ import java.time.LocalDateTime;
 
 public class MemberDTO {
     @NotEmpty
-    private int mno;
+    private String mno;
     @NotEmpty
-    private String name;
+    private String m_name;
     @NotEmpty
-    private String password;
-    private String phone;
-    private String email;
+    private String m_password;
+    private String m_phone;
+    private String m_email;
+    private String m_address1;
+    private String m_address2;
     private LocalDateTime regdate;
     private LocalDateTime moddate;
-
+    private Set<MemberRole> roleSet;
 }

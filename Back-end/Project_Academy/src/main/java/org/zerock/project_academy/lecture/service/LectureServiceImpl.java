@@ -12,6 +12,7 @@ import org.zerock.project_academy.lecture.dto.PageResponseDTO;
 import org.zerock.project_academy.lecture.repository.LectureRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -50,8 +51,27 @@ public class  LectureServiceImpl implements LectureService {
     }
 
     @Override
-    public void modifyLecture(LectureDTO lectureDTO) {
+    public Lecture modifyLecture(LectureDTO lectureDTO) {
+        log.info("Modifying lecture with ID: {}", lectureDTO.getLno());
+        Optional<Lecture> result = lectureRepository.findById(lectureDTO.getLno());
 
+        if (!result.isPresent()) {
+            log.error("Lecture not found with ID: {}", lectureDTO.getLno());
+            throw new NoSuchElementException("Lecture not found with ID: " + lectureDTO.getLno());
+        }
+
+        Lecture lecture = result.get();
+        log.info("Lecture found: {}", lecture);
+
+        lecture.changeLecture(
+                lectureDTO.getL_name(),
+                lectureDTO.getL_category(),
+                lectureDTO.getL_classroom()
+                );
+
+        Lecture savedLecture = lectureRepository.save(lecture);
+        log.info("Lecture modified and saved: {}", savedLecture);
+        return savedLecture;
     }
 
     @Override
