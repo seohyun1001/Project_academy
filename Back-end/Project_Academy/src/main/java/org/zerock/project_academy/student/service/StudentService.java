@@ -8,11 +8,11 @@ public interface StudentService {
 
     Long register(StudentDTO studentDTO);
 
-//    StudentDTO get(Long sno);
-//
-//    void modify(StudentDTO studentDTO);
-//
-//    void remove(Long sno);
-//
-//    List<StudentDTO> getAll();
+    StudentDTO get(Long sno);
+
+    void modify(StudentDTO studentDTO);
+
+    void remove(Long sno);
+
+    List<StudentDTO> getAll();
 }
