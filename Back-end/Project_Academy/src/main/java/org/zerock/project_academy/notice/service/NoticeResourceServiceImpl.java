@@ -2,6 +2,7 @@ package org.zerock.project_academy.notice.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.project_academy.notice.domain.Notice;
@@ -18,10 +19,14 @@ import java.util.stream.Collectors;
 @Transactional
 public class NoticeResourceServiceImpl implements NoticeResourceService {
     private final NoticeResourceRepository noticeResourceRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public void saveAll(List<NoticeResourceDTO> resourceDtoList) {
-        noticeResourceRepository.saveAll(resourceDtoList);
-
+        List<NoticeResource> resourceList =
+                resourceDtoList.stream().map(
+                        dto -> modelMapper.map(dto, NoticeResource.class)
+                ).collect(Collectors.toList());
+        noticeResourceRepository.saveAll(resourceList);
     }
 }

@@ -14,6 +14,7 @@ public class NoticeResourceDTO {
     private String nr_name;
     private String nr_path;
     private String nr_type;
+    private Long nno;
     @Column
     private Long file_size;
     @NotNull

@@ -22,10 +22,11 @@ public class Notice extends BaseEntity {
     private String n_title;
     private String n_content;
     private String n_image;
+    private String writer;
 
-    @ManyToOne
-    @JoinColumn(name = "writer", referencedColumnName = "m_name")
-    private Member member;
+//    @ManyToOne
+//    @JoinColumn(name = "writer", referencedColumnName = "m_name")
+//    private Member member;
 
     @OneToMany(mappedBy = "notice",
             cascade = {CascadeType.ALL},

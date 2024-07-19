@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.project_academy.notice.domain.Notice;
+import org.zerock.project_academy.notice.dto.NoticeDTO;
 import org.zerock.project_academy.notice.dto.NoticeResourceDTO;
 import org.zerock.project_academy.notice.repository.NoticeRepository;
 
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class NoticeServiceImpl implements NoticeService {
     private final NoticeRepository noticeRepository;
     private final NoticeResourceService noticeResourceService;
+    private final ModelMapper modelMapper;
 
 
     @Override
@@ -29,13 +31,17 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public Notice addNotice(Notice notice,List<NoticeResourceDTO> resourceDtoList) {
-        Notice savedNotice = noticeRepository.save(notice);
-        noticeResourceService.saveAll(resourceDtoList);
-        return savedNotice;
+    public NoticeDTO addNotice(NoticeDTO notice) {
+        Notice savedNotice = noticeRepository.save(modelMapper.map(notice, Notice.class));
+        return modelMapper.map(savedNotice, NoticeDTO.class);
     }
     @Override
     public Optional<Notice> findOneNoticeById(Long nno) {
         return noticeRepository.findById(nno);
+    }
+
+    @Override
+    public void deleteNotice(Long nno) {
+        noticeRepository.deleteById(nno);
     }
 }
