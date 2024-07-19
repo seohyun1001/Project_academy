@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/student")
 @RequiredArgsConstructor
 @Log4j2
+@CrossOrigin(origins = "localhost:3000")
 public class StudentController {
 
     private final StudentService studentService;
