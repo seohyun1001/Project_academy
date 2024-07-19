@@ -49,14 +49,15 @@ public class CustomSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
-                .requestMatchers(HttpMethod.POST,"/member/register").permitAll()
-                .requestMatchers(HttpMethod.POST,"/error").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
-                .and()
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .anyRequest().permitAll();
+//                .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
+//                .requestMatchers(HttpMethod.POST,"/member/register").permitAll()
+//                .requestMatchers(HttpMethod.POST,"/error").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+//                .and()
+//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

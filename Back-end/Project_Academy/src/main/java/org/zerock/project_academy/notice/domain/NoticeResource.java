@@ -19,17 +19,19 @@ public class NoticeResource implements Comparable<NoticeResource> {
     private String nr_type;
     private Long file_size;
     private int nr_ord;
-
-    @ManyToOne
-    @JoinColumn(name = "nno", referencedColumnName = "nno")
-    private Notice notice;
-
     @Override
     public int compareTo(NoticeResource nrOther) {
         return this.nr_ord = nrOther.nr_ord;
     }
 
-    public void changeResource_n(Notice notice){
-        this.notice = notice;
-    }
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Long nno;
+
+    @ManyToOne
+    @JoinColumn( name = "nno", referencedColumnName = "nno")
+    private Notice notice;
+//
+//    public void changeResource_n(Notice notice){
+//        this.notice = notice;
+//    }
 }

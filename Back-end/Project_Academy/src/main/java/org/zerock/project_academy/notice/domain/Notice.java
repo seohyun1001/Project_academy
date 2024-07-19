@@ -25,15 +25,15 @@ public class Notice extends BaseEntity {
 //    private String writer;
 
     @ManyToOne
-    @JoinColumn(name = "writer", referencedColumnName = "m_name")
-    private Member member;
+    @JoinColumn(name = "writer", referencedColumnName = "mno")
+    private Member writer;
 
     @OneToMany(mappedBy = "notice",
             cascade = {CascadeType.ALL},
             fetch = FetchType.LAZY,
             orphanRemoval = true)
-    @Builder.Default
     @BatchSize(size = 20)
+    @Builder.Default
     private Set<NoticeResource> noticeResourceSet = new HashSet<>();
 
 //    public void addResource_n(){}
