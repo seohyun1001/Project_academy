@@ -1,6 +1,7 @@
 package org.zerock.project_academy.notice.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,13 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/notice")
+@Log4j2
 public class NoticeController {
     private final NoticeService noticeService;
     private final NoticeResourceService noticeResourceService;
@@ -77,10 +80,16 @@ public class NoticeController {
         noticeResourceService.deleteNoticeResource(nno);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @GetMapping("/modify")
-    public ResponseEntity<Object> modifyNotice(NoticeDTO noticeDTO, Model model) {
-        noticeDTO.setNno(noticeDTO.getNno());
-        model.addAttribute("noticeDTO", noticeDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PostMapping("/modify")
+    public ResponseEntity<Object> modifyNotice(@RequestBody NoticeDTO noticeDTO) {
+        try{
+            Notice modifiedNotice = noticeService.modifyNotice(noticeDTO);
+            return new ResponseEntity<>(modifiedNotice, HttpStatus.OK);
+        }catch (NoSuchElementException e){
+            log.error("Notice not found with ID: " + noticeDTO.getNno(), e);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

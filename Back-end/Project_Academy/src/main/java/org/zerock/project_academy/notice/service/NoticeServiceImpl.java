@@ -14,6 +14,7 @@ import org.zerock.project_academy.notice.repository.NoticeResourceRepository;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -46,5 +47,21 @@ public class NoticeServiceImpl implements NoticeService {
     public void deleteNotice(Long nno) {
         noticeRepository.deleteById(nno);
         noticeResourceRepository.deleteById(nno);
+    }
+
+    @Override
+    public Notice modifyNotice(NoticeDTO noticeDTO) {
+        Optional<Notice> result = noticeRepository.findById(noticeDTO.getNno());
+         if(!result.isPresent()){
+             throw new NoSuchElementException("Notice Not found with ID: " + noticeDTO.getNno());
+         }
+         Notice notice = result.get();
+         notice.changeNotice(
+                 noticeDTO.getN_title(),
+                 noticeDTO.getN_content(),
+                 noticeDTO.getN_image()
+         );
+         Notice savedNotice = noticeRepository.save(notice);
+         return savedNotice;
     }
 }

@@ -14,4 +14,5 @@ public interface NoticeService {
     NoticeDTO addNotice(NoticeDTO noticeDTO);
     Optional<Notice> findOneNoticeById(Long nno);
     void deleteNotice(Long nno);
+    Notice modifyNotice(NoticeDTO noticeDTO);
 }
