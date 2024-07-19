@@ -38,6 +38,7 @@ public class LectureListController {
 //    }
 //    }
 
+    // *** 수정해야 할 점 : /list랑 /read의 값이 무한으로 만들어지는 것 확인함
     @GetMapping("/list")
     public ResponseEntity<Object> getLectureList() {
         return new ResponseEntity<>(lectureListService.findAllLectureList(), HttpStatus.OK);
