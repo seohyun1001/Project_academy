@@ -10,4 +10,5 @@ import java.util.List;
 public interface NoticeResourceService {
 
     void saveAll(List<NoticeResourceDTO> resourceDtoList);
+    void deleteNoticeResource(Long nno);
 }

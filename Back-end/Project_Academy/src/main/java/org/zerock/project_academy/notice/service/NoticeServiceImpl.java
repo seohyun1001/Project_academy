@@ -10,6 +10,7 @@ import org.zerock.project_academy.notice.domain.Notice;
 import org.zerock.project_academy.notice.dto.NoticeDTO;
 import org.zerock.project_academy.notice.dto.NoticeResourceDTO;
 import org.zerock.project_academy.notice.repository.NoticeRepository;
+import org.zerock.project_academy.notice.repository.NoticeResourceRepository;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,6 +24,7 @@ public class NoticeServiceImpl implements NoticeService {
     private final NoticeRepository noticeRepository;
     private final NoticeResourceService noticeResourceService;
     private final ModelMapper modelMapper;
+    private final NoticeResourceRepository noticeResourceRepository;
 
 
     @Override
@@ -43,5 +45,6 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public void deleteNotice(Long nno) {
         noticeRepository.deleteById(nno);
+        noticeResourceRepository.deleteById(nno);
     }
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.project_academy.notice.domain.Notice;
@@ -73,7 +74,13 @@ public class NoticeController {
     @DeleteMapping("{nno}")
     public ResponseEntity<Object> deleteNotice(@PathVariable Long nno) {
         noticeService.deleteNotice(nno);
+        noticeResourceService.deleteNoticeResource(nno);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @GetMapping("/modify")
+    public ResponseEntity<Object> modifyNotice(NoticeDTO noticeDTO, Model model) {
+        noticeDTO.setNno(noticeDTO.getNno());
+        model.addAttribute("noticeDTO", noticeDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

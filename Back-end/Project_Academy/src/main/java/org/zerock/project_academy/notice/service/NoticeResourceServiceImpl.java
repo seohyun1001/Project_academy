@@ -29,4 +29,9 @@ public class NoticeResourceServiceImpl implements NoticeResourceService {
                 ).collect(Collectors.toList());
         noticeResourceRepository.saveAll(resourceList);
     }
+
+    @Override
+    public void deleteNoticeResource(Long nno) {
+        noticeResourceRepository.deleteById(nno);
+    }
 }
