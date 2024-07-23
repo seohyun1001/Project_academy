@@ -13,7 +13,6 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"roleSet", "lectureList_m"})

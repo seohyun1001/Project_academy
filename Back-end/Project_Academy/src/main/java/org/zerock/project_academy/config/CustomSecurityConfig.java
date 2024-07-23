@@ -43,17 +43,17 @@ public class CustomSecurityConfig {
         JWTFilter jwtFilter = new JWTFilter(customUserDetailsService, jwtUtil);
 
         http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
-                .requestMatchers(HttpMethod.POST,"/member/register").permitAll()
-                .requestMatchers(HttpMethod.POST,"/error").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
-                .and()
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//                .and()
+//                .authorizeRequests()
+//                .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
+//                .requestMatchers(HttpMethod.POST,"/member/**").permitAll()
+////                .requestMatchers(HttpMethod.POST,"/error").permitAll()
+////                .anyRequest().authenticated()
+//                .and()
+//                .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+//                .and()
+//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
