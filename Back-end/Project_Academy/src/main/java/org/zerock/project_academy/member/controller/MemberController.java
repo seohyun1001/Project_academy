@@ -12,6 +12,7 @@ import org.zerock.project_academy.member.domain.Member;
 import org.zerock.project_academy.member.dto.MemberDTO;
 import org.zerock.project_academy.member.service.MemberService;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -36,6 +37,13 @@ public class MemberController {
             log.error("Error during member registration: {}", e.getMessage());
             return new ResponseEntity<>("Member registration failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PostMapping("/check-username")
+    public ResponseEntity<?> checkUsername(@RequestBody Map<String, String> request) {
+        String mno = request.get("mno");
+        boolean available = memberService.AvailableMno(mno);
+        return ResponseEntity.ok(Map.of("available", available));
     }
 
 }

@@ -35,4 +35,10 @@ public class LectureList extends BaseEntity {
     @JoinColumn(name = "s_name", referencedColumnName = "s_name")
     private Student student;
 
+    public void changeLectureList(Long l_list_order, Member member, Student student) {
+        this.l_list_order = l_list_order;
+        this.member = member;
+        this.student = student;
+    }
+
 }

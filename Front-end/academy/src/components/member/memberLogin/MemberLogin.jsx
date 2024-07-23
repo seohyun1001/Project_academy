@@ -2,23 +2,32 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
-    const [mno, setMno] = useState('');
-    const [password, setPassword] = useState('');
+const MemberLogin = () => {
+    const [loginRequest, setLoginRequest] = useState({
+        username: '',
+        password: '',
+        rememberMe: false
+    });
+
     const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setLoginRequest({
+            ...loginRequest,
+            [name]: type === 'checkbox' ? checked : value
+        });
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/auth/login', {
-                mno,
-                password
-            });
-            const { accessToken, mno: userMno, m_name } = response.data;
+            const response = await axios.post('/auth/login', loginRequest,  { withCredentials: true });
+            const { accessToken, mno, m_name } = response.data;
 
             // JWT 토큰과 사용자 정보를 로컬 스토리지에 저장
             localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('mno', userMno);
+            localStorage.setItem('username', mno);
             localStorage.setItem('m_name', m_name);
 
             alert('로그인 성공');
@@ -37,8 +46,9 @@ const Login = () => {
                     <label>회원 번호:</label>
                     <input
                         type="text"
-                        value={mno}
-                        onChange={(e) => setMno(e.target.value)}
+                        name="username"
+                        value={loginRequest.username}
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -46,10 +56,22 @@ const Login = () => {
                     <label>비밀번호:</label>
                     <input
                         type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        name="password"
+                        value={loginRequest.password}
+                        onChange={handleChange}
                         required
                     />
+                </div>
+                <div>
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="rememberMe"
+                            checked={loginRequest.rememberMe}
+                            onChange={handleChange}
+                        />
+                        자동 로그인
+                    </label>
                 </div>
                 <button type="submit">로그인</button>
             </form>
@@ -57,4 +79,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default MemberLogin;
