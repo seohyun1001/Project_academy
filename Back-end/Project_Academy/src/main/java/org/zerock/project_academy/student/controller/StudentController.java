@@ -20,7 +20,7 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<Long> register(@RequestBody StudentDTO studentDTO) {
 
         Long sno = studentService.register(studentDTO);

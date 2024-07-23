@@ -14,6 +14,7 @@ const StudentList = () => {
     return (
         <div>
             <h1>학생 목록</h1>
+            <Link to={'/student/Register'}>등록</Link>
             <table>
                 <thread>
                     
