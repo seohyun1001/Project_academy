@@ -1,22 +1,16 @@
 package org.zerock.project_academy.member.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.extern.log4j.Log4j2;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.project_academy.member.domain.Member;
 import org.zerock.project_academy.member.dto.MemberDTO;
 import org.zerock.project_academy.member.service.MemberService;
-import org.zerock.project_academy.member.service.MemberServiceImpl;
 
 import java.util.Optional;
-
 @RequiredArgsConstructor
 @Log4j2
 @RestController
@@ -43,11 +37,22 @@ public class MemberController {
     }
 
     @GetMapping("/read/{mno}")
-    public Optional<Member> memberRead(@PathVariable("mno") Long mno) {
+    public Optional<Member> memberRead(@PathVariable("mno") String mno) {
         return memberService.findByMno(mno);
     }
 
-
-
+    @PutMapping("/modify/{mno}")
+    public ResponseEntity<Member> modifyMember(
+            @PathVariable String mno,
+            @RequestBody Member memberDetails) {
+        Member updatedMember = memberService.modifyMember(mno, memberDetails);
+        if (updatedMember != null) {
+            return ResponseEntity.ok(updatedMember);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }
+
+

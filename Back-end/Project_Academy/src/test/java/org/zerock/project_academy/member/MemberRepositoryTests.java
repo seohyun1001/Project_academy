@@ -16,7 +16,7 @@ public class MemberRepositoryTests {
 
     @Test
     public void testFindMemberByMno() {
-        Long mno = 1001L;
+        String mno = "1001";
 
         Optional<Member> result = memberRepository.findByMno(mno);
 

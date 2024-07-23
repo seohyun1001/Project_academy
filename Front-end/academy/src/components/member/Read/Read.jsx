@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect  } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 
 const Read = () => {
     const { mno } = useParams();
@@ -13,7 +13,7 @@ const Read = () => {
         m_address2: ''
     });
 
-    const history = useHistory();
+    const navigate = useNavigate ();
 
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const Read = () => {
     }, [mno]);
 
     const handleEditClick = () => {
-        history.push(`http://localhost:8092/member/modify/${mno}`);
+        navigate(`/modify/${mno}`);
     };
 
     return (

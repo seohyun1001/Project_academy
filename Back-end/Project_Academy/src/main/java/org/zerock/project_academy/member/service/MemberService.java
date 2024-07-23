@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface MemberService {
 
     void register(MemberDTO memberDTO);
-    Optional<Member> findByMno(Long mno);
-
+    Optional<Member> findByMno(String mno);
+    Member modifyMember(String mno, Member memberDetails);
 }

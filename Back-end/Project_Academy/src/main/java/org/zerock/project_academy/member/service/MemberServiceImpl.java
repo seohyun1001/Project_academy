@@ -44,7 +44,28 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
     }
 
-    public Optional<Member> findByMno(Long mno){
+    public Optional<Member> findByMno(String mno) {
         return memberRepository.findByMno(mno);
+    }
+
+    @Override
+    public Member modifyMember(String mno, Member memberDetails) {
+        try {
+            Optional<Member> result = memberRepository.findByMno(mno);
+            Member member = result.orElseThrow();
+            member.setM_name(memberDetails.getM_name());
+            member.setM_phone(memberDetails.getM_phone());
+            member.setM_email(memberDetails.getM_email());
+            member.setM_address1(memberDetails.getM_address1());
+            member.setM_address2(memberDetails.getM_address2());
+            member.setLectureList_m(null);
+            memberRepository.save(member);
+            return member;
+        } catch (Exception e) {
+            // 로그를 남기거나 예외를 처리합니다.
+            e.printStackTrace();
+            throw e; // 예외를 다시 던져서 상위 레벨에서 처리할 수 있게 합니다.
+        }
+
     }
 }
