@@ -54,11 +54,16 @@ public class MemberController {
         }
     }
 
-//    @GetMapping("/list")
-//    public List<Member> getMembers() {
-//        return memberService.getAllMembers();
-//    }
+    @GetMapping("/list")
+    public List<Member> getMembers() {
+        return memberService.getAllMembers();
+    }
 
+    @DeleteMapping("/delete/{mno}")
+    public ResponseEntity<Void> deleteMember(@PathVariable String mno) {
+        memberService.deleteMember(mno);
+        return ResponseEntity.noContent().build();
+    }
 }
 
 

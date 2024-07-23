@@ -4,6 +4,8 @@ import Register from './components/member/Register/Register';
 import Login from './components/member/Login/Login'; // Login 컴포넌트를 불러옵니다
 import Read from './components/member/Read/Read';
 import Modify from './components/member/Modify/Modify';
+import List from './components/member/List/List';
+
 
 const App = () => {
     return (
@@ -13,6 +15,7 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/read/:mno" element={<Read />} />
                 <Route path="/modify/:mno" element={<Modify />} />
+                <Route path="/list" element={<List />} />
                 {/* 다른 라우트들도 추가할 수 있습니다 */}
             </Routes>
         </Router>

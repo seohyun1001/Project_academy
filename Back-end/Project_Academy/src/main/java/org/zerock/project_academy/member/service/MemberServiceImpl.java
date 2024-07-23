@@ -69,8 +69,15 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
-//    @Override
-//    public List<Member> getAllMembers() {
-//        return memberRepository.findAll();
-//    }
+    @Override
+    public void deleteMember(String mno) {
+        if (memberRepository.existsById(mno)){
+            memberRepository.deleteById(mno);
+        }
+    }
+
+    @Override
+    public List<Member> getAllMembers() {
+        return memberRepository.findAll();
+    }
 }

@@ -44,6 +44,17 @@ const Modify = () => {
         }
     };
 
+    const handleDelete = async () => {
+        if (window.confirm('정말로 삭제하시겠습니까?')) {
+            try {
+                await axios.delete(`http://localhost:8092/member/delete/${mno}`);
+                navigate('/member/list'); // 삭제 후 강사 리스트 페이지로 이동
+            } catch (error) {
+                console.error('회원 정보를 삭제하는 중 오류가 발생했습니다.', error);
+            }
+        }
+    };
+
     return (
         <div>
             <h2>회원 정보 수정</h2>
@@ -69,6 +80,7 @@ const Modify = () => {
                     <input type="text" name="m_address2" value={member.m_address2} onChange={handleChange} />
                 </div>
                 <button type="submit">저장</button>
+                <button type="button" onClick={handleDelete}>삭제</button>
             </form>
         </div>
     );
