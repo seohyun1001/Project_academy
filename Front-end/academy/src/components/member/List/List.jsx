@@ -7,7 +7,7 @@ const List = () => {
     useEffect(() => {
         const fetchMembers = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/member/list');
+                const response = await axios.get('http://localhost:8092/member/list');
                 setMembers(response.data);
             } catch (error) {
                 console.error('강사 정보를 가져오는 중 오류가 발생했습니다.', error);
