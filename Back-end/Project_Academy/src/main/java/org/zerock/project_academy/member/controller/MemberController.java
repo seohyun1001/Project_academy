@@ -3,6 +3,7 @@ package org.zerock.project_academy.member.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,11 +42,9 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/modify")
-    public String modify(long mno, Model model) {
-        Member member = memberService.findByMno(mno);
-        model.addAttribute("member", member);
-        return "/modify";
+    @GetMapping("/read/{mno}")
+    public Optional<Member> memberRead(@PathVariable("mno") Long mno) {
+        return memberService.findByMno(mno);
     }
 
 

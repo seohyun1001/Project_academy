@@ -12,6 +12,7 @@ import org.zerock.project_academy.member.dto.MemberDTO;
 import org.zerock.project_academy.member.repository.MemberRepository;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -43,8 +44,7 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
     }
 
-    public Member findByMno(Long mno){
-        Member member = memberRepository.findByMno(mno).get();
-        return member;
+    public Optional<Member> findByMno(Long mno){
+        return memberRepository.findByMno(mno);
     }
 }

@@ -4,10 +4,11 @@ import org.zerock.project_academy.member.domain.Member;
 import org.zerock.project_academy.member.dto.MemberDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberService {
 
     void register(MemberDTO memberDTO);
-    Member findByMno(Long mno);
+    Optional<Member> findByMno(Long mno);
 
 }
