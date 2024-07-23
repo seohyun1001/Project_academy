@@ -48,7 +48,7 @@ const Modify = () => {
         if (window.confirm('정말로 삭제하시겠습니까?')) {
             try {
                 await axios.delete(`http://localhost:8092/member/delete/${mno}`);
-                navigate('/member/list'); // 삭제 후 강사 리스트 페이지로 이동
+                navigate('/list'); // 삭제 후 강사 리스트 페이지로 이동
             } catch (error) {
                 console.error('회원 정보를 삭제하는 중 오류가 발생했습니다.', error);
             }

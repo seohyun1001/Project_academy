@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; 
 
 const List = () => {
     const [members, setMembers] = useState([]);
@@ -34,7 +35,9 @@ const List = () => {
                 <tbody>
                     {members.map(member => (
                         <tr key={member.mno}>
-                            <td>{member.mno}</td>
+                            <Link to={`/read/${member.mno}`}>
+                                    {member.mno}
+                                </Link>
                             <td>{member.m_name}</td>
                             <td>{member.m_email}</td>
                             <td>{member.m_phone}</td>
