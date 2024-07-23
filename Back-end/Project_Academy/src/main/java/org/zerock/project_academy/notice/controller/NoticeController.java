@@ -28,15 +28,20 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/notice")
+@CrossOrigin("http://localhost:3000")
 @Log4j2
 public class NoticeController {
     private final NoticeService noticeService;
     private final NoticeResourceService noticeResourceService;
     private NoticeDTO noticeDTO;
 
+//    @GetMapping("/list")
+//    public ResponseEntity<List<Notice>> getNoticeList() {
+//        return new ResponseEntity<>(noticeService.findAllNotice(), HttpStatus.OK);
+//    }
     @GetMapping("/list")
-    public ResponseEntity<Object> getNoticeList() {
-        return new ResponseEntity<>(noticeService.findAllNotice(), HttpStatus.OK);
+    public List<Notice> getNoticeList() {
+        return noticeService.findAllNotice();
     }
     @PostMapping(value= "/register", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Object> addNotice(NoticeDTO noticeDTO) {
