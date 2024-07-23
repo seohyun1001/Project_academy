@@ -5,17 +5,16 @@ import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 import org.zerock.project_academy.notice.domain.Notice;
 import org.zerock.project_academy.notice.dto.NoticeDTO;
-import org.zerock.project_academy.notice.dto.NoticeResourceDTO;
+import org.zerock.project_academy.notice.dto.NoticeListDTO;
 import org.zerock.project_academy.notice.repository.NoticeRepository;
 import org.zerock.project_academy.notice.repository.NoticeResourceRepository;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -29,8 +28,10 @@ public class NoticeServiceImpl implements NoticeService {
 
 
     @Override
-    public List<Notice> findAllNotice() {
-        return noticeRepository.findAll();
+    public List<NoticeListDTO> findAllNotice() {
+      List<Notice> noticeList = noticeRepository.findAll();
+      List<NoticeListDTO> noticeDTOList =  noticeList.stream().map(notice -> modelMapper.map(notice, NoticeListDTO.class)).collect(Collectors.toList());
+      return noticeDTOList;
     }
 
     @Override

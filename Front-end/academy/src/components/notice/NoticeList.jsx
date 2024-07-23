@@ -1,14 +1,16 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 
 
-function Noticelist() {
-    const [list, setList] = useState([]);
+function Noticelist(){
+    const [noticeList, setNoticeList] = useState([]);
 
     const uploadNotice = async () => {
         const result = await axios.get("http://localhost:8092/notice/list")
         console.log(result)
-        setList(result.data);
+        console.log(result.data)
+        setNoticeList(result.data);
+        
     };
     // const deleteNotice = async (nno) =>{
     //     if(window.confirm(`${nno}번의 게시물을 삭제하시겠습니까?`)){
@@ -16,30 +18,31 @@ function Noticelist() {
     //         uploadNotice();
     //     }
     // };
-    useEffect(() => {
+    useEffect(() =>{
         uploadNotice();
-    }, []);
+        console.log(noticeList)
+    },[]);
 
-    return (
+    return(
         <div className="container">
             <table className="talbe border shadow my-4">
                 <thead>
                     <tr>
-                        <th scope="col">@</th>
                         <th scope="col">제목</th>
                         <th scope="col">내용</th>
-                        {/* <th scope="col">첨부파일</th>
+                        <th scope="col">첨부파일</th>
                         <th scope="col"> </th>
                         <th scope="col">@</th>
-                        <th scope="col">@</th> */}
+                        <th scope="col">@</th>
+                        <th scope="col">@</th>
                     </tr>
                 </thead>
-                {list.map((lists, index) => (
+                {noticeList.map((notice,  index) =>( 
                     <tr key={index}>
                         <th scope="row">{index + 1}</th>
-                        {/* <td>{list.nno}</td> */}
-                        <td>{lists.n_title}</td>
-                        <td>{lists.writer}</td>
+                        {/* <td>{noticelist.nno}</td> */}
+                        <td>{notice.n_title}</td>
+                        <td>{notice.writer}</td>
                     </tr>
                 ))}
             </table>
