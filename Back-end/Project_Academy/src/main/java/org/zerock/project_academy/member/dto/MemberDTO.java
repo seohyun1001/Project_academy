@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class MemberDTO {
     @NotEmpty
-    private Long mno;
+    private String mno;
     @NotEmpty
     private String m_name;
     @NotEmpty

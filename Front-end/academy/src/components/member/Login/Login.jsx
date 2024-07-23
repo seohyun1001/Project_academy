@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [mno, setMno] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
@@ -11,14 +11,14 @@ const Login = () => {
         e.preventDefault();
         try {
             const response = await axios.post('/auth/login', {
-                mno,
+                username,
                 password
             });
-            const { accessToken, mno: userMno, m_name } = response.data;
+            const { accessToken, mno, m_name } = response.data;
 
             // JWT 토큰과 사용자 정보를 로컬 스토리지에 저장
             localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('mno', userMno);
+            localStorage.setItem('username', mno);
             localStorage.setItem('m_name', m_name);
 
             alert('로그인 성공');
@@ -37,8 +37,8 @@ const Login = () => {
                     <label>회원 번호:</label>
                     <input
                         type="text"
-                        value={mno}
-                        onChange={(e) => setMno(e.target.value)}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         required
                     />
                 </div>

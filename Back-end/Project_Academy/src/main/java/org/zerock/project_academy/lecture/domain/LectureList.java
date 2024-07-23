@@ -8,12 +8,14 @@ import lombok.*;
 import org.zerock.project_academy.member.domain.Member;
 import org.zerock.project_academy.student.domain.Student;
 
+//@EqualsAndHashCode(callSuper = true)
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"lecture", "member", "student"})
 @Builder
 @Entity
+//@Data
 public class LectureList extends BaseEntity {
     @Id
     private Long l_list_order;
@@ -32,5 +34,11 @@ public class LectureList extends BaseEntity {
     @JoinColumn(name = "sno", referencedColumnName = "sno")
     @JoinColumn(name = "s_name", referencedColumnName = "s_name")
     private Student student;
+
+    public void changeLectureList(Long l_list_order, Member member, Student student) {
+        this.l_list_order = l_list_order;
+        this.member = member;
+        this.student = student;
+    }
 
 }
