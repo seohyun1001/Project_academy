@@ -12,6 +12,7 @@ import org.zerock.project_academy.member.dto.MemberDTO;
 import org.zerock.project_academy.member.repository.MemberRepository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 @Log4j2
@@ -58,7 +59,6 @@ public class MemberServiceImpl implements MemberService {
             member.setM_email(memberDetails.getM_email());
             member.setM_address1(memberDetails.getM_address1());
             member.setM_address2(memberDetails.getM_address2());
-            member.setLectureList_m(null);
             memberRepository.save(member);
             return member;
         } catch (Exception e) {
@@ -68,4 +68,9 @@ public class MemberServiceImpl implements MemberService {
         }
 
     }
+
+//    @Override
+//    public List<Member> getAllMembers() {
+//        return memberRepository.findAll();
+//    }
 }

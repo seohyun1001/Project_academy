@@ -10,6 +10,7 @@ import org.zerock.project_academy.member.domain.Member;
 import org.zerock.project_academy.member.dto.MemberDTO;
 import org.zerock.project_academy.member.service.MemberService;
 
+import java.util.List;
 import java.util.Optional;
 @RequiredArgsConstructor
 @Log4j2
@@ -52,6 +53,11 @@ public class MemberController {
             return ResponseEntity.notFound().build();
         }
     }
+
+//    @GetMapping("/list")
+//    public List<Member> getMembers() {
+//        return memberService.getAllMembers();
+//    }
 
 }
 

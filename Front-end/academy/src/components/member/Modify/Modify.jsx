@@ -38,7 +38,7 @@ const Modify = () => {
         e.preventDefault();
         try {
             await axios.put(`http://localhost:8092/member/modify/${mno}`, member);
-            navigate(`/member/read/${mno}`);
+            navigate(`/read/${mno}`);
         } catch (error) {
             console.error('회원 정보를 업데이트하는 중 오류가 발생했습니다.', error);
         }
