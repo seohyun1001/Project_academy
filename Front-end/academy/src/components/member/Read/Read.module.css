@@ -6,11 +6,23 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f9;
-    display: flex;
 }
 
 .container2 {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #fff5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
     
+}
+
+.profileContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header {
@@ -29,9 +41,20 @@
     font-weight: bold;
 }
 
+.profileImage {
+    margin-right: 20px;
+}
+
+.profileImage img {
+    border-left: 50px;
+    height: 200px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
 .button {
     bottom: 20px; /* 컨테이너의 아래쪽에서 20px 위치 */
-    right: 20px; /* 컨테이너의 오른쪽에서 20px 위치 */
+    right: 20px; /* 컨테이너의 오른쪽에서 위치 */
     padding: 10px 20px; /* 버튼의 패딩 조절 */
     border: none;
     border-radius: 5px;

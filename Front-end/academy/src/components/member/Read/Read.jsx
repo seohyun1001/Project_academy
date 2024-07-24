@@ -39,8 +39,9 @@ const Read = () => {
     return (
         <div className={styles.container}>
             <h2 className={styles.header}>강사 상세 정보</h2>
+            <div className={styles.profileContainer}>
             {member.m_picture && (
-                <div className={styles.info}>
+                <div className={styles.profileImage}>
                     <img src={`${member.m_picture}`} alt="프로필 사진" />
                 </div>
             )}
@@ -62,6 +63,7 @@ const Read = () => {
             </div>
             <div className={styles.info}>
                 <label>주소2:</label> {member.m_address2}
+            </div>
             </div>
             </div>
             <button className={styles.button} onClick={handleEditClick}>정보수정</button>
