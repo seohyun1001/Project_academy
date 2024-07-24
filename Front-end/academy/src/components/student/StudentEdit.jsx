@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './StudentRegister.css';
-import { useNavigate } from "react-router-dom";
 
-const StudentRegister = () => {
-    const [student, setStudent] = useState({  // 한명의 학생 등록
+const StudentEdit = () => {
+    const { sno } = useParams(); // URL 파라미터로부터 sno 추출
+    const [student, setStudent] = useState({
         s_name: "",
         s_birthday: "",
         s_email: "",
@@ -17,56 +18,40 @@ const StudentRegister = () => {
 
     const navigate = useNavigate();
 
-    // handleChange 함수는 입력 필드에서 사용자가 값을 입력할 때마다 호출되어 입력된 값을 상태에 업데이트 함
-    const handleChange = (e) => {  // 'e'는 이벤트 객체를 나타냄
+    useEffect(() => {
+        axios.get(`http://localhost:8092/student/${sno}`)
+            .then(response => setStudent(response.data))
+            .catch(error => console.error('학생 정보를 불러오는 중에 오류가 발생했습니다: ', error));
+    }, [sno]);
 
-        const { name, value } = e.target;  // 'e.target'은 이벤트가 발생한 요소를 나타냄
-        //  name과 value는 각각 입력 필드의 'name' 속성과 현재 입력된 값
-
-        setStudent(prevState => ({  // 'prevState'는 상태 업데이트 함수에 전달되는 콜백 함수의 인자(이전 상태)
-            ...prevState,  // 이전 상태를 복사함
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setStudent(prevState => ({
+            ...prevState,
             [name]: value
         }));
     };
 
-    // 목록 페이지
-    const handleList = () => {
-        navigate('/student');
-    }
-
-    // 폼 제출 핸들러
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8092/student/register', student)
-            .then(response => {
-                const sno = response.data;  // 응답에서 sno를 추출해야함
-                alert(`${sno} 번 학생이 성공적으로 등록되었습니다.`);
-                // alert(`${response.data.sno} 번 학생이 성공적으로 등록되었습니다.`); -> response.data.sno를 찾지 못함
-                setStudent({
-                    s_name: "",
-                    s_birthday: "",
-                    s_email: "",
-                    s_phone: "",
-                    s_status: "",
-                    s_address1: "",
-                    s_address2: ""
-                });
-                navigate('/student'); // 학생 추가 후 리스트 페이지 이동
+        axios.put(`http://localhost:8092/student/${sno}`, student)
+            .then(() => {
+                alert('학생 정보가 성공적으로 수정되었습니다.');
+                navigate('/student');
             })
             .catch(error => {
-                console.error('학생 등록 중 오류가 발생했습니다: ', error);
-                alert('학생 등록 중 오류가 발생했습니다.');
+                console.error('학생 정보 수정 중 오류가 발생했습니다: ', error);
+                alert('학생 정보 수정 중 오류가 발생했습니다.');
             });
     };
-
 
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
                 <div className="col-md-8">
                     <div className="card">
-                        <div className="student-card-header">
-                            <h3 className="text-center">학생 등록 페이지</h3>
+                        <div className="card-header">
+                            <h3 className="text-center">학생 정보 수정</h3>
                         </div>
                         <div className="card-body">
                             <form onSubmit={handleSubmit}>
@@ -151,8 +136,7 @@ const StudentRegister = () => {
                                         required
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-primary btn-block">등록</button>
-                                <button type="button" className="btn btn-secondary btn-block" onClick={handleList}>목록</button>
+                                <button type="submit" className="btn btn-primary btn-block">수정</button>
                             </form>
                         </div>
                     </div>
@@ -162,4 +146,4 @@ const StudentRegister = () => {
     );
 };
 
-export default StudentRegister;
+export default StudentEdit;
