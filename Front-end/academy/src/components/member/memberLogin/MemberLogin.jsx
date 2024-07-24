@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './MemberLogin.css'; // CSS 파일을 import 합니다.
 
 const MemberLogin = () => {
     const [loginRequest, setLoginRequest] = useState({
@@ -22,7 +23,7 @@ const MemberLogin = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/auth/login', loginRequest,  { withCredentials: true });
+            const response = await axios.post('/auth/login', loginRequest, { withCredentials: true });
             const { accessToken, mno, m_name } = response.data;
 
             // JWT 토큰과 사용자 정보를 로컬 스토리지에 저장
@@ -39,42 +40,42 @@ const MemberLogin = () => {
     };
 
     return (
-        <div>
-            <h2>로그인</h2>
-            <form onSubmit={handleLogin}>
-                <div>
-                    <label>회원 번호:</label>
-                    <input
-                        type="text"
-                        name="username"
-                        value={loginRequest.username}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>비밀번호:</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={loginRequest.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>
+        <div className="container">
+            <div className="card">
+                <h2>Welcome!</h2>
+                <form onSubmit={handleLogin}>
+                    <div>
+                        <input
+                            type="text"
+                            name="username"
+                            value={loginRequest.username}
+                            onChange={handleChange}
+                            placeholder="회원번호"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="password"
+                            name="password"
+                            value={loginRequest.password}
+                            onChange={handleChange}
+                            placeholder="비밀번호"
+                            required
+                        />
+                    </div>
+                    <div className="checkbox-container">
                         <input
                             type="checkbox"
                             name="rememberMe"
                             checked={loginRequest.rememberMe}
                             onChange={handleChange}
                         />
-                        자동 로그인
-                    </label>
-                </div>
-                <button type="submit">로그인</button>
-            </form>
+                        <label>자동 로그인</label>
+                    </div>
+                    <button type="submit">로그인</button>
+                </form>
+            </div>
         </div>
     );
 };
