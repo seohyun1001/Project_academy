@@ -2,12 +2,8 @@ package org.zerock.project_academy.member.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
-import org.zerock.project_academy.lecture.domain.LectureList;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,7 +11,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"roleSet", "lectureList_m"})
+@ToString(exclude = {"roleSet"})
 @Builder
 public class Member extends BaseEntity{
     @Id

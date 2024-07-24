@@ -1,23 +1,19 @@
 package org.zerock.project_academy.lecture.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import org.zerock.project_academy.member.domain.Member;
 import org.zerock.project_academy.student.domain.Student;
 
-//@EqualsAndHashCode(callSuper = true)
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"lecture", "member", "student"})
 @Builder
 @Entity
-//@Data
 public class LectureList extends BaseEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long l_list_order;
 
     @ManyToOne

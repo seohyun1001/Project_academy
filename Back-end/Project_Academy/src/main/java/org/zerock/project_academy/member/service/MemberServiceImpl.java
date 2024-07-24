@@ -6,8 +6,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.zerock.project_academy.member.domain.Member;
 import org.zerock.project_academy.member.domain.MemberRole;
 import org.zerock.project_academy.member.dto.MemberDTO;
@@ -45,6 +43,10 @@ public class MemberServiceImpl implements MemberService {
 
         // 회원 정보 저장
         memberRepository.save(member);
+    }
+
+    public boolean AvailableMno(String mno) {
+        return !memberRepository.existsByMno(mno);
     }
 
     public Optional<Member> findByMno(String mno) {

@@ -13,4 +13,6 @@ public interface MemberService {
     Member modifyMember(String mno, MemberDTO memberDetails);
     List<Member> getAllMembers();
     void deleteMember(String mno);
+
+    boolean AvailableMno(String mno);
 }

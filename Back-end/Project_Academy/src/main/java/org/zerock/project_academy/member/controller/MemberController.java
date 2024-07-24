@@ -13,6 +13,7 @@ import org.zerock.project_academy.member.domain.Member;
 import org.zerock.project_academy.member.dto.MemberDTO;
 import org.zerock.project_academy.member.service.MemberService;
 
+import java.util.Map;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -47,6 +48,14 @@ public class MemberController {
         }
     }
 
+    @PostMapping("/check-username")
+    public ResponseEntity<?> checkUsername(@RequestBody Map<String, String> request) {
+        String mno = request.get("mno");
+        boolean available = memberService.AvailableMno(mno);
+        return ResponseEntity.ok(Map.of("available", available));
+    }
+
+}
     @GetMapping("/read/{mno}")
     public Optional<Member> memberRead(@PathVariable("mno") String mno) {
         return memberService.findByMno(mno);

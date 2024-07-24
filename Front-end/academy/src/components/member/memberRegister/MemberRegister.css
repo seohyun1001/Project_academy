@@ -1,0 +1,94 @@
+/* 전체적인 컨테이너 스타일 */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e0f7fa; /* 하늘색 배경 */
+    font-family: 'Arial', sans-serif; /* 깔끔하고 전문적인 폰트 */
+}
+
+/* 폼을 위한 카드 스타일 */
+.card {
+    background: white;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+/* 제목 스타일 */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* 입력 필드 스타일 */
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* 버튼 스타일 */
+button {
+    width: 100%;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* 체크박스와 레이블 스타일 */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.checkbox-container input {
+    margin-right: 10px;
+}
+
+/* 에러 메시지 스타일 */
+.error {
+    color: red;
+    font-size: 0.9em;
+}
+
+/* 입력 필드와 버튼이 함께 있는 컨테이너 스타일 */
+.input-with-button {
+    display: flex;
+    align-items: center;
+}
+
+.input-with-button input {
+    flex: 1;
+}
+
+.input-with-button button {
+    flex-shrink: 0;
+    padding: 10px 20px;
+    font-size: 0.9em; /* 버튼 크기 줄이기 */
+    background-color: #28a745;
+    border-color: #28a745;
+    width: auto;
+    /* flex: auto; */
+    margin-top: -0px;
+}
+
+.input-with-button button:hover {
+    background-color: #218838;
+}

@@ -2,16 +2,12 @@ package org.zerock.project_academy.lecture.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "lectureList_l")
+@ToString //(exclude = "lectureList_l")
 @Builder
 public class Lecture extends BaseEntity {
     @Id
