@@ -7,6 +7,7 @@ import Register from './components/member/memberRegister/MemberRegister';
 import Login from './components/member/memberLogin/MemberLogin';
 import StudentList from './components/student/StudentList';
 import StudentRegister from './components/student/StudentRegister';
+import StudentEdit from './components/student/StudentEdit';
 
 import Noticelist from './components/notice/NoticeList';
 import NoticeRegister from './components/notice/NoticeRegister';
@@ -24,6 +25,7 @@ const App = () => {
                 <Route path="/MemberLogin" element={<Login />} />
                 <Route path="/student" element={<StudentList />} />
                 <Route path="/student/register" element={<StudentRegister />} />
+                <Route path="/student/edit/:sno" element={<StudentEdit />} />
                 <Route path="/Noticelist" element={<Noticelist/>}/>
                 <Route path="/NoticeRegister" element={<NoticeRegister/>}/>
                 {/* 다른 라우트들도 추가할 수 있습니다 */}
