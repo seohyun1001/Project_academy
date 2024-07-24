@@ -17,15 +17,8 @@ public class NoticeListDTO {
   private String n_content;
   private String n_image;
   private String writer;
-  private String writer_mno;
   private List<NoticeResourceListDTO> notice_resource;
   private LocalDateTime modDate;
   private LocalDateTime regDate;
 
-  public void setWriter(Member member) {
-    this.writer = member.getM_name();
-  }
-  public void setWriter_mno(Member member) {
-    this.writer_mno = member.getMno();
-  }
 }

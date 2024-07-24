@@ -31,11 +31,7 @@ function Noticelist(){
                     <tr>
                         <th scope="col">제목</th>
                         <th scope="col">내용</th>
-                        <th scope="col">첨부파일</th>
-                        <th scope="col"> </th>
-                        <th scope="col">@</th>
-                        <th scope="col">@</th>
-                        <th scope="col">@</th>
+                        <th scope="col">작성자</th>
                     </tr>
                 </thead>
                 {noticeList.map((notice,  index) =>( 
@@ -45,10 +41,11 @@ function Noticelist(){
                         <td>{notice.n_title}</td>
                         <td>{notice.writer}</td>
                     </tr>
+
                 ))}
             </table>
             <Link className="btn btn-primary my-2" to={'/noticeregister'}>
-                        돌아가기
+                        작성
                     </Link>
         </div>
     );

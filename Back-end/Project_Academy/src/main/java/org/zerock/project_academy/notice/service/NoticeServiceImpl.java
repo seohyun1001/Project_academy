@@ -2,9 +2,12 @@ package org.zerock.project_academy.notice.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.aspectj.weaver.ast.Not;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.project_academy.member.domain.Member;
+import org.zerock.project_academy.member.repository.MemberRepository;
 import org.zerock.project_academy.notice.domain.Notice;
 import org.zerock.project_academy.notice.dto.NoticeDTO;
 import org.zerock.project_academy.notice.dto.NoticeListDTO;
@@ -25,7 +28,7 @@ public class NoticeServiceImpl implements NoticeService {
     private final NoticeResourceService noticeResourceService;
     private final ModelMapper modelMapper;
     private final NoticeResourceRepository noticeResourceRepository;
-
+    private final MemberRepository memberRepository;
 
     @Override
     public List<NoticeListDTO> findAllNotice() {
@@ -35,8 +38,17 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public NoticeDTO addNotice(NoticeDTO notice) {
-        Notice savedNotice = noticeRepository.save(modelMapper.map(notice, Notice.class));
+    public NoticeDTO addNotice(NoticeDTO noticeDTO) {
+//        String writer = member.
+//        Optional<Member> result = memberRepository.findById(noticeDTO.getWriter());
+//        Member member = result.orElseThrow();
+        Notice notice = Notice.builder()
+                .n_title(noticeDTO.getN_title())
+                .n_content(noticeDTO.getN_content())
+                .n_image(noticeDTO.getN_image())
+                .writer(noticeDTO.getWriter())
+                .build();
+        Notice savedNotice = noticeRepository.save(notice);
         return modelMapper.map(savedNotice, NoticeDTO.class);
     }
     @Override
@@ -60,9 +72,12 @@ public class NoticeServiceImpl implements NoticeService {
          notice.changeNotice(
                  noticeDTO.getN_title(),
                  noticeDTO.getN_content(),
-                 noticeDTO.getN_image()
+                 noticeDTO.getN_image(),
+//                 noticeDTO.getWriter()
+                 Member.builder().mno(noticeDTO.getWriter()).build()
          );
          Notice savedNotice = noticeRepository.save(notice);
          return savedNotice;
     }
+
 }

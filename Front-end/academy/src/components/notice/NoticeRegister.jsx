@@ -7,9 +7,10 @@ const NoticeRegister = () => {
     const [notice, setNotice] = useState({
         n_title: "",
         n_content: "",
+        writer: localStorage.getItem('m_name') || "",
     });
     const [nr_name, setNrName] = useState(null);
-
+    
     const onInputChange = (e) => {
         const { name, value, files } = e.target;
         if (name === "nr_name") {
@@ -29,22 +30,25 @@ const NoticeRegister = () => {
             const formData = new FormData();
             formData.append("n_title", notice.n_title);
             formData.append("n_content", notice.n_content);
+            formData.append("writer", notice.writer);
+            console.log(formData)
             
             if (nr_name) {
-                formData.append("nr_name", nr_name, nr_name.name);
+                formData.append("files", nr_name);
             }
 
             const response = await axios.post("/notice/register", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
+            }).then(result => {
+                if (result.status === 201) {
+                    alert("공지사항 등록이 성공적으로 완료되었습니다." + notice.writer);
+                    navigate("/Noticelist");
+                }
             });
-
-            if (response.status === 201) {
-                alert("공지사항 등록이 성공적으로 완료되었습니다.");
-                navigate("/Noticelist");
-            }
         } catch (error) {
+        
             console.error("등록 중 오류가 발생했습니다.", error);
             alert("등록 중 오류가 발생했습니다.");
         }
@@ -80,7 +84,15 @@ const NoticeRegister = () => {
                             id="nr_name"
                             className="form-control"
                             name="nr_name"
-                            accept=".pdf,.doc,.docx"
+                            // accept=".pdf,.doc,.docx"
+                        />
+                        <input 
+                        onChange={onInputChange}
+                        type="hidden"
+                        id="writer"
+                        className="form-control"
+                        name="writer"
+                        value={notice.writer}
                         />
                     </div>
                     <button type="submit" className="btn btn-outline-primary px-3 mx-2">

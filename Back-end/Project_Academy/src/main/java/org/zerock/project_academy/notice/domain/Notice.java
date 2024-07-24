@@ -24,9 +24,9 @@ public class Notice extends BaseEntity {
     private String n_image;
 //    private String writer;
 
-    @ManyToOne
-    @JoinColumn(name = "writer", referencedColumnName = "mno")
-    private Member writer;
+//    @ManyToOne
+//    @JoinColumn(name = "writer", referencedColumnName = "mno")
+    private String writer;
 
     @OneToMany(mappedBy = "notice",
             cascade = {CascadeType.ALL},
@@ -42,10 +42,11 @@ public class Notice extends BaseEntity {
 
     // 주석 처리한 부분은 spring boot(아마도 b01)의 domain 패키지의 Board 클래스를 확인하기
 
-    public void changeNotice(String n_title, String n_content, String n_image) {
+    public void changeNotice(String n_title, String n_content, String n_image, Member member) {
         this.n_title = n_title;
         this.n_content = n_content;
         this.n_image = n_image;
+//        this.writer = member;
     }
 
 }
