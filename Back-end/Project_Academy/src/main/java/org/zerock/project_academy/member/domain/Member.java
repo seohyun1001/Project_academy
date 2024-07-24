@@ -2,20 +2,16 @@ package org.zerock.project_academy.member.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
-import org.zerock.project_academy.lecture.domain.LectureList;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"roleSet", "lectureList_m"})
+@ToString(exclude = {"roleSet"})
 @Builder
 public class Member extends BaseEntity{
     @Id
@@ -26,18 +22,19 @@ public class Member extends BaseEntity{
     private String m_email;
     private String m_address1;
     private String m_address2;
+    private String m_picture;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "member",
-            cascade = {CascadeType.ALL},
-            fetch = FetchType.LAZY,
-            orphanRemoval = true)
-    @Builder.Default
-    @BatchSize(size = 20)
-    private List<LectureList> lectureList_m = new ArrayList<>();
+//    @OneToMany(mappedBy = "member",
+//            cascade = {CascadeType.ALL},
+//            fetch = FetchType.LAZY,
+//            orphanRemoval = true)
+//    @Builder.Default
+//    @BatchSize(size = 20)
+//    private List<LectureList> lectureList_m = new ArrayList<>();
 
     public void changePassword(String m_password) {
         this.m_password = m_password;
