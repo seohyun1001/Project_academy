@@ -15,12 +15,12 @@ import java.util.List;
 @RequestMapping("/student")
 @RequiredArgsConstructor
 @Log4j2
-@CrossOrigin(origins = "localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class StudentController {
 
     private final StudentService studentService;
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<Long> register(@RequestBody StudentDTO studentDTO) {
 
         Long sno = studentService.register(studentDTO);

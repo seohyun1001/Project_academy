@@ -1,51 +1,78 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import StudentDetail from "./StudentDetail"; // 상세 정보 컴포넌트 불러오기
+
 
 const StudentList = () => {
     const [students, setStudents] = useState([]); // 다수의 학생 정보
+    const [selectedStudent, setSelectedStudent] = useState(null); // 선택된 학생 정보, ()안에 null을 넣어 초기상태에 아무 값도 가지지 않게 함
+
+    // useEffect(() => {
+    //     axios.get('http://localhost:8092/student')
+    //         .then(response => setStudents(response.data))
+    //         .catch(error => console.error('학생을 불러오는 중에 다음과 같은 오류가 발생했습니다: ', error));
+    // }, []);
+
+    const fetchStudents = () => {
+        axios.get('http://localhost:8092/student')
+            .then(response => setStudents(response.data))
+            .catch(error => console.error('학생을 불러오는 중에 오류가 발생했습니다.', error));
+    };
 
     useEffect(() => {
-        axios.get('/student', StudentList)
-            .then(response => setStudents(response.data))
-            .catch(error => console.error('학생을 불러오는 중에 다음과 같은 오류가 발생했습니다: ', error));
+        fetchStudents();
     }, []);
 
+    const handleStudentClick = (sno) => {
+        if (selectedStudent && selectedStudent.sno === sno) {
+            setSelectedStudent(null); // 이미 선택된 학생을 다시 클릭하면 상세 정보 숨기기
+        } else {
+            axios.get(`http://localhost:8092/student/${sno}`)
+                .then(response => setSelectedStudent(response.data))
+                .catch(error => console.error('학생 상세 정보를 불러오는 중에 다음과 같은 오류가 발생했습니다: ', error));
+        }
+    };
+
+    const handleStudentDeleted = () => {
+        fetchStudents();  // 학생 삭제 후 목록 새로고침
+        setSelectedStudent(null);  // 선택된 학생 정보 초기화
+    };
+
     return (
-        <div>
-            <h1>학생 목록</h1>
-            <table>
-                <thread>
-                    
-                </thread>
-
-                <tbody>
-                    <tr>
-                        <th>학생 번호</th>
-                        <th>이름</th>
-                        <th>생년월일</th>
-                        <th>이메일</th>
-                        <th>전화번호</th>
-                        <th>주소</th>
-                        <th>추가정보</th>
-                        <th>상세보기</th>
-                    </tr>
-
-                    {students.map(student => (
-                        <tr key={student.sno}>
-                            <td>{student.sno}</td>
-                            <td>{student.s_name}</td>
-                            <td>{student.s_birthday}</td>
-                            <td>{student.s_email}</td>
-                            <td>{student.s_phone}</td>
-                            <td>{student.s_status}</td>
-                            <td>{student.s_address1} {student.s_address2}</td>
-                            <td><Link to={`/student/${student.sno}`}>상세보기</Link></td>
+        <div style={{ display: "flex" }}>
+            <div style={{ flex: 1, marginRight: "20px" }}>
+                <h1>학생 목록</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>이름</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {students.map(student => (
+                            <tr key={student.sno}>
+                                <td>
+                                    <button
+                                        onClick={() => handleStudentClick(student.sno)}
+                                        style={{ background: "none", border: "none", color: "blue", cursor: "pointer", textDecoration: "underline" }}
+                                    >
+                                        {student.s_name}
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <div style={{ flex: 2 }}>
+                {selectedStudent && (
+                    <StudentDetail student={selectedStudent}
+                        onStudentDeleted={handleStudentDeleted}  // 삭제 후 목록 새로고침 콜백 전달
+                    />
+                )}
+            </div>
         </div>
     );
 };
+
 export default StudentList;
