@@ -1,5 +1,6 @@
 import axios from "axios";
 import React,{ useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 
 function Noticelist(){
@@ -46,6 +47,9 @@ function Noticelist(){
                     </tr>
                 ))}
             </table>
+            <Link className="btn btn-primary my-2" to={'/noticeregister'}>
+                        돌아가기
+                    </Link>
         </div>
     );
 }
