@@ -30,11 +30,11 @@ public class Student extends BaseEntity {
     private String s_status;
 
 
-    @OneToMany(mappedBy = "student",
-            cascade = {CascadeType.ALL},
-            fetch = FetchType.LAZY,
-            orphanRemoval = true)
-    @Builder.Default
-    @BatchSize(size = 20)
-    private List<LectureList> lectureList_s = new ArrayList<>();
+//    @OneToMany(mappedBy = "student",
+//            cascade = {CascadeType.ALL},
+//            fetch = FetchType.LAZY,
+//            orphanRemoval = true)
+//    @Builder.Default
+//    @BatchSize(size = 20)
+//    private List<LectureList> lectureList_s = new ArrayList<>();
 }

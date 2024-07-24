@@ -31,13 +31,13 @@ public class Member extends BaseEntity{
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "member",
-            cascade = {CascadeType.ALL},
-            fetch = FetchType.LAZY,
-            orphanRemoval = true)
-    @Builder.Default
-    @BatchSize(size = 20)
-    private List<LectureList> lectureList_m = new ArrayList<>();
+//    @OneToMany(mappedBy = "member",
+//            cascade = {CascadeType.ALL},
+//            fetch = FetchType.LAZY,
+//            orphanRemoval = true)
+//    @Builder.Default
+//    @BatchSize(size = 20)
+//    private List<LectureList> lectureList_m = new ArrayList<>();
 
     public void changePassword(String m_password) {
         this.m_password = m_password;
