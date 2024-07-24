@@ -3,6 +3,7 @@ package org.zerock.project_academy.member.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,6 +29,8 @@ public class MemberController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+    @Value("${org.zerock.upload.path}")
+    private String uploadPath;
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody MemberDTO memberDTO) {
@@ -75,9 +78,10 @@ public class MemberController {
 
     private String saveProfilePicture(MultipartFile file) throws IOException {
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-        Path filePath = Paths.get("C:\\upload\\profile_pictures\\" + fileName);
+        Path filePath = Paths.get(uploadPath+"\\profile_pictures\\" + fileName);
         file.transferTo(filePath);
-        return fileName; // 파일 경로 반환
+        return "http://localhost:8092/profile_pictures/" + fileName;
+//        return fileName; // 파일 경로 반환
     }
 
 

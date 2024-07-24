@@ -11,7 +11,8 @@ const Read = () => {
         m_email: '',
         m_phone: '',
         m_address1: '',
-        m_address2: ''
+        m_address2: '',
+        m_picture: ''
     });
 
     const navigate = useNavigate ();
@@ -38,6 +39,12 @@ const Read = () => {
     return (
         <div className={styles.container}>
             <h2 className={styles.header}>강사 상세 정보</h2>
+            {member.m_picture && (
+                <div className={styles.info}>
+                    <img src={`${member.m_picture}`} alt="프로필 사진" />
+                </div>
+            )}
+            <div className={styles.container2}>
             <div className={styles.info}>
                 <label>강사 번호:</label> {member.mno}
             </div>
@@ -55,6 +62,7 @@ const Read = () => {
             </div>
             <div className={styles.info}>
                 <label>주소2:</label> {member.m_address2}
+            </div>
             </div>
             <button className={styles.button} onClick={handleEditClick}>정보수정</button>
         </div>
