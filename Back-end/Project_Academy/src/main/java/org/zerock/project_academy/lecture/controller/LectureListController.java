@@ -14,6 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/lectureList")
 @Log4j2
+@CrossOrigin(origins = "localhost:3000")
 public class LectureListController {
 
     private final LectureListService lectureListService;
@@ -22,7 +23,23 @@ public class LectureListController {
     public ResponseEntity<Object> register(@RequestBody LectureList lectureList) {
         return new ResponseEntity<>(lectureListService.registerLectureList(lectureList), HttpStatus.CREATED);
     }
+    // -> 아래와 같은 형식으로 넣어야 함
+//    {
+//        "lecture": {
+//        "lno": "3",
+//                "l_name": "database"
+//    },
+//        "member": {
+//        "mno": "3002",
+//                "m_name": "강사2"
+//    },
+//        "student": {
+//        "sno": "2407001",
+//                "s_name": "학생1"
+//    }
+//    }
 
+    // *** 수정해야 할 점 : /list랑 /read의 값이 무한으로 만들어지는 것 확인함
     @GetMapping("/list")
     public ResponseEntity<Object> getLectureList() {
         return new ResponseEntity<>(lectureListService.findAllLectureList(), HttpStatus.OK);
