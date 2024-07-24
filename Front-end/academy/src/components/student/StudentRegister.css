@@ -1,10 +1,10 @@
 .card {
-    max-width: 600px; /* 박스의 최대 너비 설정 */
-    margin: 20px auto; /* 화면 가운데 정렬 */
-    padding: 20px; /* 내부 여백 */
-    border-radius: 15px; /* 모서리를 둥글게 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-    background-color: #fff; /* 배경색 설정 */
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 }
 
 .card-header {

@@ -45,16 +45,12 @@ const CounselingRegister = () => {
 
     const handleLectureChange = (e) => {
         const selectedLecture = lectures.find(lecture => lecture.lno === e.target.value);
-        if (selectedLecture) {
-            setCounseling({ ...counseling, lno: selectedLecture.lno, l_name: selectedLecture.l_name });
-        }
+        setCounseling({ ...counseling, lno: selectedLecture.lno, l_name: selectedLecture.l_name });
     };
 
     const handleStudentChange = (e) => {
         const selectedStudent = students.find(student => student.sno.toString() === e.target.value);
-        if (selectedStudent) {
-            setCounseling({ ...counseling, sno: selectedStudent.sno, s_name: selectedStudent.s_name });
-        }
+        setCounseling({ ...counseling, sno: selectedStudent.sno, s_name: selectedStudent.s_name });
     };
 
     const handleSubmit = async (e) => {
