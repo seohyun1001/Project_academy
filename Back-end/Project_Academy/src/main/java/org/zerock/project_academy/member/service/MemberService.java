@@ -10,7 +10,7 @@ public interface MemberService {
 
     void register(MemberDTO memberDTO);
     Optional<Member> findByMno(String mno);
-    Member modifyMember(String mno, Member memberDetails);
+    Member modifyMember(String mno, MemberDTO memberDetails);
     List<Member> getAllMembers();
     void deleteMember(String mno);
 }

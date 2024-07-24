@@ -1,6 +1,7 @@
 import React, { useState, useEffect  } from 'react';
 import axios from 'axios';
 import { useParams,useNavigate } from 'react-router-dom';
+import styles from './Read.module.css';
 
 const Read = () => {
     const { mno } = useParams();
@@ -35,27 +36,27 @@ const Read = () => {
     };
 
     return (
-        <div>
-            <h2>강사 상세 정보</h2>
-            <div>
+        <div className={styles.container}>
+            <h2 className={styles.header}>강사 상세 정보</h2>
+            <div className={styles.info}>
                 <label>강사 번호:</label> {member.mno}
             </div>
-            <div>
+            <div className={styles.info}>
                 <label>이름:</label> {member.m_name}
             </div>
-            <div>
+            <div className={styles.info}>
                 <label>이메일:</label> {member.m_email}
             </div>
-            <div>
+            <div className={styles.info}>
                 <label>전화번호:</label> {member.m_phone}
             </div>
-            <div>
+            <div className={styles.info}>
                 <label>주소1:</label> {member.m_address1}
             </div>
-            <div>
+            <div className={styles.info}>
                 <label>주소2:</label> {member.m_address2}
             </div>
-            <button onClick={handleEditClick}>정보수정</button>
+            <button className={styles.button} onClick={handleEditClick}>정보수정</button>
         </div>
     );
 };

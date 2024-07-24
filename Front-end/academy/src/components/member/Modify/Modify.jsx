@@ -11,6 +11,8 @@ const Modify = () => {
         m_address1: '',
         m_address2: ''
     });
+
+    const [file, setFile] = useState(null);
     const navigate = useNavigate ();
 
     useEffect(() => {
@@ -34,11 +36,29 @@ const Modify = () => {
         }));
     };
 
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('m_name',member.m_name);
+        formData.append('m_email',member.m_email);
+        formData.append('m_phone',member.m_phone);
+        formData.append('m_address1',member.m_address1);
+        formData.append('m_address2',member.m_address2);
+        if (file) {
+            formData.append('file', file);
+        }
+
         try {
-            await axios.put(`http://localhost:8092/member/modify/${mno}`, member);
-            navigate(`/read/${mno}`);
+            await axios.put(`http://localhost:8092/member/modify/${mno}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            navigate(`/member/read/${mno}`);
         } catch (error) {
             console.error('회원 정보를 업데이트하는 중 오류가 발생했습니다.', error);
         }
@@ -78,6 +98,10 @@ const Modify = () => {
                 <div>
                     <label>주소2:</label>
                     <input type="text" name="m_address2" value={member.m_address2} onChange={handleChange} />
+                </div>
+                <div>
+                    <label>프로필 사진:</label>
+                    <input type="file" onChange={handleFileChange} />
                 </div>
                 <button type="submit">저장</button>
                 <button type="button" onClick={handleDelete}>삭제</button>

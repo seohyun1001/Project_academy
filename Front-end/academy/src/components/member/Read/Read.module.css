@@ -1,0 +1,42 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+.header {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.info {
+    margin-bottom: 15px;
+}
+
+.info label {
+    font-weight: bold;
+}
+
+.button {
+    bottom: 20px; /* 컨테이너의 아래쪽에서 20px 위치 */
+    right: 20px; /* 컨테이너의 오른쪽에서 20px 위치 */
+    padding: 10px 20px; /* 버튼의 패딩 조절 */
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px; /* 폰트 사이즈 조절 */
+    cursor: pointer;
+    text-align: center;
+    width: 120px; /* 버튼의 폭 조절 */
+    height: 40px; /* 버튼의 높이 조절 */
+}
+
+.button:hover {
+    background-color: #0056b3;
+}

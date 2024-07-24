@@ -6,6 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.zerock.project_academy.member.domain.Member;
 import org.zerock.project_academy.member.domain.MemberRole;
 import org.zerock.project_academy.member.dto.MemberDTO;
@@ -50,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member modifyMember(String mno, Member memberDetails) {
+    public Member modifyMember(String mno, MemberDTO memberDetails) {
         try {
             Optional<Member> result = memberRepository.findByMno(mno);
             Member member = result.orElseThrow();
@@ -59,6 +61,7 @@ public class MemberServiceImpl implements MemberService {
             member.setM_email(memberDetails.getM_email());
             member.setM_address1(memberDetails.getM_address1());
             member.setM_address2(memberDetails.getM_address2());
+            member.setM_picture(memberDetails.getM_picture());
             memberRepository.save(member);
             return member;
         } catch (Exception e) {

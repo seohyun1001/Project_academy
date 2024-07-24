@@ -1,17 +1,24 @@
 package org.zerock.project_academy.member.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.project_academy.member.domain.Member;
 import org.zerock.project_academy.member.dto.MemberDTO;
 import org.zerock.project_academy.member.service.MemberService;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Log4j2
 @RestController
@@ -44,15 +51,35 @@ public class MemberController {
 
     @PutMapping("/modify/{mno}")
     public ResponseEntity<Member> modifyMember(
-            @PathVariable String mno,
-            @RequestBody Member memberDetails) {
-        Member updatedMember = memberService.modifyMember(mno, memberDetails);
-        if (updatedMember != null) {
-            return ResponseEntity.ok(updatedMember);
-        } else {
-            return ResponseEntity.notFound().build();
+            @PathVariable("mno") String mno,
+            MemberDTO memberDetails,
+            MultipartFile file) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            // 파일 저장 로직
+            String filePath = saveProfilePicture(file);
+            memberDetails.setM_picture(filePath);
+
+            Member updatedMember = memberService.modifyMember(mno, memberDetails);
+            if (updatedMember != null) {
+                return ResponseEntity.ok(updatedMember);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
         }
     }
+
+    private String saveProfilePicture(MultipartFile file) throws IOException {
+        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        Path filePath = Paths.get("C:\\upload\\profile_pictures\\" + fileName);
+        file.transferTo(filePath);
+        return fileName; // 파일 경로 반환
+    }
+
 
     @GetMapping("/list")
     public List<Member> getMembers() {
