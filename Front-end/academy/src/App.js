@@ -7,17 +7,18 @@ import Register from './components/member/memberRegister/MemberRegister';
 import Login from './components/member/memberLogin/MemberLogin';
 import StudentList from './components/student/StudentList';
 import StudentRegister from './components/student/StudentRegister';
+import Header from './components/Header';
 
 
 const App = () => {
     return (
         <Router>
-            <Header />
+            {/* <Header /> */}
             <Routes>
 
                 <Route path="/read/:mno" element={<Read />} />
                 <Route path="/modify/:mno" element={<Modify />} />
-                <Route path="/list" element={<List />} />
+                <Route path="/member" element={<List />} />
                 <Route path="/MemberRegister" element={<Register />} />
                 <Route path="/MemberLogin" element={<Login />} />
                 <Route path="/student" element={<StudentList />} />

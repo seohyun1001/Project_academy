@@ -30,32 +30,11 @@ public class MemberController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+
     @Value("${org.zerock.upload.path}")
     private String uploadPath;
 
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody MemberDTO memberDTO) {
-        log.info("Member registration request: {}", memberDTO);
 
-        memberService.register(memberDTO);
-
-        try {
-            memberService.register(memberDTO);
-            return new ResponseEntity<>("Member registered successfully", HttpStatus.CREATED);
-        } catch (Exception e) {
-            log.error("Error during member registration: {}", e.getMessage());
-            return new ResponseEntity<>("Member registration failed", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @PostMapping("/check-username")
-    public ResponseEntity<?> checkUsername(@RequestBody Map<String, String> request) {
-        String mno = request.get("mno");
-        boolean available = memberService.AvailableMno(mno);
-        return ResponseEntity.ok(Map.of("available", available));
-    }
-
-}
     @GetMapping("/read/{mno}")
     public Optional<Member> memberRead(@PathVariable("mno") String mno) {
         return memberService.findByMno(mno);
@@ -87,12 +66,11 @@ public class MemberController {
 
     private String saveProfilePicture(MultipartFile file) throws IOException {
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-        Path filePath = Paths.get(uploadPath+"\\profile_pictures\\" + fileName);
+        Path filePath = Paths.get(uploadPath + "\\profile_pictures\\" + fileName);
         file.transferTo(filePath);
         return "http://localhost:8092/profile_pictures/" + fileName;
 //        return fileName; // 파일 경로 반환
     }
-
 
     @GetMapping("/list")
     public List<Member> getMembers() {
@@ -104,6 +82,30 @@ public class MemberController {
         memberService.deleteMember(mno);
         return ResponseEntity.noContent().build();
     }
+
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody MemberDTO memberDTO) {
+        log.info("Member registration request: {}", memberDTO);
+
+        memberService.register(memberDTO);
+
+        try {
+            memberService.register(memberDTO);
+            return new ResponseEntity<>("Member registered successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            log.error("Error during member registration: {}", e.getMessage());
+            return new ResponseEntity<>("Member registration failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/check-username")
+    public ResponseEntity<?> checkUsername(@RequestBody Map<String, String> request) {
+        String mno = request.get("mno");
+        boolean available = memberService.AvailableMno(mno);
+        return ResponseEntity.ok(Map.of("available", available));
+    }
+
 }
 
 
