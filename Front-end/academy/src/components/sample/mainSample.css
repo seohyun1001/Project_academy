@@ -97,7 +97,8 @@
   }
 
   .d-flex.flex-column.align-items-stretch.flex-shrink-0.bg-body-tertiary{
-    width: 380px;
+    /* width: 380px; */
+    padding-bottom: 15px;
   }
 
   .notice_con{
@@ -124,4 +125,9 @@
 
   .notice_title{
     margin-bottom: 20px;
+  }
+
+  .scrollBar {
+  overflow-y: scroll;
+  height: 800px;
   }
