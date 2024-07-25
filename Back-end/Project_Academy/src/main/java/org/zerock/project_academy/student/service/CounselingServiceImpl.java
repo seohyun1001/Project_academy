@@ -47,25 +47,44 @@ public class CounselingServiceImpl implements CounselingService {
 
     @Override
     public CounselingDTO get(Long cno) {
-
         Optional<Counseling> optionalCounseling = counselingRepository.findById(cno);
 
         if (optionalCounseling.isPresent()) {
-
-            return modelMapper.map(optionalCounseling.get(), CounselingDTO.class);
+            Counseling c = optionalCounseling.get();
+            CounselingDTO dto = CounselingDTO.builder()
+                    .cno(c.getCno())
+                    .c_content(c.getC_content())
+                    .lno(c.getLecture_c().getLno())
+                    .l_name(c.getLecture_c().getL_name())
+                    .sno(c.getStudent_c().getSno())
+                    .s_name(c.getStudent_c().getS_name())
+                    .moddate(c.getModDate())
+                    .regdate(c.getRegDate())
+                    .build();
+            return dto;
         } else {
             log.info("cno에 해당하는 상담이력이 없습니다." + cno);
-
             return null;
         }
     }
 
     @Override
     public void modify(CounselingDTO counselingDTO) {
+        Student student = studentRepository.findById(counselingDTO.getSno())
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+        Lecture lecture = lectureRepository.findById(counselingDTO.getLno())
+                .orElseThrow(() -> new RuntimeException("Lecture not found"));
 
-        Counseling counseling = modelMapper.map(counselingDTO, Counseling.class);
+        Counseling counseling = counselingRepository.findById(counselingDTO.getCno())
+                .orElseThrow(() -> new RuntimeException("Counseling not found"));
+
+        counseling.setC_content(counselingDTO.getC_content());
+        counseling.setStudent_c(student);
+        counseling.setLecture_c(lecture);
+
         counselingRepository.save(counseling);
     }
+
 
     @Override
     public void remove(Long cno) {
