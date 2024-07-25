@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Modify = ({ member, onSave, onMemberDeleted }) => {
     const [updateMember, setUpdatedMember] = useState({ ...member });
     const [file, setFile] = useState(null);
-    const [preview, setPreview] = useState(updateMember.m_picture);
-    const fileInputRef = React.createRef();
+    const [preview, setPreview] = useState(updateMember.m_picture || null);
+    const fileInputRef = useRef(null);
     const navigate = useNavigate();
-    
+
     // 파일 변경 시 미리보기 설정
     useEffect(() => {
         if (file) {
@@ -18,7 +18,7 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
             };
             reader.readAsDataURL(file);
         }
-    },[file]);
+    }, [file]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -81,23 +81,30 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
         <div class="card profile_card">
             <div class="d-flex flex-wrap main_info">
                 <form onSubmit={handleSubmit}>
-
-                    {/* 프로필 사진을 첨부할 빈 공간 */}
-                    <div onClick={handleFileClick}>
+                    <div class="d-flex flex-column info_list">
+                        {/* 프로필 사진을 첨부할 빈 공간 */}
+                        <div onClick={handleFileClick}>
+                        {preview ? (
                             <img
-                                class="img-thumbnail picture float-start"
+                                className="img-thumbnail picture float-start"
                                 src={preview}
                                 alt="미리보기"
+                                style={{ width: '150px', height: '150px', objectFit: 'cover' }}
                             />
-                    </div>
-                    <input
-                        type="file"
-                        ref={fileInputRef}
-                        onChange={handleFileChange}
-                        style={{ display: 'none' }} // 파일 입력 버튼 숨기기
-                    />
+                        ) : (
+                            <div style={{ width: '150px', height: '150px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <span>프로필 사진 추가</span>
+                            </div>
+                        )}
+                        </div>
+                        <input
+                            type="file"
+                            ref={fileInputRef}
+                            onChange={handleFileChange}
+                            style={{ display: 'none' }} // 파일 입력 버튼 숨기기
+                        />
 
-                    <div class="d-flex flex-column info_list">
+
                         <div class="input-group">
                             <label for="" class="form-label info_detail">이름</label>
                             <input type="text" name="m_name" value={updateMember.m_name} onChange={handleChange} />
@@ -118,14 +125,15 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
                             <label for="" class="form-label info_detail">주소2</label>
                             <input type="text" name="m_address2" value={updateMember.m_address2} onChange={handleChange} />
                         </div>
-                            <button type="button" onClick={handleCancel}>취소</button>
-                            <button type="submit">저장</button>
-                            <button type="button" onClick={handleDelete}>삭제</button>
-                    </div>
+                        <button type="button" onClick={handleCancel}>취소</button>
+                        <button type="submit">저장</button>
+                        <button type="button" onClick={handleDelete}>삭제</button>
 
+                    </div>
                 </form>
+
             </div>
-        </div>
+        </div >
     );
 };
 

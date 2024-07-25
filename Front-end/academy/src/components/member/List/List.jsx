@@ -52,7 +52,7 @@ const List = () => {
 
     return (
         <div class="row  text-center ">
-            <Header />
+            {/* <Header /> */}
             <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary">
             <a
                         class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
@@ -98,7 +98,7 @@ const List = () => {
                     />
                 )}
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 };

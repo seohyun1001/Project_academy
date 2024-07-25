@@ -16,6 +16,7 @@ import Noticelist from './components/notice/NoticeList';
 import NoticeRegister from './components/notice/NoticeRegister';
 import CounselingRegister from './components/counseling/counselingRegister/CounselingRegister';
 import Basic from './components/Basic/Basic';
+import Member from './components/member/Member';
 
 
 const App = () => {
@@ -23,7 +24,7 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path='/basic' element={<Basic />}/>
-                <Route path="/member" element={<List />} />
+                <Route path="/member" element={<Member />} />
                 <Route path="/Member/Register" element={<Register />} />
                 <Route path="/Member/Login" element={<Login />} />
                 <Route path="/student" element={<StudentList />} />
