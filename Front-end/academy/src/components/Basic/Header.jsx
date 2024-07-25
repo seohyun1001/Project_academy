@@ -2,8 +2,6 @@ import React from "react";
 
 const Header = () => {
     
-
-
     return (
         <>
             <div class="p-3 text-bg-dark">
