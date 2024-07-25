@@ -18,6 +18,7 @@ import Noticelist from './components/notice/NoticeList';
 import NoticeRegister from './components/notice/NoticeRegister';
 import CounselingRegister from './components/counseling/counselingRegister/CounselingRegister';
 import Basic from './components/Basic/Basic';
+import NoticeBasic from './components/Basic/NoticeBasic';
 
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
 
             <Routes>
                 <Route path='/basic' element={<Basic />}/>
+                <Route path='/noticeBasic' element={<NoticeBasic />}/>
 
                 <Route path="/read/:mno" element={<Read />} />
                 <Route path="/modify/:mno" element={<Modify />} />
