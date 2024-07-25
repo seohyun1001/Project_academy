@@ -22,17 +22,18 @@ public class Notice extends BaseEntity {
     private String n_title;
     private String n_content;
     private String n_image;
+//    private String writer;
 
-    @ManyToOne
-    @JoinColumn(name = "writer", referencedColumnName = "m_name")
-    private Member member;
+//    @ManyToOne
+//    @JoinColumn(name = "writer", referencedColumnName = "mno")
+    private String writer;
 
     @OneToMany(mappedBy = "notice",
             cascade = {CascadeType.ALL},
             fetch = FetchType.LAZY,
             orphanRemoval = true)
-    @Builder.Default
     @BatchSize(size = 20)
+    @Builder.Default
     private Set<NoticeResource> noticeResourceSet = new HashSet<>();
 
 //    public void addResource_n(){}
@@ -40,5 +41,12 @@ public class Notice extends BaseEntity {
 //    public void clearResource_n(){}
 
     // 주석 처리한 부분은 spring boot(아마도 b01)의 domain 패키지의 Board 클래스를 확인하기
+
+    public void changeNotice(String n_title, String n_content, String n_image, Member member) {
+        this.n_title = n_title;
+        this.n_content = n_content;
+        this.n_image = n_image;
+//        this.writer = member;
+    }
 
 }

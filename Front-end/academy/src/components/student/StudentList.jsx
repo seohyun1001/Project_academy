@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import StudentDetail from "./StudentDetail"; // 상세 정보 컴포넌트 불러오기
+import { useNavigate } from "react-router-dom";
 
 
 const StudentList = () => {
     const [students, setStudents] = useState([]); // 다수의 학생 정보
     const [selectedStudent, setSelectedStudent] = useState(null); // 선택된 학생 정보, ()안에 null을 넣어 초기상태에 아무 값도 가지지 않게 함
-
+    const navigate = useNavigate();
     // useEffect(() => {
     //     axios.get('http://localhost:8092/student')
     //         .then(response => setStudents(response.data))
@@ -22,6 +23,10 @@ const StudentList = () => {
     useEffect(() => {
         fetchStudents();
     }, []);
+
+    const handleRegister = () => {
+        navigate('/student/register');
+    }
 
     const handleStudentClick = (sno) => {
         if (selectedStudent && selectedStudent.sno === sno) {
@@ -42,6 +47,7 @@ const StudentList = () => {
         <div style={{ display: "flex" }}>
             <div style={{ flex: 1, marginRight: "20px" }}>
                 <h1>학생 목록</h1>
+                <button className="btn btn-primary" onClick={handleRegister}>추가</button>
                 <table>
                     <thead>
                         <tr>

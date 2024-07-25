@@ -1,13 +1,13 @@
-.card {
-    max-width: 600px; /* 박스의 최대 너비 설정 */
-    margin: 20px auto; /* 화면 가운데 정렬 */
-    padding: 20px; /* 내부 여백 */
-    border-radius: 15px; /* 모서리를 둥글게 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-    background-color: #fff; /* 배경색 설정 */
+.student-card {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 }
 
-.card-header {
+.student-card-header {
     background-color: #007bff;
     color: #fff;
     border-bottom: 1px solid #007bff;
@@ -20,6 +20,7 @@
 .btn-block {
     border-radius: 5px; /* 버튼의 모서리를 둥글게 만듭니다. */
     margin-top: 10px;
+    margin-right: 5px;
 }
 
 

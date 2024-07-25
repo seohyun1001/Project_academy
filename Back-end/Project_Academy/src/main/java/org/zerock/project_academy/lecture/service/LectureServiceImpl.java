@@ -19,7 +19,7 @@ import java.util.Optional;
 @Log4j2
 @RequiredArgsConstructor
 @Transactional
-public class LectureServiceImpl implements LectureService {
+public class  LectureServiceImpl implements LectureService {
 
     private final ModelMapper modelMapper;
     private final LectureRepository lectureRepository;
@@ -31,6 +31,7 @@ public class LectureServiceImpl implements LectureService {
 
     @Override
     public List<Lecture> findAllLectures() {
+
         return lectureRepository.findAll();
     }
 
