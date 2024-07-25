@@ -18,8 +18,6 @@ public class ReferenceResource implements Comparable<ReferenceResource> {
     private String rr_name;
     private String rr_path;
     private String rr_type;
-    // 카톡에 올려준 create문에는 type이 int로 되어 있는데 int 맞는지
-    // -> 일단 String으로 함
     private int rr_ord;
 
     @ManyToOne

@@ -24,6 +24,7 @@ public class MemberDTO {
     private String m_email;
     private String m_address1;
     private String m_address2;
+    private String m_picture;
     private LocalDateTime regdate;
     private LocalDateTime moddate;
     private Set<MemberRole> roleSet;

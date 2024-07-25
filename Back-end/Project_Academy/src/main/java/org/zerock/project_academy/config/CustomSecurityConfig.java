@@ -16,10 +16,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.zerock.project_academy.security.filter.JWTFilter;
 import org.zerock.project_academy.security.handler.Custom403Handler;
 import org.zerock.project_academy.security.util.JWTUtil;
 import org.zerock.project_academy.security.CustomUserDetailService;
+
+import javax.sql.DataSource;
 
 @Log4j2
 @Configuration
@@ -29,6 +33,7 @@ import org.zerock.project_academy.security.CustomUserDetailService;
 public class CustomSecurityConfig {
 
     private final JWTUtil jwtUtil;
+    private final DataSource dataSource;
     private final CustomUserDetailService customUserDetailsService;
 
     @Bean
@@ -43,17 +48,31 @@ public class CustomSecurityConfig {
         JWTFilter jwtFilter = new JWTFilter(customUserDetailsService, jwtUtil);
 
         http.csrf().disable()
+                .cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+//                .authorizeRequests()
+//                .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
+//                .requestMatchers(HttpMethod.POST,"/member/register").permitAll()
+//                .requestMatchers(HttpMethod.POST,"/error").permitAll()
+//                .requestMatchers(HttpMethod.GET, "/student/**").permitAll() // 추가
+//                .requestMatchers(HttpMethod.POST, "/student/**").permitAll() // 추가
+//                .anyRequest().authenticated()
                 .authorizeRequests()
-                .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
-                .requestMatchers(HttpMethod.POST,"/member/register").permitAll()
-                .requestMatchers(HttpMethod.POST,"/error").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll() // 모든 요청에 대해 보안 무효화
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+//        // 자동 로그인 - 쿠키 생성
+//        http.rememberMe()
+//                .key("12345678")
+//                .tokenRepository(persistentTokenRepository())
+//                .userDetailsService(customUserDetailsService)
+//                .tokenValiditySeconds(60*60*24*30);
+//
+//        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 
         return http.build();
     }
@@ -66,5 +85,12 @@ public class CustomSecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+        return tokenRepository;
     }
 }

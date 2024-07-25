@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"roleSet"})
@@ -22,6 +22,7 @@ public class Member extends BaseEntity{
     private String m_email;
     private String m_address1;
     private String m_address2;
+    private String m_picture;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
