@@ -17,8 +17,10 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
                 setPreview(reader.result);
             };
             reader.readAsDataURL(file);
+        }else {
+            setPreview(updateMember.m_picture);
         }
-    }, [file]);
+    }, [file, updateMember.m_picture]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -56,7 +58,7 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
             });
             onSave(); // 수정 완료 후 콜백 호출
         } catch (error) {
-            console.error('회원 정보를 업데이트하는 중 오류가 발생했습니다.', error);
+            console.error('강사 정보를 업데이트하는 중 오류가 발생했습니다.', error);
         }
     };
 
@@ -67,7 +69,7 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
                 onMemberDeleted(); // 삭제 후 콜백 호출
                 navigate('/member'); // 삭제 후 강사 목록 페이지로 이동
             } catch (error) {
-                console.error('회원 정보를 삭제하는 중 오류가 발생했습니다.', error);
+                console.error('강사 정보를 삭제하는 중 오류가 발생했습니다.', error);
             }
         }
     };
@@ -81,30 +83,21 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
         <div class="card profile_card">
             <div class="d-flex flex-wrap main_info">
                 <form onSubmit={handleSubmit}>
-                    <div class="d-flex flex-column info_list">
-                        {/* 프로필 사진을 첨부할 빈 공간 */}
-                        <div onClick={handleFileClick}>
-                        {preview ? (
-                            <img
-                                className="img-thumbnail picture float-start"
-                                src={preview}
-                                alt="미리보기"
-                                style={{ width: '150px', height: '150px', objectFit: 'cover' }}
-                            />
-                        ) : (
-                            <div style={{ width: '150px', height: '150px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <span>프로필 사진 추가</span>
-                            </div>
-                        )}
-                        </div>
-                        <input
-                            type="file"
-                            ref={fileInputRef}
-                            onChange={handleFileChange}
-                            style={{ display: 'none' }} // 파일 입력 버튼 숨기기
+                    {/* 프로필 사진을 첨부할 빈 공간 */}
+                    <div onClick={handleFileClick}>
+                        <img
+                            className="img-thumbnail picture float-start"
+                            src={preview}
+                            alt="미리보기"
                         />
-
-
+                    </div>
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        style={{ display: 'none' }} // 파일 입력 버튼 숨기기
+                    />
+                    <div class="d-flex flex-column info_list">
                         <div class="input-group">
                             <label for="" class="form-label info_detail">이름</label>
                             <input type="text" name="m_name" value={updateMember.m_name} onChange={handleChange} />
