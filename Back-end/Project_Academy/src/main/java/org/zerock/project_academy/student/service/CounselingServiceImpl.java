@@ -12,6 +12,7 @@ import org.zerock.project_academy.student.dto.CounselingDTO;
 import org.zerock.project_academy.student.repository.CounselingRepository;
 import org.zerock.project_academy.student.repository.StudentRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,11 +33,12 @@ public class CounselingServiceImpl implements CounselingService {
         Lecture lecture = lectureRepository.findById(counselingDTO.getLno())
                 .orElseThrow(() -> new RuntimeException("Lecture not found"));
 
-        Counseling counseling = Counseling.builder()
-                .c_content(counselingDTO.getC_content())
-                .student_c(student)
-                .lecture_c(lecture)
-                .build();
+        // ModelMapper를 사용하여 CounselingDTO를 Counseling 엔티티로 변환
+        Counseling counseling = modelMapper.map(counselingDTO, Counseling.class);
+
+        // Student와 Lecture를 수동으로 설정
+        counseling.setStudent_c(student);
+        counseling.setLecture_c(lecture);
 
         Counseling savedCounseling = counselingRepository.save(counseling);
         return savedCounseling.getCno();
@@ -72,8 +74,21 @@ public class CounselingServiceImpl implements CounselingService {
 
     @Override
     public List<CounselingDTO> getAll() {
-        return counselingRepository.findAll().stream()
-                .map(counseling -> modelMapper.map(counseling, CounselingDTO.class))
-                .collect(Collectors.toList());
+        List<Counseling> list = counselingRepository.findAll();
+        List<CounselingDTO> dtoList = new ArrayList<>();
+        for (Counseling c : list) {
+            CounselingDTO dto = CounselingDTO.builder()
+                    .cno(c.getCno())
+                    .c_content(c.getC_content())
+                    .lno(c.getLecture_c().getLno())
+                    .l_name(c.getLecture_c().getL_name())
+                    .sno(c.getStudent_c().getSno())
+                    .s_name(c.getStudent_c().getS_name())
+                    .moddate(c.getModDate())
+                    .regdate(c.getRegDate())
+                    .build();
+            dtoList.add(dto); // dtoList에 추가
+        }
+        return dtoList;
     }
 }
