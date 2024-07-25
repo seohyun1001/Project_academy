@@ -11,16 +11,12 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
     
     // 파일 변경 시 미리보기 설정
     useEffect(() => {
-        setPreview(preview)
-        console.log(preview)
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setPreview(reader.result);
             };
             reader.readAsDataURL(file);
-        } else {
-            setPreview(null);
         }
     },[file]);
 
@@ -80,43 +76,18 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
         onSave(); // 수정 모드 해제
     };
 
-    // 스타일 정의
-    const imageContainerStyle = {
-        width: '150px',
-        height: '150px',
-        border: '1px solid #ccc',
-        borderRadius: '8px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        backgroundColor: '#f0f0f0',
-        marginRight: '20px',
-        cursor: 'pointer',
-    };
-
-    const imageStyle = {
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-    };
-
-
 
     return (
         <div class="card profile_card">
             <div class="d-flex flex-wrap main_info">
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
+                <form onSubmit={handleSubmit}>
 
                     {/* 프로필 사진을 첨부할 빈 공간 */}
-                    <div style={imageContainerStyle}
-                        onClick={handleFileClick}
-                    >
+                    <div onClick={handleFileClick}>
                             <img
                                 class="img-thumbnail picture float-start"
                                 src={preview}
                                 alt="미리보기"
-                                style={imageStyle}
                             />
                     </div>
                     <input
@@ -147,11 +118,9 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
                             <label for="" class="form-label info_detail">주소2</label>
                             <input type="text" name="m_address2" value={updateMember.m_address2} onChange={handleChange} />
                         </div>
-                        <div>
                             <button type="button" onClick={handleCancel}>취소</button>
                             <button type="submit">저장</button>
                             <button type="button" onClick={handleDelete}>삭제</button>
-                        </div>
                     </div>
 
                 </form>
