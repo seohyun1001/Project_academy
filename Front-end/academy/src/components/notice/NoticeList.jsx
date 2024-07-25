@@ -38,7 +38,9 @@ function Noticelist(){
                     <tr key={index}>
                         <th scope="row">{index + 1}</th>
                         {/* <td>{noticelist.nno}</td> */}
+                        <Link to={`/Notice/${notice.nno}`}>
                         <td>{notice.n_title}</td>
+                        </Link>
                         <td>{notice.writer}</td>
                     </tr>
 

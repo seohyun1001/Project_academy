@@ -78,7 +78,7 @@ public class NoticeController {
         }
     }
 
-    @DeleteMapping("{nno}")
+    @DeleteMapping("/{nno}")
     public ResponseEntity<Object> deleteNotice(@PathVariable Long nno) {
         noticeService.deleteNotice(nno);
         noticeResourceService.deleteNoticeResource(nno);

@@ -8,16 +8,15 @@ import Login from './components/member/memberLogin/MemberLogin';
 import StudentList from './components/student/StudentList';
 import StudentRegister from './components/student/StudentRegister';
 import StudentEdit from './components/student/StudentEdit';
-
 import Noticelist from './components/notice/NoticeList';
 import NoticeRegister from './components/notice/NoticeRegister';
+import NoticeDetail from './components/notice/NoticeDetail';
 
 const App = () => {
     return (
         <Router>
-            <Header />
+            {/* <Header /> */}
             <Routes>
-
                 <Route path="/read/:mno" element={<Read />} />
                 <Route path="/modify/:mno" element={<Modify />} />
                 <Route path="/list" element={<List />} />
@@ -28,6 +27,7 @@ const App = () => {
                 <Route path="/student/edit/:sno" element={<StudentEdit />} />
                 <Route path="/Noticelist" element={<Noticelist/>}/>
                 <Route path="/NoticeRegister" element={<NoticeRegister/>}/>
+                <Route path="/Notice/:nno" element={<NoticeDetail />} />
                 {/* 다른 라우트들도 추가할 수 있습니다 */}
             </Routes>
         </Router>
