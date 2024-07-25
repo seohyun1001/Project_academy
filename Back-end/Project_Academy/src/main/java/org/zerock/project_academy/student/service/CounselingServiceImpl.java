@@ -4,9 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.zerock.project_academy.lecture.domain.Lecture;
+import org.zerock.project_academy.lecture.repository.LectureRepository;
 import org.zerock.project_academy.student.domain.Counseling;
+import org.zerock.project_academy.student.domain.Student;
 import org.zerock.project_academy.student.dto.CounselingDTO;
 import org.zerock.project_academy.student.repository.CounselingRepository;
+import org.zerock.project_academy.student.repository.StudentRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,24 +22,26 @@ import java.util.stream.Collectors;
 public class CounselingServiceImpl implements CounselingService {
     private final ModelMapper modelMapper;
     private final CounselingRepository counselingRepository;
+    private final LectureRepository lectureRepository;
+    private final StudentRepository studentRepository;
 
     @Override
     public Long register(CounselingDTO counselingDTO) {
+        Student student = studentRepository.findById(counselingDTO.getSno())
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+        Lecture lecture = lectureRepository.findById(counselingDTO.getLno())
+                .orElseThrow(() -> new RuntimeException("Lecture not found"));
 
-        try {
-            Counseling counseling = modelMapper.map(counselingDTO, Counseling.class);
+        Counseling counseling = Counseling.builder()
+                .c_content(counselingDTO.getC_content())
+                .student_c(student)
+                .lecture_c(lecture)
+                .build();
 
-            Long cno = counselingRepository.save(counseling).getCno();
-
-            log.info("등록된 상담이력 " + cno);
-
-            return cno;
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("상담이력 등록 에러: " + e.getMessage(), e);
-            return null;
-        }
+        Counseling savedCounseling = counselingRepository.save(counseling);
+        return savedCounseling.getCno();
     }
+
 
     @Override
     public CounselingDTO get(Long cno) {

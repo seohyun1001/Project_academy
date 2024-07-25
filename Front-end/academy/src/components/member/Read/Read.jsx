@@ -1,74 +1,50 @@
 import React, { useState, useEffect  } from 'react';
-import axios from 'axios';
-import { useParams,useNavigate } from 'react-router-dom';
-import styles from './Read.module.css';
-
-const Read = () => {
-    const { mno } = useParams();
-    const [member, setMember] = useState({
-        mno: '',
-        m_name: '',
-        m_email: '',
-        m_phone: '',
-        m_address1: '',
-        m_address2: '',
-        m_picture: ''
-    });
-
-    const navigate = useNavigate ();
 
 
-    useEffect(() => {
-        const fetchMember = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8092/member/read/${mno}`);
-                setMember(response.data);
-            } catch (error) {
-                console.error('회원 정보를 가져오는 중 오류가 발생했습니다.', error);
-                // 오류 처리 로직 추가
-            }
-        };
+const Read = ({member, onEditClick, onMenberDeleted}) => {
+    
 
-        fetchMember();
-    }, [mno]);
-
-    const handleEditClick = () => {
-        navigate(`/modify/${mno}`);
-    };
-
+    
     return (
-        <div className={styles.container}>
-            <h2 className={styles.header}>강사 상세 정보</h2>
-            <div className={styles.profileContainer}>
+        <div class="card profile_card">
+            <div class="d-flex flex-wrap main_info">
             {member.m_picture && (
-                <div className={styles.profileImage}>
-                    <img src={`${member.m_picture}`} alt="프로필 사진" />
+                <div>
+                    <img 
+                    class="img-thumbnail picture float-start" 
+                    src={`${member.m_picture}`} alt="프로필 사진" />
                 </div>
             )}
-            <div className={styles.container2}>
-            <div className={styles.info}>
-                <label>강사 번호:</label> {member.mno}
+            <div class="d-flex flex-column info_list">
+            <div class="input-group">
+                <label for="" class="form-label info_detail">이름</label>
+                <p>{member.m_name}</p>
             </div>
-            <div className={styles.info}>
-                <label>이름:</label> {member.m_name}
+            <div class="input-group">
+                <label for="" class="form-label info_detail">강사 번호</label>
+                <p>{member.mno}</p>
             </div>
-            <div className={styles.info}>
-                <label>이메일:</label> {member.m_email}
+            <div class="input-group">
+                <label for="" class="form-label info_detail">이메일</label> 
+                <p>{member.m_email}</p>
             </div>
-            <div className={styles.info}>
-                <label>전화번호:</label> {member.m_phone}
+            <div class="input-group">
+                <label for="" class="form-label info_detail">전화번호</label> 
+                <p>{member.m_phone}</p>
             </div>
-            <div className={styles.info}>
-                <label>주소1:</label> {member.m_address1}
+            <div class="input-group">
+                <label for="" class="form-label info_detail">주소1</label> 
+                <p>{member.m_address1}</p>
             </div>
-            <div className={styles.info}>
-                <label>주소2:</label> {member.m_address2}
+            <div class="input-group">
+                <label for="" class="form-label info_detail">주소2</label> 
+                <p>{member.m_address2}</p>
             </div>
             </div>
             </div>
-            <button className={styles.button} onClick={handleEditClick}>정보수정</button>
+            <button onClick={onEditClick}>정보수정</button>
         </div>
     );
-};
+}
 
 export default Read;
