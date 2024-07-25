@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate  } from 'react-router-dom';
 
-const Modify = ({member, onSave}) => {
+const Modify = ({member, onSave, onMemberDeleted}) => {
     const [updateMember, setUpdatedMember] = useState({...member});
     const [file, setFile] = useState(null);
     const navigate = useNavigate ();
@@ -47,6 +47,7 @@ const Modify = ({member, onSave}) => {
         if (window.confirm('정말로 삭제하시겠습니까?')) {
             try {
                 await axios.delete(`http://localhost:8092/member/delete/${updateMember.mno}`);
+                onMemberDeleted();
                 navigate('/member'); // 삭제 후 강사 목록 페이지로 이동
             } catch (error) {
                 console.error('회원 정보를 삭제하는 중 오류가 발생했습니다.', error);

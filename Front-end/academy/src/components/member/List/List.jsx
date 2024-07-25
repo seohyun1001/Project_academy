@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import Read from '../Read/Read'; 
 import Modify from '../Modify/Modify';
 
@@ -80,6 +79,7 @@ const List = () => {
                         fetchMember(selectedMember.mno); // 수정 후 최신 데이터 불러오기
                         setIsEditing(false);
                     }}
+                    onMemberDeleted={handleMemberDeleted} // 삭제 후 목록 새로고침 콜백 전달
                     />
                 )}
             </div>

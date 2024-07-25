@@ -6,8 +6,6 @@ import MainInfo from './components/Basic/MainInfo';
 import RelatedClasses from './components/Basic/RelatedClasses';
 import Counseling from './components/Basic/Counseling';
 import Footer from './components/Basic/Footer';
-import Read from './components/member/Read/Read';
-import Modify from './components/member/Modify/Modify';
 import List from './components/member/List/List';
 import Register from './components/member/memberRegister/MemberRegister';
 import Login from './components/member/memberLogin/MemberLogin';
@@ -25,12 +23,9 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path='/basic' element={<Basic />}/>
-
-                <Route path="/read/:mno" element={<Read />} />
-                <Route path="/modify/:mno" element={<Modify />} />
                 <Route path="/member" element={<List />} />
-                <Route path="/MemberRegister" element={<Register />} />
-                <Route path="/MemberLogin" element={<Login />} />
+                <Route path="/Member/Register" element={<Register />} />
+                <Route path="/Member/Login" element={<Login />} />
                 <Route path="/student" element={<StudentList />} />
                 <Route path="/student/register" element={<StudentRegister />} />
                 <Route path="/student/edit/:sno" element={<StudentEdit />} />
