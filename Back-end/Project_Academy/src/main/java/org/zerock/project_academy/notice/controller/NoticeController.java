@@ -70,9 +70,9 @@ public class NoticeController {
 
     @GetMapping("/read")
     public ResponseEntity<Object> getReadNotice(@RequestParam Long nno) {
-        Optional<Notice> oneNotice = noticeService.findOneNoticeById(nno);
-        if (oneNotice.isPresent()) {
-            return new ResponseEntity<>(oneNotice.get(), HttpStatus.OK);
+        NoticeListDTO oneNotice = noticeService.findOneNoticeById(nno);
+        if (oneNotice != null && oneNotice.getNno() != null) {
+            return new ResponseEntity<>(oneNotice, HttpStatus.OK);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Notice not found with id " + nno);
         }

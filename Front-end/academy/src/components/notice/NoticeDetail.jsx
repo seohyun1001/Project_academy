@@ -1,46 +1,37 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState, useSyncExternalStore } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const NoticeDetail = () => {
-
-    const { nno } = useParams();
-    const [notice, setNotice] = useState(null);
-    const [loading, setLoading] = useState(true);
-  
-    useEffect(() => {
-      const fetchNotice = async () => {
-        try {
-          const response = await axios.get(`http://localhost:8092/notice/read`);
-          setNotice(response.data);
-          setLoading(false);
-        } catch (error) {
-          console.error('Error fetching notice:', error);
-          setLoading(false);
-        }
-      };
-  
-      if (nno) {
-        fetchNotice();
-      }
-    }, [nno]);
-  
-    if (loading) {
-      return <div>Loading...</div>;
-    }
-  
-    if (!notice) {
-      return <div>Notice not found</div>;
-    }
-  
-    return (
-      <div>
-        123
-        <h2>{notice.n_title}</h2>
-        <p>{notice.content}</p>
-        <p>작성자: {notice.writer}</p>
-      </div>
-    );
+  const { nno } = useParams();
+  const [loading, setLoading] = useState(true)
+  const [notice, setNotice] = useState({});
+  const [noticeResource, setNoticeResource] = useState([]);
+  const getNotice = async () =>{
+    const response = await (await axios.get(`http://localhost:8092/notice/read?nno=${nno}`)).data;
+    console.log(response)
+    console.log(response.notice_resource)
+    setNotice(response);
+    setNoticeResource(response.notice_resource);
+    setLoading(false);
+    
   };
+  useEffect(() =>{
+    getNotice();
+  },[]);
   
+
+  return (
+    <div>
+      <h2>{notice.n_title}</h2>
+      <p>{notice.n_content}</p>
+      <p>작성자: {notice.writer}</p>
+      {noticeResource.map((nr,index) => (
+        <p key={index}><a href={'http://localhost:8092/file/'+nr.nr_name}>{nr.nr_name}</a></p>
+      ))}
+      
+    </div>
+  );
+};
+
 export default NoticeDetail;
