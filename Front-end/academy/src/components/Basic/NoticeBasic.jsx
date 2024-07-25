@@ -1,14 +1,14 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import NoticeList from "./NoticeList";
+import NoticeListSample from "./NoticeListSample";
 
 const NoticeBasic = () => {
     return (
         <body class="vsc-initialized">
             <Header />
             <div class="container">
-                <NoticeList />
+                <NoticeListSample />
             </div>
             <Footer />
         </body>

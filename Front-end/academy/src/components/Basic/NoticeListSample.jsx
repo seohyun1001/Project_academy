@@ -1,6 +1,6 @@
 import React from "react";
 
-const NoticeList = () => {
+const NoticeListSample = () => {
     return (
         <>
             <div class="container notice_con">
@@ -81,4 +81,4 @@ const NoticeList = () => {
     )
 }
 
-export default NoticeList;
+export default NoticeListSample;
