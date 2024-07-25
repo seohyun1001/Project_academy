@@ -47,7 +47,7 @@ const Modify = ({member, onSave, onMemberDeleted}) => {
         if (window.confirm('정말로 삭제하시겠습니까?')) {
             try {
                 await axios.delete(`http://localhost:8092/member/delete/${updateMember.mno}`);
-                onMemberDeleted();
+                onMemberDeleted(); // 삭제 후 콜백 호출
                 navigate('/member'); // 삭제 후 강사 목록 페이지로 이동
             } catch (error) {
                 console.error('회원 정보를 삭제하는 중 오류가 발생했습니다.', error);

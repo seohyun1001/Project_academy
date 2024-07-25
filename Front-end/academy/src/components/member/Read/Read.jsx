@@ -1,41 +1,40 @@
 import React, { useState, useEffect  } from 'react';
-import styles from './Read.module.css';
 
 
 const Read = ({member, onEditClick, onMenberDeleted}) => {
     
 
     return (
-        <div className={styles.container}>
-            <h2 className={styles.header}>강사 상세 정보</h2>
-            <div className={styles.profileContainer}>
+        <div>
+            <h2>강사 상세 정보</h2>
+            <div>
             {member.m_picture && (
-                <div className={styles.profileImage}>
+                <div>
                     <img src={`${member.m_picture}`} alt="프로필 사진" />
                 </div>
             )}
-            <div className={styles.container2}>
-            <div className={styles.info}>
+            <div>
+            <div>
                 <label>강사 번호:</label> {member.mno}
             </div>
-            <div className={styles.info}>
+            <div>
                 <label>이름:</label> {member.m_name}
             </div>
-            <div className={styles.info}>
+            <div>
                 <label>이메일:</label> {member.m_email}
             </div>
-            <div className={styles.info}>
+            <div>
                 <label>전화번호:</label> {member.m_phone}
             </div>
-            <div className={styles.info}>
+            <div>
                 <label>주소1:</label> {member.m_address1}
             </div>
-            <div className={styles.info}>
+            <div>
                 <label>주소2:</label> {member.m_address2}
             </div>
             </div>
             </div>
-            <button className={styles.button} onClick={onEditClick}>정보수정</button>
+            <button onClick={onEditClick}>정보수정</button>
         </div>
     );
 }

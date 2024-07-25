@@ -7,6 +7,7 @@ const List = () => {
     const [members, setMembers] = useState([]); // 강사 목록
     const [selectedMember, setSelectedMember] = useState(null); // 선택된 강사 정보
     const [isEditing, setIsEditing] = useState(false); // 수정 모드 여부
+    const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태 추가
 
     const fetchMembers = () => {
         axios.get('http://localhost:8092/member/list')
@@ -38,10 +39,26 @@ const List = () => {
         setSelectedMember(null);  // 선택된 학생 정보 초기화
     };
 
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    // 검색어에 따라 목록 필터링
+    const filteredMembers = members.filter(member =>
+        member.m_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div style={{ display: "flex" }}>
             <div style={{ flex: 1, marginRight: "20px" }}>
                 <h1>강사 목록</h1>
+                <input
+                    type="text"
+                    placeholder="강사 검색"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    style={{ marginBottom: "10px", width: "100%", padding: "5px" }}
+                />
                 <table>
                     <thead>
                         <tr>
@@ -49,7 +66,7 @@ const List = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {members.map(member => (
+                        {filteredMembers.map(member => (
                             <tr key={member.mno}>
                                 <td>
                                     <button
@@ -86,29 +103,5 @@ const List = () => {
         </div>
     );
 };
-//     return (
-//         <div>
-//             <h2>강사 목록</h2>
-//             <table>
-//                 <thead>
-//                     <tr>
-//                         <th>강사이름</th>
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-//                     {members.map(member => (
-//                         <tr key={member.mno}>
-//                             <Link to={`/read/${member.mno}`}>
-//                                     {member.mno}
-//                                 </Link>
-//                             <td>{member.m_name}</td>
-                            
-//                         </tr>
-//                     ))}
-//                 </tbody>
-//             </table>
-//         </div>
-//     );
-// };
 
 export default List;
