@@ -1,5 +1,7 @@
 package org.zerock.project_academy.notice.dto;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @ToString
@@ -8,11 +10,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NoticeResourceDTO {
-
     private Long nrno;
     private String nr_name;
     private String nr_path;
     private String nr_type;
-    private int nr_ord;
     private Long nno;
+    @Column
+    private Long file_size;
+    @NotNull
+    private int nr_ord;
 }
