@@ -64,7 +64,7 @@ const StudentRegister = () => {
         <div className="container mt-5">
             <div className="row justify-content-center">
                 <div className="col-md-8">
-                    <div className="card">
+                    <div className="card student-card">
                         <div className="student-card-header">
                             <h3 className="text-center">학생 등록 페이지</h3>
                         </div>

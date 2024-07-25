@@ -1,7 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Register from './components/member/Register/Register';
-import Login from './components/member/Login/Login'; // Login 컴포넌트를 불러옵니다
 import Header from './components/Basic/Header';
 import SideBar from './components/Basic/SideBar';
 import MainInfo from './components/Basic/MainInfo';
@@ -19,27 +17,16 @@ import StudentEdit from './components/student/StudentEdit';
 import Noticelist from './components/notice/NoticeList';
 import NoticeRegister from './components/notice/NoticeRegister';
 import CounselingRegister from './components/counseling/counselingRegister/CounselingRegister';
+import Basic from './components/Basic/Basic';
 
 
 const App = () => {
     return (
         <Router>
-            <body class="vsc-initialized">
-                <Header />
-                <div class="container">
-                <div class="d-flex flex-wrap">
-                <SideBar />
-                <div class="col">
-                    <MainInfo />
-                    <RelatedClasses />
-                    <Counseling />
-                </div>
-                </div>
-                </div>
-                <Footer />
-            </body>
+            
 
             <Routes>
+                <Route path='/basic' element={<Basic />}/>
 
                 <Route path="/read/:mno" element={<Read />} />
                 <Route path="/modify/:mno" element={<Modify />} />
