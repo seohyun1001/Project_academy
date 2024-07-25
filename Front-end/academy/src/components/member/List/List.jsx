@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Read from '../Read/Read'; 
 import Modify from '../Modify/Modify';
+import Header from '../../Basic/Header';
+import Footer from '../../Basic/Footer';
 
 const List = () => {
     const [members, setMembers] = useState([]); // 강사 목록
@@ -49,39 +51,35 @@ const List = () => {
     );
 
     return (
-        <div style={{ display: "flex" }}>
-            <div style={{ flex: 1, marginRight: "20px" }}>
-                <h1>강사 목록</h1>
-                <input
-                    type="text"
-                    placeholder="강사 검색"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                    style={{ marginBottom: "10px", width: "100%", padding: "5px" }}
+        <div class="row  text-center ">
+            <Header />
+            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary">
+            <a
+                        class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+                        <input class="form-control me-2" 
+                                type="search" placeholder="Search" aria-label="Search"
+                                value={searchTerm}
+                                onChange={handleSearchChange}
                 />
-                <table>
-                    <thead>
-                        <tr>
-                            <th>강사 이름</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredMembers.map(member => (
-                            <tr key={member.mno}>
-                                <td>
-                                    <button
-                                        onClick={() => handleMemberClick(member.mno)}
-                                        style={{ background: "none", border: "none", color: "blue", cursor: "pointer", textDecoration: "underline" }}
-                                    >
-                                        {member.m_name}
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        <button class="btn btn-outline-dark" type="submit">Search</button>
+                    </a>
+                    <div className="list-group list-group-flush border-bottom scrollarea">
+                    {filteredMembers.map(member => (
+                        <a
+                            className="list-group-item list-group-item-action"
+                            key={member.mno}
+                            onClick={() => handleMemberClick(member.mno)}
+                        >
+                            <div className="d-flex w-100 align-items-center justify-content-between">
+                                <strong className="mb-1">{member.m_name}</strong>
+                                <small className="text-body-secondary">{member.mno}</small>
+                            </div>
+                            {/* <div className="col-10 small">Some placeholder content</div> */}
+                        </a>
+                    ))}
+                </div>
             </div>
-            <div style={{ flex: 2 }}>
+            <div style={{ flex: 1 }}> {/*사이드바 옆에 위치할 수 있게 함 */}
                 {selectedMember && !isEditing && (
                     <Read 
                     member={selectedMember}
@@ -100,8 +98,10 @@ const List = () => {
                     />
                 )}
             </div>
+            <Footer />
         </div>
     );
 };
+
 
 export default List;

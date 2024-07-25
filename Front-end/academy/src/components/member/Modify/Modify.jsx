@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate  } from 'react-router-dom';
 
 const Modify = ({member, onSave, onMemberDeleted}) => {
     const [updateMember, setUpdatedMember] = useState({...member});
     const [file, setFile] = useState(null);
+    const [preview, setPreview] = useState(null);
     const navigate = useNavigate ();
+
+    // 파일 변경 시 미리보기 설정
+    useEffect(() => {
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setPreview(null);
+        }
+    }, [file]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -55,37 +69,49 @@ const Modify = ({member, onSave, onMemberDeleted}) => {
         }
     };
 
+    const handleCancel = () => {
+        onSave(); // 수정 모드 해제
+    };
+
     return (
-        <div>
-            <h2>회원 정보 수정</h2>
+        <div class="card profile_card">
+        <div class="d-flex flex-wrap main_info">
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>이름:</label>
+                        <label>프로필 사진:</label>
+                        <input type="file" onChange={handleFileChange} />
+                        {/* 미리보기 이미지 */}
+                        {preview && (
+                            <img className="img-thumbnail picture float-start" src={preview} alt="미리보기" style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+                        )}
+                    </div>
+                <div class="d-flex flex-column info_list">
+                <div class="input-group">
+                    <label for="" class="form-label info_detail">이름</label>
                     <input type="text" name="m_name" value={updateMember.m_name} onChange={handleChange} />
                 </div>
-                <div>
-                    <label>이메일:</label>
+                <div class="input-group">
+                    <label for="" class="form-label info_detail">이메일</label>
                     <input type="email" name="m_email" value={updateMember.m_email} onChange={handleChange} />
                 </div>
-                <div>
-                    <label>전화번호:</label>
+                <div class="input-group">
+                    <label for="" class="form-label info_detail">전화번호</label>
                     <input type="text" name="m_phone" value={updateMember.m_phone} onChange={handleChange} />
                 </div>
-                <div>
-                    <label>주소1:</label>
+                <div class="input-group">
+                    <label for="" class="form-label info_detail">주소1</label>
                     <input type="text" name="m_address1" value={updateMember.m_address1} onChange={handleChange} />
                 </div>
-                <div>
-                    <label>주소2:</label>
+                <div class="input-group">
+                    <label for="" class="form-label info_detail">주소2</label>
                     <input type="text" name="m_address2" value={updateMember.m_address2} onChange={handleChange} />
                 </div>
-                <div>
-                    <label>프로필 사진:</label>
-                    <input type="file" onChange={handleFileChange} />
                 </div>
+                <button type="button" onClick={handleCancel}>취소</button>
                 <button type="submit">저장</button>
                 <button type="button" onClick={handleDelete}>삭제</button>
             </form>
+        </div>
         </div>
     );
 };
