@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const CounselingRegister = () => {
-    const [counseling, setCounseling] = useState({
-        c_content: '',
+const PayRegister = () => {
+    const [pay, setPay] = useState({
+        paid: false,
         lno: '',
         l_name: '',
         sno: '',
@@ -39,55 +39,53 @@ const CounselingRegister = () => {
     }, []);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setCounseling({ ...counseling, [name]: value });
+        const { name, value, type, checked } = e.target;
+        setPay({ ...pay, [name]: type === 'checkbox' ? checked : value });
     };
 
     const handleLectureChange = (e) => {
         const selectedLecture = lectures.find(lecture => lecture.lno === e.target.value);
-        setCounseling({ ...counseling, lno: selectedLecture.lno, l_name: selectedLecture.l_name });
+        setPay({ ...pay, lno: selectedLecture.lno, l_name: selectedLecture.l_name });
     };
 
     const handleStudentChange = (e) => {
         const selectedStudent = students.find(student => student.sno.toString() === e.target.value);
-        setCounseling({ ...counseling, sno: selectedStudent.sno, s_name: selectedStudent.s_name });
+        setPay({ ...pay, sno: selectedStudent.sno, s_name: selectedStudent.s_name });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/counseling', counseling);
-            console.log(response); // 응답 확인용 로그
+            const response = await axios.post('/pay', pay);
             if (response.status === 200) {
                 alert('등록 성공');
-                navigate('/counseling/list'); // 등록 성공 후 메인 페이지로 이동
+                navigate('/pay/list'); // 등록 성공 후 메인 페이지로 이동
             } else {
-                alert('상담 등록 중 오류가 발생했습니다.');
+                alert('등록 중 오류가 발생했습니다.');
             }
         } catch (error) {
-            console.error('상담 등록 중 오류가 발생했습니다.', error);
-            alert('상담 등록 중 오류가 발생했습니다.');
+            console.error('등록 중 오류가 발생했습니다.', error);
+            alert('등록 중 오류가 발생했습니다.');
         }
     };
 
     return (
         <div className="container">
             <div className="card">
-                <h2>상담 등록</h2>
+                <h2>결제 등록</h2>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label>상담 내용:</label>
+                        <label>결제 여부:</label>
                         <input
-                            type="text"
-                            name="c_content"
-                            value={counseling.c_content}
+                            type="checkbox"
+                            name="paid"
+                            checked={pay.paid}
                             onChange={handleChange}
-                            required
                         />
                     </div>
                     <div>
                         <label>강의 선택:</label>
-                        <select name="lno" value={counseling.lno} onChange={handleLectureChange} required>
+                        <select name="lno" value={pay.lno} onChange={handleLectureChange} required>
                             <option value="">강의를 선택하세요</option>
                             {lectures.map(lecture => (
                                 <option key={lecture.lno} value={lecture.lno}>
@@ -98,7 +96,7 @@ const CounselingRegister = () => {
                     </div>
                     <div>
                         <label>학생 선택:</label>
-                        <select name="sno" value={counseling.sno} onChange={handleStudentChange} required>
+                        <select name="sno" value={pay.sno} onChange={handleStudentChange} required>
                             <option value="">학생을 선택하세요</option>
                             {students.map(student => (
                                 <option key={student.sno} value={student.sno.toString()}>
@@ -114,4 +112,4 @@ const CounselingRegister = () => {
     );
 };
 
-export default CounselingRegister;
+export default PayRegister;

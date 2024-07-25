@@ -31,15 +31,17 @@ const CounselingList = () => {
         navigate(`/counseling/edit/${selectedCounseling.cno}`);
     };
 
-    const handleDeleteClick = async () => {
-        try {
-            await axios.delete(`/counseling/${selectedCounseling.cno}`);
-            alert('삭제 성공');
-            fetchCounselings();
-            setSelectedCounseling(null);
-        } catch (error) {
-            console.error('상담 삭제 중 오류가 발생했습니다.', error);
-            alert('상담 삭제 중 오류가 발생했습니다.');
+    const handleDelete = async () => {
+        if (window.confirm('정말로 이 결제를 삭제하시겠습니까?')) {
+            try {
+                await axios.delete(`/counseling/${selectedCounseling.cno}`);
+                alert('삭제 성공');
+                setSelectedCounseling(null);
+                fetchCounselings();
+            } catch (error) {
+                console.error('결제 삭제 중 오류가 발생했습니다.', error);
+                alert('결제 삭제 중 오류가 발생했습니다.');
+            }
         }
     };
 
@@ -89,7 +91,7 @@ const CounselingList = () => {
                         <p>학생 번호: {selectedCounseling.sno}</p>
                         <p>학생 이름: {selectedCounseling.s_name}</p>
                         <button onClick={handleEditClick}>수정</button>
-                        <button onClick={handleDeleteClick} style={{ marginLeft: "10px", backgroundColor: "red", color: "white" }}>삭제</button>
+                        <button onClick={handleDelete} style={{ marginLeft: "10px", backgroundColor: "red", color: "white" }}>삭제</button>
                     </div>
                 )}
             </div>

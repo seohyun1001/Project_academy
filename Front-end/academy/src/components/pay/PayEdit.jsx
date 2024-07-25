@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const CounselingRegister = () => {
-    const [counseling, setCounseling] = useState({
-        c_content: '',
+const PayEdit = () => {
+    const { pno } = useParams(); // URL에서 pno 파라미터를 가져옴
+    const [pay, setPay] = useState({
+        paid: false,
         lno: '',
         l_name: '',
         sno: '',
         s_name: ''
     });
-
     const [lectures, setLectures] = useState([]);
     const [students, setStudents] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
+        const fetchPay = async () => {
+            try {
+                const response = await axios.get(`/pay/${pno}`);
+                setPay(response.data);
+            } catch (error) {
+                console.error('Failed to fetch pay details', error);
+            }
+        };
+
         const fetchLectures = async () => {
             try {
                 const response = await axios.get('/lecture/list');
@@ -34,60 +43,58 @@ const CounselingRegister = () => {
             }
         };
 
+        fetchPay();
         fetchLectures();
         fetchStudents();
-    }, []);
+    }, [pno]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setCounseling({ ...counseling, [name]: value });
+        const { name, value, type, checked } = e.target;
+        setPay({
+            ...pay,
+            [name]: type === 'checkbox' ? checked : value
+        });
     };
 
     const handleLectureChange = (e) => {
         const selectedLecture = lectures.find(lecture => lecture.lno === e.target.value);
-        setCounseling({ ...counseling, lno: selectedLecture.lno, l_name: selectedLecture.l_name });
+        setPay({ ...pay, lno: selectedLecture.lno, l_name: selectedLecture.l_name });
     };
 
     const handleStudentChange = (e) => {
         const selectedStudent = students.find(student => student.sno.toString() === e.target.value);
-        setCounseling({ ...counseling, sno: selectedStudent.sno, s_name: selectedStudent.s_name });
+        setPay({ ...pay, sno: selectedStudent.sno, s_name: selectedStudent.s_name });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/counseling', counseling);
-            console.log(response); // 응답 확인용 로그
-            if (response.status === 200) {
-                alert('등록 성공');
-                navigate('/counseling/list'); // 등록 성공 후 메인 페이지로 이동
-            } else {
-                alert('상담 등록 중 오류가 발생했습니다.');
-            }
+            await axios.put(`/pay/${pno}`, pay);
+            alert('수정 성공');
+            navigate('/pay/list'); // 수정 성공 후 결제 목록 페이지로 이동
         } catch (error) {
-            console.error('상담 등록 중 오류가 발생했습니다.', error);
-            alert('상담 등록 중 오류가 발생했습니다.');
+            console.error('결제 수정 중 오류가 발생했습니다.', error);
+            alert('결제 수정 중 오류가 발생했습니다.');
         }
     };
 
     return (
         <div className="container">
             <div className="card">
-                <h2>상담 등록</h2>
+                <h2>결제 수정</h2>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label>상담 내용:</label>
+                        <label>결제 여부:</label>
                         <input
-                            type="text"
-                            name="c_content"
-                            value={counseling.c_content}
+                            type="checkbox"
+                            name="paid"
+                            checked={pay.paid}
                             onChange={handleChange}
-                            required
                         />
                     </div>
                     <div>
                         <label>강의 선택:</label>
-                        <select name="lno" value={counseling.lno} onChange={handleLectureChange} required>
+                        <select name="lno" value={pay.lno} onChange={handleLectureChange} required>
                             <option value="">강의를 선택하세요</option>
                             {lectures.map(lecture => (
                                 <option key={lecture.lno} value={lecture.lno}>
@@ -98,7 +105,7 @@ const CounselingRegister = () => {
                     </div>
                     <div>
                         <label>학생 선택:</label>
-                        <select name="sno" value={counseling.sno} onChange={handleStudentChange} required>
+                        <select name="sno" value={pay.sno} onChange={handleStudentChange} required>
                             <option value="">학생을 선택하세요</option>
                             {students.map(student => (
                                 <option key={student.sno} value={student.sno.toString()}>
@@ -107,11 +114,11 @@ const CounselingRegister = () => {
                             ))}
                         </select>
                     </div>
-                    <button type="submit">등록</button>
+                    <button type="submit">수정</button>
                 </form>
             </div>
         </div>
     );
 };
 
-export default CounselingRegister;
+export default PayEdit;

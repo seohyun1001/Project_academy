@@ -19,6 +19,9 @@ import NoticeRegister from './components/notice/NoticeRegister';
 import CounselingRegister from './components/counseling/CounselingRegister';
 import CounselingList from './components/counseling/CounselingList';
 import CounselingEdit from './components/counseling/CounselingEdit';
+import PayRegister from './components/pay/PayRegister';
+import PayList from './components/pay/PayList';
+import PayEdit from './components/pay/PayEdit';
 import Basic from './components/Basic/Basic';
 
 
@@ -43,6 +46,9 @@ const App = () => {
                 <Route path="/counseling/register" element={<CounselingRegister />} />
                 <Route path="/counseling/list" element={<CounselingList />} />
                 <Route path="/counseling/edit/:cno" element={<CounselingEdit/>} />
+                <Route path="/pay/register" element={<PayRegister/>} />
+                <Route path="/pay/list" element={<PayList/>} />
+                <Route path="/pay/edit/:pno" element={<PayEdit/>} />
                 {/* 다른 라우트들도 추가할 수 있습니다 */}
                 
             </Routes>
