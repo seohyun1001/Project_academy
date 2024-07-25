@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './MemberLogin.css'; // CSS 파일을 import 합니다.
+// import './MemberLogin.css'; // CSS 파일을 import 합니다.
 
 const MemberLogin = () => {
     const [loginRequest, setLoginRequest] = useState({

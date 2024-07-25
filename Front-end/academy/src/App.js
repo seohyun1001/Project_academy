@@ -15,7 +15,7 @@ import NoticeRegister from './components/notice/NoticeRegister';
 const App = () => {
     return (
         <Router>
-            <Header />
+            {/* <Header /> */}
             <Routes>
 
                 <Route path="/read/:mno" element={<Read />} />

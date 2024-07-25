@@ -1,5 +1,6 @@
 package org.zerock.project_academy.student.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.project_academy.student.dto.StudentDTO;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface StudentService {
     void remove(Long sno);
 
     List<StudentDTO> getAll();
+
 }

@@ -55,7 +55,7 @@ public class MemberController {
         return ResponseEntity.ok(Map.of("available", available));
     }
 
-}
+
     @GetMapping("/read/{mno}")
     public Optional<Member> memberRead(@PathVariable("mno") String mno) {
         return memberService.findByMno(mno);

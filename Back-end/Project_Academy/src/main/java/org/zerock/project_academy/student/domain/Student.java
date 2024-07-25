@@ -29,6 +29,8 @@ public class Student extends BaseEntity {
     private String s_email;
     private String s_status;
 
+    private String s_profileImage;
+
 
 //    @OneToMany(mappedBy = "student",
 //            cascade = {CascadeType.ALL},

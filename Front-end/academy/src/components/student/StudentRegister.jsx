@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './StudentRegister.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
+import './StudentRegister.css';
+
 
 const StudentRegister = () => {
     const [student, setStudent] = useState({  // 한명의 학생 등록
@@ -15,7 +16,10 @@ const StudentRegister = () => {
         s_address2: ""
     });
 
+    const [profileImage, setProfileImage] = useState(null);
+
     const navigate = useNavigate();
+
 
     // handleChange 함수는 입력 필드에서 사용자가 값을 입력할 때마다 호출되어 입력된 값을 상태에 업데이트 함
     const handleChange = (e) => {  // 'e'는 이벤트 객체를 나타냄
@@ -28,6 +32,12 @@ const StudentRegister = () => {
             [name]: value
         }));
     };
+
+    // 이미지 파일 변경 핸들러
+    const handleImageChange = (e) => {
+        setProfileImage(e.target.files[0]);
+    };
+
 
     // 목록 페이지
     const handleList = () => {
@@ -42,6 +52,15 @@ const StudentRegister = () => {
                 const sno = response.data;  // 응답에서 sno를 추출해야함
                 alert(`${sno} 번 학생이 성공적으로 등록되었습니다.`);
                 // alert(`${response.data.sno} 번 학생이 성공적으로 등록되었습니다.`); -> response.data.sno를 찾지 못함
+
+                if(profileImage) {
+                    const formData = new FormData();
+                    formData.append('profileImage', )
+                }
+
+
+
+
                 setStudent({
                     s_name: "",
                     s_birthday: "",
@@ -65,7 +84,7 @@ const StudentRegister = () => {
             <div className="row justify-content-center">
                 <div className="col-md-8">
                     <div className="card">
-                        <div className="student-card-header">
+                        <div className="card-header">
                             <h3 className="text-center">학생 등록 페이지</h3>
                         </div>
                         <div className="card-body">
@@ -77,6 +96,15 @@ const StudentRegister = () => {
                                         name="s_name"
                                         value={student.s_name}
                                         onChange={handleChange}
+                                        className="form-control"
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>프로필 이미지:</label>
+                                    <input
+                                        type="file"
+                                        onChange={handleImageChange}
                                         className="form-control"
                                         required
                                     />
