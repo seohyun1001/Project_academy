@@ -81,13 +81,34 @@ public class NoticeController {
     @DeleteMapping("/{nno}")
     public ResponseEntity<Object> deleteNotice(@PathVariable Long nno) {
         noticeService.deleteNotice(nno);
-        noticeResourceService.deleteNoticeResource(nno);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/modify")
-    public ResponseEntity<Object> modifyNotice(@RequestBody NoticeDTO noticeDTO) {
+    @PutMapping("/{nno}")
+    public ResponseEntity<Object> modifyNotice(NoticeDTO noticeDTO) {
         try {
+            // Handle file if present
+            int ord = 0;
+            List<NoticeResourceDTO> resourceDtoList = new ArrayList<NoticeResourceDTO>();
+            for (MultipartFile file : noticeDTO.getFiles()) {
+                Path savePath = Paths.get("C:\\upload", file.getOriginalFilename());
+                try {
+                    file.transferTo(savePath);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                NoticeResourceDTO dto = NoticeResourceDTO.builder()
+                        .nr_name(file.getOriginalFilename())
+                        .nr_ord(ord)
+                        .nr_type(file.getContentType())
+                        .nno(noticeDTO.getNno())
+                        .build();
+                resourceDtoList.add(dto);
+                ord++;
+            }
+            noticeResourceService.deleteNoticeResource(noticeDTO.getNno());
+            noticeResourceService.saveAll(resourceDtoList);
+
             Notice modifiedNotice = noticeService.modifyNotice(noticeDTO);
             return new ResponseEntity<>(modifiedNotice, HttpStatus.OK);
         } catch (NoSuchElementException e) {
@@ -97,4 +118,5 @@ public class NoticeController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }
