@@ -1,11 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/Basic/Header';
-import SideBar from './components/Basic/SideBar';
-import MainInfo from './components/Basic/MainInfo';
-import RelatedClasses from './components/Basic/RelatedClasses';
-import Counseling from './components/Basic/Counseling';
-import Footer from './components/Basic/Footer';
+
 import List from './components/member/List/List';
 import Register from './components/member/memberRegister/MemberRegister';
 import Login from './components/member/memberLogin/MemberLogin';
@@ -16,6 +11,9 @@ import Noticelist from './components/notice/NoticeList';
 import NoticeRegister from './components/notice/NoticeRegister';
 import CounselingRegister from './components/counseling/counselingRegister/CounselingRegister';
 import Basic from './components/Basic/Basic';
+import NoticeBasic from './components/Basic/NoticeBasic';
+import Read from './components/member/Read/Read';
+import Modify from './components/member/Modify/Modify';
 
 
 const App = () => {
@@ -23,6 +21,13 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path='/basic' element={<Basic />}/>
+                <Route path='/noticeBasic' element={<NoticeBasic />}/>
+
+                <Route path="/read/:mno" element={<Read />} />
+                <Route path="/modify/:mno" element={<Modify />} />
+                <Route path="/list" element={<List />} />
+                <Route path="/MemberRegister" element={<Register />} />
+                <Route path="/MemberLogin" element={<Login />} />
                 <Route path="/member" element={<List />} />
                 <Route path="/Member/Register" element={<Register />} />
                 <Route path="/Member/Login" element={<Login />} />
