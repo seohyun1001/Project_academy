@@ -101,7 +101,6 @@
     padding-bottom: 15px;
   }
 
-  
   .notice_con{
     max-width: 1000px;
     margin-top: 30px;
@@ -129,6 +128,6 @@
   }
 
   .scrollBar {
-    overflow-y: scroll;
-    height: 800px;
-    }
+  overflow-y: scroll;
+  height: 800px;
+  }

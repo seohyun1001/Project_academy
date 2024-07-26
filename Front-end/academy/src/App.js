@@ -23,6 +23,7 @@ import PayRegister from './components/pay/PayRegister';
 import PayList from './components/pay/PayList';
 import PayEdit from './components/pay/PayEdit';
 import Basic from './components/Basic/Basic';
+import NoticeBasic from './components/Basic/NoticeBasic';
 
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
 
             <Routes>
                 <Route path='/basic' element={<Basic />}/>
+                <Route path='/noticeBasic' element={<NoticeBasic />}/>
 
                 <Route path="/read/:mno" element={<Read />} />
                 <Route path="/modify/:mno" element={<Modify />} />

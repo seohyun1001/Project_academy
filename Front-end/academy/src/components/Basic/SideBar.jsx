@@ -12,7 +12,7 @@ const SideBar = () => {
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                         <button class="btn btn-outline-dark" type="submit">Search</button>
                     </a>
-                    <div class="list-group list-group-flush border-bottom scrollarea">
+                    <div class="list-group list-group-flush border-bottom scrollarea scrollBar">
 
                         <a href="#" class="list-group-item list-group-item-action active py-3 lh-sm" aria-current="true">
                             <div class="d-flex w-100 align-items-center justify-content-between">
