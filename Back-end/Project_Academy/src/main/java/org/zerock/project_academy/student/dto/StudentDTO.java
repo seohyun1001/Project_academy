@@ -23,5 +23,6 @@ public class StudentDTO {
     private String s_status;
     private LocalDateTime regdate;
     private LocalDateTime moddate;
+    private String s_profileImage;
 
 }

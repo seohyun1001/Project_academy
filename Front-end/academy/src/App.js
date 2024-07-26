@@ -6,8 +6,6 @@ import MainInfo from './components/Basic/MainInfo';
 import RelatedClasses from './components/Basic/RelatedClasses';
 import Counseling from './components/Basic/Counseling';
 import Footer from './components/Basic/Footer';
-import Read from './components/member/Read/Read';
-import Modify from './components/member/Modify/Modify';
 import List from './components/member/List/List';
 import Register from './components/member/memberRegister/MemberRegister';
 import Login from './components/member/memberLogin/MemberLogin';
@@ -29,8 +27,6 @@ import NoticeBasic from './components/Basic/NoticeBasic';
 const App = () => {
     return (
         <Router>
-            
-
             <Routes>
                 <Route path='/basic' element={<Basic />}/>
                 <Route path='/noticeBasic' element={<NoticeBasic />}/>
@@ -52,7 +48,7 @@ const App = () => {
                 <Route path="/pay/list" element={<PayList/>} />
                 <Route path="/pay/edit/:pno" element={<PayEdit/>} />
                 {/* 다른 라우트들도 추가할 수 있습니다 */}
-                
+
             </Routes>
         </Router>
     );

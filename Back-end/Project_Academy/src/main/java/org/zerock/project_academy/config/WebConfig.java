@@ -11,5 +11,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/profile_pictures/**")
                 .addResourceLocations("file:///C:/upload/profile_pictures/");
+
+        // 학생 프로필 사진 경로 추가
+        registry.addResourceHandler("/student/images/**")
+                .addResourceLocations("file:///C:/upload/studentProfile/");
     }
 }
