@@ -20,7 +20,7 @@ import Member from './components/member/Member';
 import NoticeBasic from './components/Basic/NoticeBasic';
 import Read from './components/member/Read/Read';
 import Modify from './components/member/Modify/Modify';
-import NoticeBasic from './components/Basic/NoticeBasic';
+
 
 
 const App = () => {
