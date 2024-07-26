@@ -45,37 +45,47 @@ const StudentRegister = () => {
     }
 
     // 폼 제출 핸들러
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8092/student/register', student)
-            .then(response => {
-                const sno = response.data;  // 응답에서 sno를 추출해야함
-                alert(`${sno} 번 학생이 성공적으로 등록되었습니다.`);
-                // alert(`${response.data.sno} 번 학생이 성공적으로 등록되었습니다.`); -> response.data.sno를 찾지 못함
-
-                if(profileImage) {
-                    const formData = new FormData();
-                    formData.append('profileImage', )
-                }
+        try {
+            const studentResponse = await axios.post('http://localhost:8092/student/register', student);
+            const sno = studentResponse.data;  // 응답에서 sno를 추출해야함
 
 
 
 
-                setStudent({
-                    s_name: "",
-                    s_birthday: "",
-                    s_email: "",
-                    s_phone: "",
-                    s_status: "",
-                    s_address1: "",
-                    s_address2: ""
+
+
+            if (profileImage) {
+                const formData = new FormData();
+                formData.append('file', profileImage);
+
+                await axios.post(`http://localhost:8092/student/uploadProfileImage/${sno}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
                 });
-                navigate('/student'); // 학생 추가 후 리스트 페이지 이동
-            })
-            .catch(error => {
-                console.error('학생 등록 중 오류가 발생했습니다: ', error);
-                alert('학생 등록 중 오류가 발생했습니다.');
+            }
+
+            alert(`${sno} 번 학생이 성공적으로 등록되었습니다.`);
+            // alert(`${response.data.sno} 번 학생이 성공적으로 등록되었습니다.`); -> response.data.sno를 찾지 못함
+
+            setStudent({
+                s_name: "",
+                s_birthday: "",
+                s_email: "",
+                s_phone: "",
+                s_status: "",
+                s_address1: "",
+                s_address2: ""
             });
+            setProfileImage(null);
+            navigate('/student'); // 학생 추가 후 리스트 페이지 이동
+        }
+        catch (error) {
+            console.error('학생 등록 중 오류가 발생했습니다: ', error);
+            alert('학생 등록 중 오류가 발생했습니다.');
+        };
     };
 
 

@@ -1,6 +1,5 @@
 package org.zerock.project_academy.student.service;
 
-import org.springframework.web.multipart.MultipartFile;
 import org.zerock.project_academy.student.dto.StudentDTO;
 
 import java.util.List;
@@ -17,4 +16,6 @@ public interface StudentService {
 
     List<StudentDTO> getAll();
 
+    // 프로필 이미지 URL 업데이트 메서드 추가
+    void updateProfileImage(Long sno, String imageUrl);
 }

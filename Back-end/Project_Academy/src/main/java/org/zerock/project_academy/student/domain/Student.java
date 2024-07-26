@@ -3,6 +3,7 @@ package org.zerock.project_academy.student.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
+import org.springframework.stereotype.Service;
 import org.zerock.project_academy.lecture.domain.LectureList;
 
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "lectureList_s")
