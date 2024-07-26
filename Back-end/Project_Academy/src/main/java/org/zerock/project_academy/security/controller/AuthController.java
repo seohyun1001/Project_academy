@@ -75,4 +75,19 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Invalid refresh token");
         }
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response) {
+        // 쿠키 삭제를 위한 설정
+        Cookie rememberMeCookie = new Cookie("remember-me", null);
+        rememberMeCookie.setPath("/");
+        rememberMeCookie.setHttpOnly(true);
+        rememberMeCookie.setMaxAge(0); // 쿠키 만료
+
+        response.addCookie(rememberMeCookie);
+
+        SecurityContextHolder.clearContext(); // 인증 정보 제거
+
+        return ResponseEntity.ok().body("Logged out successfully");
+    }
 }
