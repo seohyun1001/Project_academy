@@ -22,6 +22,7 @@ import NoticeDetailBasic from './components/Basic/notice/NoticeDetailBasic';
 
 import NoticeDetail from './components/notice/NoticeDetail';
 import NoticeModify from './components/notice/NoticeModify';
+import LectureBasic from './components/Basic/Lecture/LectureBasic';
 
 const App = () => {
     return (
@@ -52,6 +53,7 @@ const App = () => {
                 <Route path="/pay/edit/:pno" element={<PayEdit/>} />
 
                 <Route path='/lecture' element={<Lecture />}/>
+                <Route path='/lectureBasic' element={<LectureBasic />}/>
                 
                 {/* 다른 라우트들도 추가할 수 있습니다 */}
 

@@ -51,6 +51,13 @@
   margin-bottom: 30px;
 }
 
+.profile_card2{
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-bottom: 30px;
+  padding: 30px;
+}
+
 .main_info {
   margin-top: 30px;
   margin-bottom: 30px;
@@ -58,6 +65,19 @@
 
 .info_list {
   margin-left: 20px;
+  padding-top: 20px;
+  font-size: 18px;
+}
+
+.lecture_main_info {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  justify-content: space-around;
+}
+
+.lecture_info_list {
+  margin-left: 20px;
+  margin-right: 20px;
   padding-top: 20px;
   font-size: 18px;
 }
@@ -81,6 +101,7 @@ h4 {
 
 .info_detail {
   width: 150px;
+  font-weight: bold;
 }
 
 tr {
