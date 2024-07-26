@@ -6,8 +6,6 @@ import MainInfo from './components/Basic/MainInfo';
 import RelatedClasses from './components/Basic/RelatedClasses';
 import Counseling from './components/Basic/Counseling';
 import Footer from './components/Basic/Footer';
-import Read from './components/member/Read/Read';
-import Modify from './components/member/Modify/Modify';
 import List from './components/member/List/List';
 import Register from './components/member/memberRegister/MemberRegister';
 import Login from './components/member/memberLogin/MemberLogin';
@@ -18,16 +16,18 @@ import Noticelist from './components/notice/NoticeList';
 import NoticeRegister from './components/notice/NoticeRegister';
 import CounselingRegister from './components/counseling/counselingRegister/CounselingRegister';
 import Basic from './components/Basic/Basic';
+import Member from './components/member/Member';
 import NoticeBasic from './components/Basic/NoticeBasic';
 
 
 const App = () => {
     return (
         <Router>
-            
-
             <Routes>
                 <Route path='/basic' element={<Basic />}/>
+                <Route path="/member" element={<Member />} />
+                <Route path="/Member/Register" element={<Register />} />
+                <Route path="/Member/Login" element={<Login />} />
                 <Route path='/noticeBasic' element={<NoticeBasic />}/>
 
                 <Route path="/read/:mno" element={<Read />} />

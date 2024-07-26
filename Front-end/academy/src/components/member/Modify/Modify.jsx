@@ -1,36 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const Modify = () => {
-    const { mno } = useParams();
-    const [member, setMember] = useState({
-        m_name: '',
-        m_email: '',
-        m_phone: '',
-        m_address1: '',
-        m_address2: ''
-    });
-
+const Modify = ({ member, onSave, onMemberDeleted }) => {
+    const [updateMember, setUpdatedMember] = useState({ ...member });
     const [file, setFile] = useState(null);
-    const navigate = useNavigate ();
+    const [preview, setPreview] = useState(updateMember.m_picture || null);
+    const fileInputRef = useRef(null);
+    const navigate = useNavigate();
 
+    // 파일 변경 시 미리보기 설정
     useEffect(() => {
-        const fetchMember = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8092/member/read/${mno}`);
-                setMember(response.data);
-            } catch (error) {
-                console.error('회원 정보를 가져오는 중 오류가 발생했습니다.', error);
-            }
-        };
-
-        fetchMember();
-    }, [mno]);
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    }, [file]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setMember(prevState => ({
+        setUpdatedMember(prevState => ({
             ...prevState,
             [name]: value
         }));
@@ -40,25 +32,29 @@ const Modify = () => {
         setFile(e.target.files[0]);
     };
 
+    const handleFileClick = () => {
+        fileInputRef.current.click();
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('m_name',member.m_name);
-        formData.append('m_email',member.m_email);
-        formData.append('m_phone',member.m_phone);
-        formData.append('m_address1',member.m_address1);
-        formData.append('m_address2',member.m_address2);
+        formData.append('m_name', updateMember.m_name);
+        formData.append('m_email', updateMember.m_email);
+        formData.append('m_phone', updateMember.m_phone);
+        formData.append('m_address1', updateMember.m_address1);
+        formData.append('m_address2', updateMember.m_address2);
         if (file) {
             formData.append('file', file);
         }
 
         try {
-            await axios.put(`http://localhost:8092/member/modify/${mno}`, formData, {
+            await axios.put(`http://localhost:8092/member/modify/${updateMember.mno}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            navigate(`/read/${mno}`);
+            onSave(); // 수정 완료 후 콜백 호출
         } catch (error) {
             console.error('회원 정보를 업데이트하는 중 오류가 발생했습니다.', error);
         }
@@ -67,46 +63,77 @@ const Modify = () => {
     const handleDelete = async () => {
         if (window.confirm('정말로 삭제하시겠습니까?')) {
             try {
-                await axios.delete(`http://localhost:8092/member/delete/${mno}`);
-                navigate('/list'); // 삭제 후 강사 리스트 페이지로 이동
+                await axios.delete(`http://localhost:8092/member/delete/${updateMember.mno}`);
+                onMemberDeleted(); // 삭제 후 콜백 호출
+                navigate('/member'); // 삭제 후 강사 목록 페이지로 이동
             } catch (error) {
                 console.error('회원 정보를 삭제하는 중 오류가 발생했습니다.', error);
             }
         }
     };
 
+    const handleCancel = () => {
+        onSave(); // 수정 모드 해제
+    };
+
+
     return (
-        <div>
-            <h2>회원 정보 수정</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>이름:</label>
-                    <input type="text" name="m_name" value={member.m_name} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>이메일:</label>
-                    <input type="email" name="m_email" value={member.m_email} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>전화번호:</label>
-                    <input type="text" name="m_phone" value={member.m_phone} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>주소1:</label>
-                    <input type="text" name="m_address1" value={member.m_address1} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>주소2:</label>
-                    <input type="text" name="m_address2" value={member.m_address2} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>프로필 사진:</label>
-                    <input type="file" onChange={handleFileChange} />
-                </div>
-                <button type="submit">저장</button>
-                <button type="button" onClick={handleDelete}>삭제</button>
-            </form>
-        </div>
+        <div class="card profile_card">
+            <div class="d-flex flex-wrap main_info">
+                <form onSubmit={handleSubmit}>
+                    <div class="d-flex flex-column info_list">
+                        {/* 프로필 사진을 첨부할 빈 공간 */}
+                        <div onClick={handleFileClick}>
+                        {preview ? (
+                            <img
+                                className="img-thumbnail picture float-start"
+                                src={preview}
+                                alt="미리보기"
+                                style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+                            />
+                        ) : (
+                            <div style={{ width: '150px', height: '150px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <span>프로필 사진 추가</span>
+                            </div>
+                        )}
+                        </div>
+                        <input
+                            type="file"
+                            ref={fileInputRef}
+                            onChange={handleFileChange}
+                            style={{ display: 'none' }} // 파일 입력 버튼 숨기기
+                        />
+
+
+                        <div class="input-group">
+                            <label for="" class="form-label info_detail">이름</label>
+                            <input type="text" name="m_name" value={updateMember.m_name} onChange={handleChange} />
+                        </div>
+                        <div class="input-group">
+                            <label for="" class="form-label info_detail">이메일</label>
+                            <input type="email" name="m_email" value={updateMember.m_email} onChange={handleChange} />
+                        </div>
+                        <div class="input-group">
+                            <label for="" class="form-label info_detail">전화번호</label>
+                            <input type="text" name="m_phone" value={updateMember.m_phone} onChange={handleChange} />
+                        </div>
+                        <div class="input-group">
+                            <label for="" class="form-label info_detail">주소1</label>
+                            <input type="text" name="m_address1" value={updateMember.m_address1} onChange={handleChange} />
+                        </div>
+                        <div class="input-group">
+                            <label for="" class="form-label info_detail">주소2</label>
+                            <input type="text" name="m_address2" value={updateMember.m_address2} onChange={handleChange} />
+                        </div>
+                        <button type="button" onClick={handleCancel}>취소</button>
+                        <button type="submit">저장</button>
+                        <button type="button" onClick={handleDelete}>삭제</button>
+
+                    </div>
+                </form>
+
+            </div>
+        </div >
     );
 };
 
