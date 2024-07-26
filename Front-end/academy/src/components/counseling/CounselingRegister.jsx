@@ -57,9 +57,10 @@ const CounselingRegister = () => {
         e.preventDefault();
         try {
             const response = await axios.post('/counseling', counseling);
-            if (response.status === 201) {
+            console.log(response); // 응답 확인용 로그
+            if (response.status === 200) {
                 alert('등록 성공');
-                navigate('/'); // 등록 성공 후 메인 페이지로 이동
+                navigate('/counseling/list'); // 등록 성공 후 메인 페이지로 이동
             } else {
                 alert('상담 등록 중 오류가 발생했습니다.');
             }
