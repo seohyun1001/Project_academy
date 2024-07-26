@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.zerock.project_academy.notice.domain.NoticeResource;
 
 public interface NoticeResourceRepository extends JpaRepository<NoticeResource, Long> {
-//    @Query("select ")
+    @Query("DELETE FROM NoticeResource n WHERE n.notice.nno = :nno")
+    public void deleteByNno(Long nno);
 }

@@ -20,8 +20,8 @@ import NoticeBasic from './components/Basic/notice/NoticeBasic';
 import Lecture from './components/Lecture/Lecture';
 import NoticeDetailBasic from './components/Basic/notice/NoticeDetailBasic';
 
-
-
+import NoticeDetail from './components/notice/NoticeDetail';
+import NoticeModify from './components/notice/NoticeModify';
 
 const App = () => {
     return (
@@ -34,13 +34,15 @@ const App = () => {
                 <Route path="/Member/Register" element={<Register />} />
                 <Route path="/Member/Login" element={<Login />} />
                 <Route path="/member" element={<Member />} />
-
+                
                 <Route path="/student" element={<StudentList />} />
                 <Route path="/student/register" element={<StudentRegister />} />
                 <Route path="/student/edit/:sno" element={<StudentEdit />} />
 
                 <Route path="/Noticelist" element={<Noticelist />} />
                 <Route path="/NoticeRegister" element={<NoticeRegister />} />
+                <Route path="/Notice/:nno" element={<NoticeDetail />} />
+                <Route path="/Notice/modify/:nno" element={<NoticeModify/>}/>
 
                 <Route path="/counseling/register" element={<CounselingRegister />} />
                 <Route path="/counseling/list" element={<CounselingList />} />
@@ -50,6 +52,7 @@ const App = () => {
                 <Route path="/pay/edit/:pno" element={<PayEdit/>} />
 
                 <Route path='/lecture' element={<Lecture />}/>
+                
                 {/* 다른 라우트들도 추가할 수 있습니다 */}
 
             </Routes>
