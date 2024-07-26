@@ -4,7 +4,7 @@ const NoticeListSample = () => {
     return (
         <>
             <div class="container notice_con">
-                <h2 class="notice_title">공지사항</h2>
+                <h2 class="notice">공지사항</h2>
                 <table class="table table-hover">
                     <thead>
                         <tr>

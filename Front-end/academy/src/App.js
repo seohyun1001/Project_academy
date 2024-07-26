@@ -16,8 +16,9 @@ import PayList from './components/pay/PayList';
 import PayEdit from './components/pay/PayEdit';
 import Basic from './components/Basic/Basic';
 import Member from './components/member/Member';
-import NoticeBasic from './components/Basic/NoticeBasic';
+import NoticeBasic from './components/Basic/notice/NoticeBasic';
 import Lecture from './components/Lecture/Lecture';
+import NoticeDetailBasic from './components/Basic/notice/NoticeDetailBasic';
 
 
 
@@ -28,6 +29,7 @@ const App = () => {
             <Routes>
                 <Route path='/basic' element={<Basic />} />
                 <Route path='/noticeBasic' element={<NoticeBasic />} />
+                <Route path='/noticeDetail' element={<NoticeDetailBasic />} />
 
                 <Route path="/Member/Register" element={<Register />} />
                 <Route path="/Member/Login" element={<Login />} />

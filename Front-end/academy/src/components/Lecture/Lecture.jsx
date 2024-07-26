@@ -15,8 +15,6 @@ const Lecture = () => {
                     <LectureList />
                     <div class="col">
                         <MainInfo />
-                        <RelatedClasses />
-                        <Counseling />
                     </div>
                 </div>
             </div>
