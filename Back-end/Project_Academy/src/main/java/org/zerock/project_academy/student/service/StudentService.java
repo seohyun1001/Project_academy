@@ -15,4 +15,7 @@ public interface StudentService {
     void remove(Long sno);
 
     List<StudentDTO> getAll();
+
+    // 프로필 이미지 URL 업데이트 메서드 추가
+    void updateProfileImage(Long sno, String imageUrl);
 }
