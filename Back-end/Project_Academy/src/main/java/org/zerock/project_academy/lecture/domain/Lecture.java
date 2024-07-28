@@ -3,11 +3,13 @@ package org.zerock.project_academy.lecture.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString //(exclude = "lectureList_l")
+@ToString
 @Builder
 public class Lecture extends BaseEntity {
     @Id
@@ -16,6 +18,9 @@ public class Lecture extends BaseEntity {
     private String l_name;
     private String l_category;
     private String l_classroom;
+
+    private LocalDate l_start;
+    private LocalDate l_end;
 
 //    @OneToMany(mappedBy = "lecture",
 //                cascade = {CascadeType.ALL},

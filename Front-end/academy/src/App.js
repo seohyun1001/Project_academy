@@ -23,6 +23,7 @@ import NoticeDetailBasic from './components/Basic/notice/NoticeDetailBasic';
 import NoticeDetail from './components/notice/NoticeDetail';
 import NoticeModify from './components/notice/NoticeModify';
 import LectureBasic from './components/Basic/Lecture/LectureBasic';
+import RegisterModal from './components/Basic/student/registerModal';
 
 const App = () => {
     return (
@@ -31,6 +32,7 @@ const App = () => {
                 <Route path='/basic' element={<Basic />} />
                 <Route path='/noticeBasic' element={<NoticeBasic />} />
                 <Route path='/noticeDetail' element={<NoticeDetailBasic />} />
+                <Route path='/registerModal' element={<RegisterModal />} />
 
                 <Route path="/Member/Register" element={<Register />} />
                 <Route path="/Member/Login" element={<Login />} />

@@ -16,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/lecture")
 @Log4j2
+@CrossOrigin(origins = "http://localhost:3000")
 public class LectureController {
 
     private final LectureService lectureService;

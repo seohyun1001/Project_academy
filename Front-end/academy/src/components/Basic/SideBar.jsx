@@ -10,7 +10,7 @@ const SideBar = () => {
                     {/* 검색 + 추가 */}
                     <div class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button class="btn btn-outline-dark" type="submit">추가</button>
+                        <button class="btn btn-outline-dark registerBtn" type="submit">추가</button>
                     </div>
                     {/* 검색 + 추가 */}
 
