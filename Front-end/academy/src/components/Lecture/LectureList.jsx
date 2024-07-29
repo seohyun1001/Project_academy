@@ -41,6 +41,10 @@ const LectureList = () => {
         }
     };
 
+    const handleModificationComplete = () => { // Added handleModificationComplete function
+        fetchLectures(); // Refetch lectures list
+    };
+
     return (
         <>
             <div class="row  text-center ">
@@ -74,8 +78,17 @@ const LectureList = () => {
             </div>
 
             <div class="col">
-                {!showRegister && selectedLectureId && <LectureInfo lectureId={selectedLectureId} />}
-                {showRegister && <LectureInfoRegister />}  {/* Register 컴포넌트를 표시 */}
+                {!showRegister && selectedLectureId && (
+                    <LectureInfo
+                        lectureId={selectedLectureId}
+                        onModificationComplete={handleModificationComplete}
+                    />
+                )}
+                {showRegister && (
+                    <LectureInfoRegister
+                        onRegisterComplete={handleModificationComplete}
+                    />
+                )}
             </div>
         </>
     )

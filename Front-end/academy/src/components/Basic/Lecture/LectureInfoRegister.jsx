@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const LectureInfoRegister = () => {
+const LectureInfoRegister = ({onRegisterComplete }) => {
 
   const [lecture, setLecture] = useState({
     lno: "",
@@ -26,6 +26,7 @@ const LectureInfoRegister = () => {
       const response = await axios.post("/lecture", lecture);
       console.log(response.data);
       alert('강의가 등록되었습니다.')
+      onRegisterComplete();
       // ************************* 상세보기로 가는 코드 추가해야 함
     } catch (error) {
       console.error("There was an error registering the lecture!", error);

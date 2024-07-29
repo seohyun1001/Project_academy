@@ -3,7 +3,7 @@ import axios from "axios";
 import LectureProfile from "./LectureProfile";
 import LectureModify from "./LectureModify";
 
-const LectureInfo = ({ lectureId }) => {
+const LectureInfo = ({ lectureId, onModificationComplete  }) => {
 
   const [lecture, setLecture] = useState({
     lno: "",
@@ -20,21 +20,26 @@ const LectureInfo = ({ lectureId }) => {
 
   const [isModifying, setIsModifying] = useState(false);
 
-  useEffect(() => {
+  const fetchLecture = async () => {
     if (lectureId) {
-      const fetchLecture = async () => {
-        try {
-          const response = await axios.get(`/lecture/read`, { params: { lno: lectureId } });
-          setLecture(response.data);
-        } catch (error) {
-          console.error("Error fetching the lecture:", error);
-          window.alert("Lecture not found with id " + lectureId);
-        }
-      };
-
-      fetchLecture();
+      try {
+        const response = await axios.get(`/lecture/read`, { params: { lno: lectureId } });
+        setLecture(response.data);
+      } catch (error) {
+        console.error("Error fetching the lecture:", error);
+        window.alert("Lecture not found with id " + lectureId);
+      }
     }
+  };
+
+  useEffect(() => {
+    fetchLecture();
   }, [lectureId]);
+
+  const handleModificationComplete = () => {
+    fetchLecture();
+    onModificationComplete();
+  };
 
   if (!lectureId) {
     return null;
@@ -43,7 +48,11 @@ const LectureInfo = ({ lectureId }) => {
   return (
     <>
       {isModifying ? (
-        <LectureModify lectureId={lectureId} setIsModifying={setIsModifying} />
+        <LectureModify 
+        lectureId={lectureId} 
+        setIsModifying={setIsModifying} 
+        onModificationComplete={handleModificationComplete} 
+      />
       ) : (
         <>
           <div class="card profile_card">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const LectureModify = ({ lectureId, setIsModifying }) => {
+const LectureModify = ({ lectureId, setIsModifying, onModificationComplete  }) => {
   const [lecture, setLecture] = useState({
     lno: "",
     l_name: "",
@@ -54,6 +54,7 @@ const LectureModify = ({ lectureId, setIsModifying }) => {
         await axios.post(`/lecture/modify`, lectureDTO);
         window.alert("강의가 수정되었습니다.");
         setIsModifying(false);
+        onModificationComplete();
       } catch (error) {
         console.error("Error updating the lecture:", error);
         window.alert("Failed to update lecture.");
