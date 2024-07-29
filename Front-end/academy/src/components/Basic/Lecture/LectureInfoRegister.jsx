@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const LectureInfoRegister = ({onRegisterComplete }) => {
+const LectureInfoRegister = ({onRegisterComplete, setShowRegister }) => {
 
   const [lecture, setLecture] = useState({
     lno: "",
@@ -9,14 +9,39 @@ const LectureInfoRegister = ({onRegisterComplete }) => {
     l_category: "",
     l_classroom: "",
     l_start: "",
-    l_end: ""
+    l_end: "",
+    mno:""
   });
+
+  const [members, setMembers] = useState([]); // 강사 목록 상태 추가
+
+  useEffect(() => {
+    const fetchMembers = async () => { // 강사 목록 불러오기 함수
+      try {
+        const response = await axios.get('/member/list');
+        setMembers(response.data);
+      } catch (error) {
+        console.error("Error fetching members:", error);
+        alert("Failed to fetch members.");
+      }
+    };
+
+    fetchMembers(); // 컴포넌트가 마운트될 때 강사 목록 불러오기
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLecture({
       ...lecture,
       [name]: value
+    });
+  };
+
+  const handleMemberChange = (e) => { // 강사 사번 변경 핸들러
+    const memberId = e.target.value;
+    setLecture({
+      ...lecture,
+      mno: memberId
     });
   };
 
@@ -27,6 +52,7 @@ const LectureInfoRegister = ({onRegisterComplete }) => {
       console.log(response.data);
       alert('강의가 등록되었습니다.')
       onRegisterComplete();
+      setShowRegister(false);
       // ************************* 상세보기로 가는 코드 추가해야 함
     } catch (error) {
       console.error("There was an error registering the lecture!", error);
@@ -67,9 +93,16 @@ const LectureInfoRegister = ({onRegisterComplete }) => {
           </div>
 
           <div class="input-group">
-            <label for="" class="form-label info_detail">강사 사번</label>
-            <input type="text" name="mno" value={lecture.mno} onChange={handleChange} />
-          </div>
+              <label for="" class="form-label info_detail">강사 사번</label>
+              <select name="mno" value={lecture.mno} onChange={handleMemberChange}>
+                <option value="">Select Instructor</option>
+                {members.map((member) => (
+                  <option key={member.mno} value={member.mno}>
+                    {member.mno} - {member.m_name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
           <div class="input-group">
             <label for="" class="form-label info_detail">담당 강사</label>

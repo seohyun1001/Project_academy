@@ -114,6 +114,7 @@ const LectureList = () => {
                 {showRegister && (
                     <LectureInfoRegister
                         onRegisterComplete={handleModificationComplete}
+                        setShowRegister={setShowRegister}
                     />
                 )}
             </div>
