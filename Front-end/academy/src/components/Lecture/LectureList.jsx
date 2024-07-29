@@ -52,7 +52,7 @@ const LectureList = () => {
                     <div
                         class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button class="btn btn-outline-dark" type="button" onClick={handleRegisterClick}>등록</button>
+                        <button class="btn btn-outline-dark l_register_btn" type="button" onClick={handleRegisterClick}>등록</button>
                     </div>
                     <div class="list-group list-group-flush border-bottom scrollarea scrollBar">
 

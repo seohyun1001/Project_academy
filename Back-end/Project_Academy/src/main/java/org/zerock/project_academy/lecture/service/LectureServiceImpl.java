@@ -10,6 +10,8 @@ import org.zerock.project_academy.lecture.dto.LectureDTO;
 import org.zerock.project_academy.lecture.dto.PageRequestDTO;
 import org.zerock.project_academy.lecture.dto.PageResponseDTO;
 import org.zerock.project_academy.lecture.repository.LectureRepository;
+import org.zerock.project_academy.member.domain.Member;
+import org.zerock.project_academy.member.repository.MemberRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -23,6 +25,7 @@ public class  LectureServiceImpl implements LectureService {
 
     private final ModelMapper modelMapper;
     private final LectureRepository lectureRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public Lecture registerLecture(Lecture lecture) {
@@ -68,6 +71,14 @@ public class  LectureServiceImpl implements LectureService {
                 lectureDTO.getL_category(),
                 lectureDTO.getL_classroom()
                 );
+
+//         추가된 부분: member_l 필드 업데이트
+        Optional<Member> memberResult = memberRepository.findById(lectureDTO.getMno());
+        if (!memberResult.isPresent()) {
+            log.error("Member not found with ID: {}", lectureDTO.getMno());
+            throw new NoSuchElementException("Member not found with ID: " + lectureDTO.getMno());
+        }
+        lecture.setMember_l(memberResult.get());
 
         Lecture savedLecture = lectureRepository.save(lecture);
         log.info("Lecture modified and saved: {}", savedLecture);

@@ -101,10 +101,10 @@ const LectureInfo = ({ lectureId, onModificationComplete  }) => {
                   <label for="" class="form-label info_detail">종료일</label>
                   <p>{lecture.l_end}</p>
                 </div>
-              </div>
+              </div><button onClick={() => setIsModifying(true)}>Modify</button>
             </div>
           </div>
-          <button onClick={() => setIsModifying(true)}>Modify</button>
+          
 
           <LectureProfile />
         </>

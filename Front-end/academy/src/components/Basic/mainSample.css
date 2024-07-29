@@ -187,3 +187,7 @@ td {
 .noticeModifyBtn {
   margin-right: 10px;
 }
+
+.l_register_btn{
+  white-space: nowrap;
+}
