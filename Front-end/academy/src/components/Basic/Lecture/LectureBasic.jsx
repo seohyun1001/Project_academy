@@ -16,11 +16,7 @@ const LectureBasic = () => {
             <Header />
             <div class="container">
                 <div class="d-flex flex-wrap">
-                    <LectureList />
-                    <div class="col">
-                        
-                        <LectureProfile />
-                    </div>
+                    <LectureList />                    
                 </div>
             </div>
             <Footer />

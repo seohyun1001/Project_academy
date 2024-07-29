@@ -61,7 +61,7 @@ const LectureInfoRegister = () => {
 
         <div class="d-flex flex-column lecture_info_list">
           <div class="input-group">
-            <label for="" class="form-label info_detail">담당 강사 </label>
+            <label for="" class="form-label info_detail">강의 분류</label>
             <input type="text" name="l_category" value={lecture.l_category} onChange={handleChange} />
           </div>
 
@@ -70,10 +70,10 @@ const LectureInfoRegister = () => {
             <input type="text" name="mno" value={lecture.mno} onChange={handleChange} />
           </div>
 
-          {/* <div class="input-group">
-            <label for="" class="form-label info_detail">현재 인원</label>
-            <input type="text" name="l_name" value={lecture.l_name} onChange={handleChange} />
-          </div> */}
+          <div class="input-group">
+            <label for="" class="form-label info_detail">담당 강사</label>
+            <p type="text" name="mno" value={lecture.mno} onChange={handleChange}></p>
+          </div>
 
           <div class="input-group">
             <label for="" class="form-label info_detail">종료일</label>

@@ -20,4 +20,6 @@ public class LectureDTO {
 
     private LocalDate l_start;
     private LocalDate l_end;
+
+    private String mno;
 }

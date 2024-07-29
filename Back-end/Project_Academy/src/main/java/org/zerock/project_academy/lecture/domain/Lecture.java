@@ -2,6 +2,7 @@ package org.zerock.project_academy.lecture.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.zerock.project_academy.member.domain.Member;
 
 import java.time.LocalDate;
 
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = {"member_l"})
 @Builder
 public class Lecture extends BaseEntity {
     @Id
@@ -21,6 +22,14 @@ public class Lecture extends BaseEntity {
 
     private LocalDate l_start;
     private LocalDate l_end;
+
+    @ManyToOne
+    @JoinColumn(name = "mno", referencedColumnName = "mno")
+    private Member member_l;
+
+//    @ManyToOne
+//    @JoinColumn(name = "mno", referencedColumnName = "mno")
+//    private Member member;
 
 //    @OneToMany(mappedBy = "lecture",
 //                cascade = {CascadeType.ALL},
