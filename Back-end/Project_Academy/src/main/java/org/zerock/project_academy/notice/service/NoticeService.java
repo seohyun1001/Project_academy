@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface NoticeService {
     List<NoticeListDTO> findAllNotice();
     NoticeDTO addNotice(NoticeDTO noticeDTO);
-    Optional<Notice> findOneNoticeById(Long nno);
+    NoticeListDTO findOneNoticeById(Long nno);
     void deleteNotice(Long nno);
     Notice modifyNotice(NoticeDTO noticeDTO);
 }

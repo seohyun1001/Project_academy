@@ -6,11 +6,12 @@ import org.zerock.project_academy.lecture.domain.Lecture;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"student_p", "lecture_p"})
 @Builder
-public class Pay extends BaseEntity{
+public class Pay extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pno;

@@ -1,14 +1,13 @@
-/* 전체적인 컨테이너 스타일 */
+/* 
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #87CEEB; /* 하늘색 배경 */
-    font-family: 'Arial', sans-serif; /* 깔끔하고 전문적인 폰트 */
+    background-color: #87CEEB;
+    font-family: 'Arial', sans-serif;
 }
 
-/* 폼을 위한 카드 스타일 */
 .card {
     background: white;
     padding: 20px 40px;
@@ -18,14 +17,14 @@
     width: 100%;
 }
 
-/* 제목 스타일 */
+
 h2 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
 }
 
-/* 입력 필드 스타일 */
+
 input[type="text"], input[type="password"] {
     width: 100%;
     padding: 10px;
@@ -35,7 +34,7 @@ input[type="text"], input[type="password"] {
     box-sizing: border-box;
 }
 
-/* 버튼 스타일 */
+
 button {
     width: 100%;
     background-color: #007BFF;
@@ -51,7 +50,7 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* 체크박스와 레이블 스타일 */
+
 .checkbox-container {
     display: flex;
     align-items: center;
@@ -60,4 +59,4 @@ button:hover {
 
 .checkbox-container input {
     margin-right: 10px;
-}
+} */
