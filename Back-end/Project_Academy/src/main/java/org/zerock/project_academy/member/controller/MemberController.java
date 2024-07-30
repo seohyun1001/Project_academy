@@ -49,8 +49,10 @@ public class MemberController {
             ObjectMapper objectMapper = new ObjectMapper();
 
             // 파일 저장 로직
-            String filePath = saveProfilePicture(file);
-            memberDetails.setM_picture(filePath);
+            if (file != null) {
+                String filePath = saveProfilePicture(file);
+                memberDetails.setM_picture(filePath);
+            }
 
             Member updatedMember = memberService.modifyMember(mno, memberDetails);
             if (updatedMember != null) {

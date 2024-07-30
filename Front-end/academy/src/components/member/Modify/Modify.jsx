@@ -17,7 +17,7 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
                 setPreview(reader.result);
             };
             reader.readAsDataURL(file);
-        }else {
+        } else {
             setPreview(updateMember.m_picture);
         }
     }, [file, updateMember.m_picture]);
@@ -46,16 +46,23 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
         formData.append('m_phone', updateMember.m_phone);
         formData.append('m_address1', updateMember.m_address1);
         formData.append('m_address2', updateMember.m_address2);
+        formData.append('m_picture', updateMember.m_picture);
+
         if (file) {
             formData.append('file', file);
         }
 
+         // 폼 데이터 디버깅 출력
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
         try {
-            await axios.put(`http://localhost:8092/member/modify/${updateMember.mno}`, formData, {
+            const response = await axios.put(`http://localhost:8092/member/modify/${updateMember.mno}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
+            console.log('응답:', response);
             onSave(); // 수정 완료 후 콜백 호출
         } catch (error) {
             console.error('강사 정보를 업데이트하는 중 오류가 발생했습니다.', error);
@@ -78,10 +85,9 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
         onSave(); // 수정 모드 해제
     };
 
-
     return (
-        <div class="card profile_card">
-            <div class="d-flex flex-wrap main_info">
+        <div className="card profile_card">
+            <div className="d-flex flex-wrap main_info">
                 <form onSubmit={handleSubmit}>
                     {/* 프로필 사진을 첨부할 빈 공간 */}
                     <div onClick={handleFileClick}>
@@ -97,36 +103,34 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
                         onChange={handleFileChange}
                         style={{ display: 'none' }} // 파일 입력 버튼 숨기기
                     />
-                    <div class="d-flex flex-column info_list">
-                        <div class="input-group">
-                            <label for="" class="form-label info_detail">이름</label>
+                    <div className="d-flex flex-column info_list">
+                        <div className="input-group">
+                            <label className="form-label info_detail">이름</label>
                             <input type="text" name="m_name" value={updateMember.m_name} onChange={handleChange} />
                         </div>
-                        <div class="input-group">
-                            <label for="" class="form-label info_detail">이메일</label>
+                        <div className="input-group">
+                            <label className="form-label info_detail">이메일</label>
                             <input type="email" name="m_email" value={updateMember.m_email} onChange={handleChange} />
                         </div>
-                        <div class="input-group">
-                            <label for="" class="form-label info_detail">전화번호</label>
+                        <div className="input-group">
+                            <label className="form-label info_detail">전화번호</label>
                             <input type="text" name="m_phone" value={updateMember.m_phone} onChange={handleChange} />
                         </div>
-                        <div class="input-group">
-                            <label for="" class="form-label info_detail">주소1</label>
+                        <div className="input-group">
+                            <label className="form-label info_detail">주소1</label>
                             <input type="text" name="m_address1" value={updateMember.m_address1} onChange={handleChange} />
                         </div>
-                        <div class="input-group">
-                            <label for="" class="form-label info_detail">주소2</label>
+                        <div className="input-group">
+                            <label className="form-label info_detail">주소2</label>
                             <input type="text" name="m_address2" value={updateMember.m_address2} onChange={handleChange} />
                         </div>
                         <button type="button" onClick={handleCancel}>취소</button>
                         <button type="submit">저장</button>
                         <button type="button" onClick={handleDelete}>삭제</button>
-
                     </div>
                 </form>
-
             </div>
-        </div >
+        </div>
     );
 };
 
