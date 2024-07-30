@@ -26,15 +26,14 @@ import java.util.stream.Collectors;
 @Transactional
 public class ReferenceServiceImpl implements ReferenceService {
     private final ReferenceRepository referenceRepository;
-    private final ReferenceService referenceService;
     private final ModelMapper modelMapper;
     private final ReferenceResourceRepository referenceResourceRepository;
     private final MemberRepository memberRepository;
 
     @Override
-    public List<ReferenceDTO> findAllReferences() {
+    public List<ReferenceListDTO> findAllReferences() {
         List<Reference> referenceList = referenceRepository.findAll();
-        List<ReferenceDTO> referenceDTOList = referenceList.stream().map(reference -> modelMapper.map(reference, ReferenceDTO.class)).collect(Collectors.toList());
+        List<ReferenceListDTO> referenceDTOList = referenceList.stream().map(reference -> modelMapper.map(reference, ReferenceListDTO.class)).collect(Collectors.toList());
         return referenceDTOList;
     }
 

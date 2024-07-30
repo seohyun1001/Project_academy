@@ -12,6 +12,9 @@ import Noticelist from './components/notice/NoticeList';
 import NoticeRegister from './components/notice/NoticeRegister';
 import NoticeDetail from './components/notice/NoticeDetail';
 import NoticeModify from './components/notice/NoticeModify';
+import Referencelist from './components/reference/ReferenceList';
+import ReferenceRegister from './components/reference/ReferenceRegister';
+import ReferenceDetail from './components/reference/ReferenceDetail';
 
 const App = () => {
     return (
@@ -27,7 +30,10 @@ const App = () => {
                 <Route path="/student/register" element={<StudentRegister />} />
                 <Route path="/student/edit/:sno" element={<StudentEdit />} />
                 <Route path="/Noticelist" element={<Noticelist/>}/>
+                <Route path="/ReferenceList" element={<Referencelist/>}/>
                 <Route path="/NoticeRegister" element={<NoticeRegister/>}/>
+                <Route path="/Reference/:rno" element={<ReferenceDetail />} />
+                <Route path="/ReferenceRegister" element={<ReferenceRegister/>}/>
                 <Route path="/Notice/:nno" element={<NoticeDetail />} />
                 <Route path="/Notice/modify/:nno" element={<NoticeModify/>}/>
                 {/* 다른 라우트들도 추가할 수 있습니다 */}

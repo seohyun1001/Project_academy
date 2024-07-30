@@ -31,11 +31,11 @@ public class ReferenceController {
     private ReferenceDTO referenceDTO;
 
     @GetMapping("/list")
-    public List<ReferenceDTO> getReferenceList() {
+    public List<ReferenceListDTO> getReferenceList() {
         return referenceService.findAllReferences();
     }
     @PostMapping(value = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Object> addReference(@RequestBody ReferenceDTO referenceDTO) {
+    public ResponseEntity<Object> addReference(ReferenceDTO referenceDTO) {
         List<ReferenceResourceDTO> resourceDTOList = new ArrayList<ReferenceResourceDTO>();
         ReferenceDTO savedReference = referenceService.addReference(referenceDTO);
         if(referenceDTO.getFiles() != null){
@@ -64,7 +64,7 @@ public class ReferenceController {
     @GetMapping("/read")
     public ResponseEntity<Object> getReference(@RequestParam Long rno){
         ReferenceListDTO oneReference = referenceService.findOneReferenceById(rno);
-        if(oneReference != null && oneReference.getRno() !=null){
+        if(oneReference != null && oneReference.getRno() != null){
             return new ResponseEntity<>(oneReference, HttpStatus.OK);
         }else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Reference not found with id " + rno);
@@ -76,7 +76,7 @@ public class ReferenceController {
         referenceService.deleteReference(rno);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @PutMapping("/{rno")
+    @PutMapping("/{rno}")
     public ResponseEntity<Object> modifyReference(ReferenceDTO referenceDTO){
         try {
             int ord = 0;

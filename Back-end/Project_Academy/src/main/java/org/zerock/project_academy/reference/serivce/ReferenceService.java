@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public interface ReferenceService {
-    List<ReferenceDTO> findAllReferences();
+    List<ReferenceListDTO> findAllReferences();
     ReferenceDTO addReference(ReferenceDTO referenceDTO);
     ReferenceListDTO findOneReferenceById(Long rno);
     void deleteReference(Long rno);

@@ -14,15 +14,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReferenceDTO {
-    @NotNull
     private Long rno;
     private String writer;
     private String r_title;
     private String r_content;
     private String r_image;
-    private LocalDateTime modDate;
-    private LocalDateTime regDate;
     private List<ReferenceResourceDTO> reference_resource;
     private List<MultipartFile> files;
-
+    private LocalDateTime modDate;
+    private LocalDateTime regDate;
 }
