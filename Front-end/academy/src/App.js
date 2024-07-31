@@ -29,7 +29,6 @@ const App = () => {
         <AuthProvider>
             <Router>
                 <Routes>
-                    
                     <Route path="/basic" element={<PrivateRoute><Basic /></PrivateRoute>} />
                     <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
                     <Route path="/member/login" element={<Login />} />
