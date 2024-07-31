@@ -23,10 +23,10 @@ public class RegisterLectureTest {
     public void testRegisterLecture() {
         // 테스트에 사용할 LectureDTO 생성
         LectureDTO lectureDTO = LectureDTO.builder()
-                .lno("L003")
+                .lno("L002")
                 .l_name("JAVA")
                 .l_category("Programming")
-                .l_classroom("Room 103")
+                .l_classroom("Room 102")
                 .build();
 
         // LectureDTO를 Lecture 엔티티로 변환

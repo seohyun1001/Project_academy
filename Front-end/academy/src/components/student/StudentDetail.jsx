@@ -158,6 +158,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './StudentDetail.css';
+import RelatedClasses from '../Basic/RelatedClasses';
+import Counseling from '../Basic/Counseling';
 
 const StudentDetail = ({ student, onStudentDeleted }) => {
     const [profileImage, setProfileImage] = useState(null);
@@ -264,11 +266,11 @@ const StudentDetail = ({ student, onStudentDeleted }) => {
                     <button className="action-button" onClick={handleEdit}>수정</button>
                     <button className="action-button delete-button" onClick={handleDelete}>삭제</button>
                     </div>
-
-
                 </div>
             </div>
             
+            <RelatedClasses sno={student.sno} />
+            <Counseling sno={student.sno} />
         </div>
 
     );
