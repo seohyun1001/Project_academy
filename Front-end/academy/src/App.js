@@ -22,7 +22,6 @@ import Member from './components/member/Member';
 import NoticeBasic from './components/Basic/notice/NoticeBasic';
 import Lecture from './components/Lecture/Lecture';
 import NoticeDetailBasic from './components/Basic/notice/NoticeDetailBasic';
-
 import NoticeDetail from './components/notice/NoticeDetail';
 import NoticeModify from './components/notice/NoticeModify';
 import Referencelist from './components/reference/ReferenceList';
@@ -51,28 +50,25 @@ const App = () => {
                 <Route path="/student" element={<StudentList />} />
                 <Route path="/student/register" element={<StudentRegister />} />
                 <Route path="/student/edit/:sno" element={<StudentEdit />} />
-
-                <Route path="/Noticelist" element={<Noticelist />} />
+                <Route path="/Noticelist" element={<Noticelist/>}/>
                 <Route path="/ReferenceList" element={<Referencelist/>}/>
-                <Route path="/NoticeRegister" element={<NoticeRegister />} />
+                <Route path="/NoticeRegister" element={<NoticeRegister/>}/>
                 <Route path="/Reference/:rno" element={<ReferenceDetail />} />
                 <Route path="/ReferenceRegister" element={<ReferenceRegister/>}/>
+                <Route path="/Noticelist" element={<Noticelist />} />
+                <Route path="/NoticeRegister" element={<NoticeRegister />} />
                 <Route path="/Notice/:nno" element={<NoticeDetail />} />
                 <Route path="/Reference/modify/:rno" element={<ReferenceModify/>}/>
                 <Route path="/Notice/modify/:nno" element={<NoticeModify/>}/>
-
+                <Route path="/TestList" element={<Testlist/>}/>
                 <Route path="/counseling/register" element={<CounselingRegister />} />
                 <Route path="/counseling/list" element={<CounselingList />} />
                 <Route path="/counseling/edit/:cno" element={<CounselingEdit/>} />
                 <Route path="/pay/register" element={<PayRegister/>} />
                 <Route path="/pay/list" element={<PayList/>} />
                 <Route path="/pay/edit/:pno" element={<PayEdit/>} />
-
                 <Route path='/lecture' element={<Lecture />}/>
                 <Route path='/lectureBasic' element={<LectureBasic />}/>
-                
-                <Route path="/TestList" element={<Testlist/>}/>
-
                 {/* 다른 라우트들도 추가할 수 있습니다 */}
 
             </Routes>
