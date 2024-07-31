@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-const Read = ({member, onEditClick, onMemberDeleted}) => {
+const Read = ({ member, onEditClick, onMemberDeleted }) => {
     const [updateMember, setUpdatedMember] = useState({ ...member });
     const defaultImage = '/profile_pictures/basicimg.png'; // 기본 이미지 경로 설정
 
@@ -29,59 +29,59 @@ const Read = ({member, onEditClick, onMemberDeleted}) => {
             }
         }
     };
-    
-    
+
+
     return (
         <div class="card profile_card">
             <div class="d-flex flex-wrap main_info">
                 <div>
                     {member.m_picture ?
-                        <img 
-                        class="img-thumbnail picture float-start" 
-                        src={member.m_picture} alt="프로필 사진" />
+                        <img
+                            class="img-thumbnail picture float-start"
+                            src={member.m_picture} alt="프로필 사진" />
                         :
-                        <img 
-                        class="img-thumbnail picture float-start" 
-                        src={defaultImage} alt="프로필 사진" />
+                        <img
+                            class="img-thumbnail picture float-start"
+                            src={defaultImage} alt="프로필 사진" />
                     }
-                        {/* <img 
+                    {/* <img 
                         class="img-thumbnail picture float-start" 
                         src={getProfileImage()} alt="프로필 사진" /> */}
                 </div>
-            <div class="d-flex flex-column info_list">
-            <div class="input-group">
-                <label for="" class="form-label info_detail">이름</label>
-                <p>{member.m_name}</p>
-            </div>
-            <div class="input-group">
-                <label for="" class="form-label info_detail">강사 번호</label>
-                <p>{member.mno}</p>
-            </div>
-            <div class="input-group">
-                <label for="" class="form-label info_detail">이메일</label> 
-                <p>{member.m_email}</p>
-            </div>
-            <div class="input-group">
-                <label for="" class="form-label info_detail">전화번호</label> 
-                <p>{member.m_phone}</p>
-            </div>
-            <div class="input-group">
-                <label for="" class="form-label info_detail">주소1</label> 
-                <p>{member.m_address1}</p>
-            </div>
-            <div class="input-group">
-                <label for="" class="form-label info_detail">주소2</label> 
-                <p>{member.m_address2}</p>
-            </div>
-            </div>
+                <div class="d-flex flex-column info_list">
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">이름</label>
+                        <p>{member.m_name}</p>
+                    </div>
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">강사 번호</label>
+                        <p>{member.mno}</p>
+                    </div>
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">이메일</label>
+                        <p>{member.m_email}</p>
+                    </div>
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">전화번호</label>
+                        <p>{member.m_phone}</p>
+                    </div>
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">주소1</label>
+                        <p>{member.m_address1}</p>
+                    </div>
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">주소2</label>
+                        <p>{member.m_address2}</p>
+                    </div>
+                </div>
             </div>
             <div>
-            <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
-            <div className="btn-group mt-3">
-            <button type="button" class="btn btn-outline-primary" onClick={onEditClick}>수정</button>
-            <button type="button" class="btn btn-outline-danger" onClick={handleDelete}>삭제</button>
-            </div>
-            </div>
+                <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
+                    <div className="btn-group mt-3">
+                        <button type="button" class="btn btn-outline-primary" onClick={onEditClick}>수정</button>
+                        <button type="button" class="btn btn-outline-danger" onClick={handleDelete}>삭제</button>
+                    </div>
+                </div>
             </div>
         </div>
     );
