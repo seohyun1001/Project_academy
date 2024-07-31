@@ -46,6 +46,7 @@ const Modify = ({ member, onSave }) => {
         formData.append('m_phone', updateMember.m_phone);
         formData.append('m_address1', updateMember.m_address1);
         formData.append('m_address2', updateMember.m_address2);
+        formData.append('m_picture', updateMember.m_picture);
 
         if (file) {
             formData.append('file', file);
