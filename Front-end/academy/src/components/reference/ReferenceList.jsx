@@ -88,7 +88,7 @@ function Referencelist() {
           <tr>
             <th scope="col">번호</th>
             <th scope="col">제목</th>
-            <th scope="col">작성자</th>
+            <th scope="col">등록일</th>
           </tr>
         </thead>
         <tbody>
@@ -100,15 +100,13 @@ function Referencelist() {
                   {reference.r_title}
                 </Link>
               </td>
-              <td>{reference.writer}</td>
+              <td>{reference.regdate}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <div className="pagination">{renderPageNumbers()}</div>
-      <Link className="btn btn-primary my-2" to={'/referenceregister'}>
-        작성
-      </Link>
+      <Link class="btn btn-outline-dark registerBtn" to={'/referenceregister'}>등록</Link>
     </div>
   );
 }
