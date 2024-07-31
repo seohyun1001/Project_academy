@@ -15,6 +15,7 @@ import NoticeModify from './components/notice/NoticeModify';
 import Referencelist from './components/reference/ReferenceList';
 import ReferenceRegister from './components/reference/ReferenceRegister';
 import ReferenceDetail from './components/reference/ReferenceDetail';
+import ReferenceModify from './components/reference/ReferenceModify';
 
 const App = () => {
     return (
@@ -35,7 +36,9 @@ const App = () => {
                 <Route path="/Reference/:rno" element={<ReferenceDetail />} />
                 <Route path="/ReferenceRegister" element={<ReferenceRegister/>}/>
                 <Route path="/Notice/:nno" element={<NoticeDetail />} />
+                <Route path="/Reference/modify/:rno" element={<ReferenceModify/>}/>
                 <Route path="/Notice/modify/:nno" element={<NoticeModify/>}/>
+
                 {/* 다른 라우트들도 추가할 수 있습니다 */}
             </Routes>
         </Router>

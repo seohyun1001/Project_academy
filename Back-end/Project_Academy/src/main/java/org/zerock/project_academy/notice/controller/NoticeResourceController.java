@@ -27,5 +27,4 @@ public class NoticeResourceController {
         noticeResourceService.deleteNoticeResource(nrno);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

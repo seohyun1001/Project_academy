@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useSyncExternalStore } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -11,9 +11,9 @@ const ReferenceDetail = () => {
   const getReference = async () =>{
     const response = await (await axios.get(`http://localhost:8092/reference/read?rno=${rno}`)).data;
     console.log(response)
-    console.log(response.reference_resource)
+    console.log(response.references_resource)
     setReference(response);
-    setReferenceResource(response.reference_resource);
+    setReferenceResource(response.references_resource);
     setLoading(false);
 
   };
