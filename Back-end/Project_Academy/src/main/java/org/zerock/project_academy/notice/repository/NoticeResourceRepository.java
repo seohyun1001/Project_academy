@@ -7,4 +7,6 @@ import org.zerock.project_academy.notice.domain.NoticeResource;
 public interface NoticeResourceRepository extends JpaRepository<NoticeResource, Long> {
     @Query("DELETE FROM NoticeResource n WHERE n.notice.nno = :nno")
     public void deleteByNno(Long nno);
+    @Query("SELECT MAX(nr.nr_ord) FROM NoticeResource nr WHERE nr.notice.nno = :nno")
+    int getMaxOrd(Long nno);
 }

@@ -1,6 +1,7 @@
-import React, { useState  } from 'react';
+import React, { useState } from 'react';
+import MemberRegister from '../memberRegister/MemberRegister';
 
-const List = ({members, selectedMember, setSelectedMember,fetchMember,setIsEditing}) => {
+const List = ({ members, selectedMember, setSelectedMember, fetchMember, setIsEditing, showRegister, setShowRegister }) => {
     const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태 추가
 
     const handleMemberClick = (mno) => {
@@ -10,6 +11,12 @@ const List = ({members, selectedMember, setSelectedMember,fetchMember,setIsEditi
             fetchMember(mno);
             setIsEditing(false); // 수정 모드 해제
         }
+    };
+
+    const handleRegisterClick = () => {
+        setShowRegister(!showRegister); // 등록 버튼을 누르면 showRegister 상태 토글
+        setSelectedMember(null);  // 선택된 강사 정보 초기화
+        setIsEditing(false); // 수정 모드 해제
     };
 
     const handleSearchChange = (e) => {
@@ -22,18 +29,19 @@ const List = ({members, selectedMember, setSelectedMember,fetchMember,setIsEditi
     );
 
     return (
-        <div class="row  text-center ">
-            {/* <Header /> */}
-            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary">
-                    <a class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
-                        <input class="form-control me-2" 
-                                type="search" placeholder="Search" aria-label="Search"
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                        />
-                        <button class="btn btn-outline-dark" type="submit">Search</button>
-                    </a>
-                    <div className="list-group list-group-flush border-bottom scrollarea">
+        <div className="row text-center">
+            <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary">
+                <a className="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+                    <input className="form-control me-2" 
+                        type="search" placeholder="Search" aria-label="Search"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
+                    <button className="btn btn-outline-dark l_register_btn" type="button" onClick={handleRegisterClick}>
+                        {showRegister ? '취소' : '등록'}
+                    </button>
+                </a>
+                <div className="list-group list-group-flush border-bottom scrollarea">
                     {filteredMembers.map(member => (
                         <a
                             className="list-group-item list-group-item-action"
@@ -44,16 +52,12 @@ const List = ({members, selectedMember, setSelectedMember,fetchMember,setIsEditi
                                 <strong className="mb-1">{member.m_name}</strong>
                                 <small className="text-body-secondary">{member.mno}</small>
                             </div>
-                            {/* <div className="col-10 small">Some placeholder content</div> */}
                         </a>
                     ))}
                 </div>
             </div>
-            
-            {/* <Footer /> */}
         </div>
     );
 };
-
 
 export default List;

@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Noticelist() {
-  const [noticeList, setNoticeList] = useState([]);
+function Referencelist() {
+  const [referenceList, setReferenceList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [currentItems, setCurrentItems] = useState([]);
@@ -11,10 +11,10 @@ function Noticelist() {
 
   const uploadRegister = async () => {
     try {
-      const result = await axios.get("http://localhost:8092/notice/list");
-      setNoticeList(result.data);
+      const result = await axios.get("http://localhost:8092/reference/list");
+      setReferenceList(result.data);
     } catch (error) {
-      console.error("Error fetching notice list:", error);
+      console.error("Error fetching reference list:", error);
     }
   };
 
@@ -23,17 +23,17 @@ function Noticelist() {
   }, []);
 
   useEffect(() => {
-    const filteredList = noticeList.filter(notice =>
-        notice.n_title.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredList = referenceList.filter(reference =>
+      reference.r_title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     setCurrentItems(filteredList.slice(indexOfFirstItem, indexOfLastItem));
-  }, [currentPage, itemsPerPage, noticeList, searchTerm]);
+  }, [currentPage, itemsPerPage, referenceList, searchTerm]);
 
   const totalPages = Math.ceil(
-    noticeList.filter(notice =>
-        notice.n_title.toLowerCase().includes(searchTerm.toLowerCase())
+    referenceList.filter(reference =>
+      reference.r_title.toLowerCase().includes(searchTerm.toLowerCase())
     ).length / itemsPerPage
   );
 
@@ -92,25 +92,25 @@ function Noticelist() {
           </tr>
         </thead>
         <tbody>
-          {currentItems.map((notice, index) => (
+          {currentItems.map((reference, index) => (
             <tr key={index}>
               <th scope="row">{(currentPage - 1) * itemsPerPage + index + 1}</th>
               <td>
-                <Link to={`/notice/${notice.nno}`}>
-                  {notice.n_title}
+                <Link to={`/Reference/${reference.rno}`}>
+                  {reference.r_title}
                 </Link>
               </td>
-              <td>{notice.writer}</td>
+              <td>{reference.writer}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <div className="pagination">{renderPageNumbers()}</div>
-      <Link className="btn btn-primary my-2" to={'/noticeregister'}>
+      <Link className="btn btn-primary my-2" to={'/referenceregister'}>
         작성
       </Link>
     </div>
   );
 }
 
-export default Noticelist;
+export default Referencelist;

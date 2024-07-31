@@ -29,6 +29,7 @@ import java.util.Optional;
 public class NoticeController {
     private final NoticeService noticeService;
     private final NoticeResourceService noticeResourceService;
+    private final Path fileStorageLocation = Paths.get("file-storage").toAbsolutePath().normalize();
     private NoticeDTO noticeDTO;
 
     //    @GetMapping("/list")

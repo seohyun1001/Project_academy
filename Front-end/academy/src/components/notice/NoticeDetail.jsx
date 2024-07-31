@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useSyncExternalStore } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import Noticelist from "./NoticeList";
 
 const NoticeDetail = () => {
   const navigate = useNavigate();
