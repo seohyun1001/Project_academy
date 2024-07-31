@@ -10,4 +10,5 @@ public interface NoticeResourceService {
 
     void saveAll(List<NoticeResourceDTO> resourceDtoList);
     void deleteNoticeResource(Long nrno);
+    int getMaxOrd(Long nno);
 }

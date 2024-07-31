@@ -33,4 +33,9 @@ public class NoticeResourceServiceImpl implements NoticeResourceService {
     public void deleteNoticeResource(Long nrno) {
         noticeResourceRepository.deleteById(nrno);
     }
+
+    @Override
+    public int getMaxOrd(Long nno) {
+        return noticeResourceRepository.getMaxOrd(nno);
+    }
 }
