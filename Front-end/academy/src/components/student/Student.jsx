@@ -6,28 +6,32 @@ import MainInfo from "../Basic/MainInfo";
 import RelatedClasses from "../Basic/RelatedClasses";
 import Counseling from "../Basic/Counseling";
 import StudentInfo from "./StudentInfo";
-import StudentDetail from "./StudentDetail"
+import StudentDetail from "./StudentDetail";
 
 const Student = () => {
     const [selectedStudent, setSelectedStudent] = useState(null);
 
     const handleStudentClick = (student) => {
-        setSelectedStudent(student);
+        if (selectedStudent && selectedStudent.sno === student.sno) {
+            setSelectedStudent(null);
+        } else {
+            setSelectedStudent(student);
+        }
     };
 
     const handleStudentDeleted = () => {
         setSelectedStudent(null);
-        
+        window.location.reload();
     };
 
     return (
-        <div class="vsc-initialized">
+        <div className="vsc-initialized">
             <Header />
-            <div class="container">
-                <div class="d-flex flex-wrap">
-                <StudentList onStudentClick={handleStudentClick} />
-                    <div class="col">
-                    {selectedStudent ? (
+            <div className="container">
+                <div className="d-flex flex-wrap">
+                    <StudentList onStudentClick={handleStudentClick} />
+                    <div className="col">
+                        {selectedStudent ? (
                             <StudentDetail student={selectedStudent} onStudentDeleted={handleStudentDeleted} />
                         ) : (
                             <StudentInfo />
@@ -39,7 +43,7 @@ const Student = () => {
             </div>
             <Footer />
         </div>
-    )
-}
+    );
+};
 
 export default Student;

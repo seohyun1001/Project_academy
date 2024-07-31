@@ -157,6 +157,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './StudentDetail.css';
 
 const StudentDetail = ({ student, onStudentDeleted }) => {
     const [profileImage, setProfileImage] = useState(null);
@@ -259,9 +260,10 @@ const StudentDetail = ({ student, onStudentDeleted }) => {
                         <label for="" class="form-label info_detail">현재 상태</label>
                         <p type="text" name="" id="">{student.s_status}</p>
                     </div>
-                    <button className="btn btn-primary me-2" onClick={handleEdit}>수정</button>
-                    <button className="btn btn-danger" onClick={handleDelete}>삭제</button>
-
+                    <div className='button-group'>
+                    <button className="action-button" onClick={handleEdit}>수정</button>
+                    <button className="action-button delete-button" onClick={handleDelete}>삭제</button>
+                    </div>
 
 
                 </div>
