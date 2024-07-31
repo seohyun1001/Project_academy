@@ -1,6 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import Header from './components/Basic/Header';
+import Footer from './components/Basic/Footer';
+import List from './components/member/List/List';
 import Register from './components/member/memberRegister/MemberRegister';
 import Login from './components/member/memberLogin/MemberLogin';
 import StudentList from './components/student/StudentList';
@@ -24,6 +27,8 @@ import NoticeDetail from './components/notice/NoticeDetail';
 import NoticeModify from './components/notice/NoticeModify';
 import LectureBasic from './components/Basic/Lecture/LectureBasic';
 import RegisterModal from './components/Basic/student/registerModal';
+import NoticeBasic from './components/Basic/NoticeBasic';
+import PrivateRoute from './PrivateRoute'; // 추가된 부분
 
 const App = () => {
     return (

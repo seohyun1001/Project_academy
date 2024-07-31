@@ -51,15 +51,14 @@ public class CustomSecurityConfig {
                 .cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-//                .authorizeRequests()
+                .authorizeRequests()
 //                .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
-//                .requestMatchers(HttpMethod.POST,"/member/register").permitAll()
+                .requestMatchers(HttpMethod.POST,"/member/login").permitAll()
 //                .requestMatchers(HttpMethod.POST,"/error").permitAll()
 //                .requestMatchers(HttpMethod.GET, "/student/**").permitAll() // 추가
 //                .requestMatchers(HttpMethod.POST, "/student/**").permitAll() // 추가
 //                .anyRequest().authenticated()
-                .authorizeRequests()
-                .anyRequest().permitAll() // 모든 요청에 대해 보안 무효화
+//                .anyRequest().permitAll() // 모든 요청에 대해 보안 무효화
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
                 .and()
