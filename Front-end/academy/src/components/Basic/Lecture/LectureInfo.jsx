@@ -117,9 +117,11 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
                 </div>
               </div>
             </div>
-            <div class="container">
-              <button class="btn btn-outline-primary" onClick={() => setIsModifying(true)}>수정하기</button>
-              <button class="btn btn-outline-danger" onClick={handleDelete} >삭제하기</button>
+            <div class="d-flex justify-content-end l_info_btns">
+              <div>
+                <button class="btn btn-outline-primary l_info_btn" onClick={() => setIsModifying(true)}>수정하기</button>
+                <button class="btn btn-outline-danger l_info_btn" onClick={handleDelete} >삭제하기</button>
+              </div>
             </div>
           </div>
 
