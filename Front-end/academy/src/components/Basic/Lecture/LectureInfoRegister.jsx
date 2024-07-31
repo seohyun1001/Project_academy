@@ -48,7 +48,15 @@ const LectureInfoRegister = ({onRegisterComplete, setShowRegister }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/lecture", lecture);
+      const response = await axios.post("/lecture", {
+        lno: lecture.lno,
+        l_name: lecture.l_name,
+        l_category: lecture.l_category,
+        l_classroom: lecture.l_classroom,
+        l_start: lecture.l_start,
+        l_end: lecture.l_end,
+        mno: lecture.mno
+      });
       console.log(response.data);
       alert('강의가 등록되었습니다.')
       onRegisterComplete();
