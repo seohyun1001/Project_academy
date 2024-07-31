@@ -9,7 +9,7 @@ const Counseling = ({ sno }) => {
     useEffect(() => {
         const fetchCounselingData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8092/counseling/student/${sno}`);
+                const response = await axios.get(`/counseling/student/${sno}`);
                 setCounselingList(response.data);
             } catch (error) {
                 console.error('상담 데이터를 가져오는 중 오류 발생:', error);
