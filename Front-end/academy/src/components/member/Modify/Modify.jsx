@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
-const Modify = ({ member, onSave, onMemberDeleted }) => {
+const Modify = ({ member, onSave }) => {
     const [updateMember, setUpdatedMember] = useState({ ...member });
     const [file, setFile] = useState(null);
     const defaultImage = '/profile_pictures/basicimg.png';
-    const [preview, setPreview] = useState(updateMember.m_picture || null);
+    const [preview, setPreview] = useState(updateMember.m_picture || defaultImage);
     const fileInputRef = useRef(null);
 
 
@@ -47,23 +46,17 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
         formData.append('m_phone', updateMember.m_phone);
         formData.append('m_address1', updateMember.m_address1);
         formData.append('m_address2', updateMember.m_address2);
-        formData.append('m_picture', updateMember.m_picture);
 
         if (file) {
             formData.append('file', file);
         }
 
-        // 폼 데이터 디버깅 출력
-        for (let [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
         try {
             const response = await axios.put(`http://localhost:8092/member/modify/${updateMember.mno}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+                headers: { 'Content-Type': 'multipart/form-data' }
             });
-            console.log('응답:', response);
+            // 서버 응답에서 새 이미지 URL을 가져옵니다.
+            setUpdatedMember(prevState => ({ ...prevState, m_picture: response.data.updatedPictureUrl }));
             onSave(); // 수정 완료 후 콜백 호출
         } catch (error) {
             console.error('강사 정보를 업데이트하는 중 오류가 발생했습니다.', error);

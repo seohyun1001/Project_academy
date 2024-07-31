@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
 const Read = ({member, onEditClick, onMemberDeleted}) => {
     const [updateMember, setUpdatedMember] = useState({ ...member });
     const defaultImage = '/profile_pictures/basicimg.png'; // 기본 이미지 경로 설정
-    
+
+    useEffect(() => {
+        // 컴포넌트가 마운트될 때 멤버 정보를 최신 상태로 불러옵니다.
+        const fetchMember = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8092/member/${member.mno}`);
+                setUpdatedMember(response.data);
+            } catch (error) {
+                console.error('멤버 정보를 불러오는 중 오류가 발생했습니다.', error);
+            }
+        };
+        fetchMember();
+    }, [member.mno]);
+
     const handleDelete = async () => {
         if (window.confirm('정말로 삭제하시겠습니까?')) {
             try {
@@ -16,17 +29,24 @@ const Read = ({member, onEditClick, onMemberDeleted}) => {
             }
         }
     };
-    const getProfileImage = () => {
-        return updateMember.m_picture ? updateMember.m_picture : defaultImage;
-    };
+    
     
     return (
         <div class="card profile_card">
             <div class="d-flex flex-wrap main_info">
                 <div>
+                    {member.m_picture ?
                         <img 
                         class="img-thumbnail picture float-start" 
-                        src={getProfileImage()} alt="프로필 사진" />
+                        src={member.m_picture} alt="프로필 사진" />
+                        :
+                        <img 
+                        class="img-thumbnail picture float-start" 
+                        src={defaultImage} alt="프로필 사진" />
+                    }
+                        {/* <img 
+                        class="img-thumbnail picture float-start" 
+                        src={getProfileImage()} alt="프로필 사진" /> */}
                 </div>
             <div class="d-flex flex-column info_list">
             <div class="input-group">
