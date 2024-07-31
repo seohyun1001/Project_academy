@@ -6,6 +6,7 @@ import org.zerock.project_academy.lecture.domain.Lecture;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"student_c", "lecture_c"})

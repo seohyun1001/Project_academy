@@ -3,6 +3,7 @@ package org.zerock.project_academy.student.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
+import org.springframework.stereotype.Service;
 import org.zerock.project_academy.lecture.domain.LectureList;
 
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "lectureList_s")
@@ -28,6 +30,8 @@ public class Student extends BaseEntity {
     private String s_address2;
     private String s_email;
     private String s_status;
+
+    private String s_profileImage;
 
 
 //    @OneToMany(mappedBy = "student",

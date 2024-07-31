@@ -50,7 +50,7 @@ const MemberLogin = () => {
                             name="username"
                             value={loginRequest.username}
                             onChange={handleChange}
-                            placeholder="회원번호"
+                            placeholder="Username"
                             required
                         />
                     </div>
@@ -60,7 +60,7 @@ const MemberLogin = () => {
                             name="password"
                             value={loginRequest.password}
                             onChange={handleChange}
-                            placeholder="비밀번호"
+                            placeholder="Password"
                             required
                         />
                     </div>

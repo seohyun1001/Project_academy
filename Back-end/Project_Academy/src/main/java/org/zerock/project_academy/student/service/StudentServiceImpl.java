@@ -3,6 +3,7 @@ package org.zerock.project_academy.student.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.zerock.project_academy.student.domain.Student;
 import org.zerock.project_academy.student.dto.StudentDTO;
@@ -20,6 +21,11 @@ public class StudentServiceImpl implements StudentService {
     private final ModelMapper modelMapper;
     private final StudentRepository studentRepository;
 
+    @Value("${org.zerock.upload.path}")
+    private String uploadDir;
+
+    @Value("${org.zerock.default.profile-image}")
+    private String defaultProfileImagePath;
 
 
     @Override
@@ -47,8 +53,13 @@ public class StudentServiceImpl implements StudentService {
         Optional<Student> optionalStudent = studentRepository.findById(sno);
 
         if(optionalStudent.isPresent()) {
+            StudentDTO studentDTO = modelMapper.map(optionalStudent.get(), StudentDTO.class);
 
-            return modelMapper.map(optionalStudent.get(), StudentDTO.class);
+            if (studentDTO.getS_profileImage() == null || studentDTO.getS_profileImage().isEmpty()) {
+                studentDTO.setS_profileImage("/student/images/basicimg.png");
+            }
+
+            return studentDTO;
         } else {
             log.info("sno에 해당하는 학생이 없습니다." + sno);
 
@@ -75,4 +86,19 @@ public class StudentServiceImpl implements StudentService {
                 .map(student -> modelMapper.map(student, StudentDTO.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void updateProfileImage(Long sno, String imageUrl) {
+
+        Optional<Student> optionalStudent = studentRepository.findById(sno);
+
+        if(optionalStudent.isPresent()) {
+            Student student = optionalStudent.get();
+            student.setS_profileImage(imageUrl); // 프로필 이미지 URL 업데이트
+            studentRepository.save(student);
+        } else {
+            log.error("sno에 해당하는 학생이 없습니다.");
+        }
+    }
+
 }

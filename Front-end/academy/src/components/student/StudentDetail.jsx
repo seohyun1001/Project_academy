@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const StudentDetail = ({ student }) => {
+    const [profileImage, setProfileImage] = useState(null);
     const navigate = useNavigate();
-
-
 
     const handleDelete = async () => {
 
@@ -31,6 +30,34 @@ const StudentDetail = ({ student }) => {
         navigate(`/student/edit/${student.sno}`);
     };
 
+    const handleImageChange = (e) => {
+        setProfileImage(e.target.files[0]);
+    };
+
+    const handleImageUpload = async () => {
+        if (!profileImage) {
+            alert('이미지를 선택해 주세요.');
+            return;
+        }
+        
+        const formData = new FormData();
+        formData.append('file', profileImage);
+
+        try {
+            await axios.post(`http://localhost:8092/student/uploadProfileImage/${student.sno}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            alert('프로필 이미지가 성공적으로 업로드되었습니다.');
+            window.location.reload();
+        } catch (error) {
+            console.error('프로필 이미지 업로드 중 오류가 발생했습니다.', error);
+            alert('프로필 이미지 업로드 중 오류가 발생했습니다.');
+        }
+    };
+
 
     return (
         <div className="card">
@@ -38,12 +65,23 @@ const StudentDetail = ({ student }) => {
                 <h3>{student.s_name} 학생 상세 정보</h3>
             </div>
             <div className="card-body">
+            <div>
+                    <p><strong>프로필 이미지:</strong></p>
+                    {student.s_profileImage ? (
+                        <img src={student.s_profileImage} alt="Profile" width="150" height="150" />
+                    ) : (
+                        <img src="/student/images/basicimg.png" alt="Default Profile" width="150" height="150" />
+                    )}
+                    <input type="file" onChange={handleImageChange} />
+                    <button className="btn btn-primary" onClick={handleImageUpload}>이미지 업로드</button>
+                </div>
                 <p><strong>생년월일:</strong> {student.s_birthday}</p>
                 <p><strong>메일:</strong> {student.s_email}</p>
                 <p><strong>전화번호:</strong> {student.s_phone}</p>
                 <p><strong>상태:</strong> {student.s_status}</p>
                 <p><strong>주소 1:</strong> {student.s_address1}</p>
                 <p><strong>주소 2:</strong> {student.s_address2}</p>
+                
                 <button className="btn btn-primary" onClick={handleEdit}>수정</button>
                 <button className="btn btn-danger" onClick={handleDelete}>삭제</button>
             </div>
