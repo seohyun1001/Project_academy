@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     
@@ -24,7 +25,7 @@ const Header = () => {
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link active nav_link" aria-current="page" href="#">학생</a>
+                            <Link class="nav-link active nav_link" aria-current="page" to="/student">학생</Link>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active nav_link" aria-current="page" href="#">강사</a>
