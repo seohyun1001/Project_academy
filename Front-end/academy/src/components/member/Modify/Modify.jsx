@@ -7,7 +7,7 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(updateMember.m_picture || null);
     const fileInputRef = useRef(null);
-    const navigate = useNavigate();
+
 
     // 파일 변경 시 미리보기 설정
     useEffect(() => {
@@ -52,7 +52,7 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
             formData.append('file', file);
         }
 
-         // 폼 데이터 디버깅 출력
+        // 폼 데이터 디버깅 출력
         for (let [key, value] of formData.entries()) {
             console.log(key, value);
         }
@@ -69,17 +69,7 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
         }
     };
 
-    const handleDelete = async () => {
-        if (window.confirm('정말로 삭제하시겠습니까?')) {
-            try {
-                await axios.delete(`http://localhost:8092/member/delete/${updateMember.mno}`);
-                onMemberDeleted(); // 삭제 후 콜백 호출
-                navigate('/member'); // 삭제 후 강사 목록 페이지로 이동
-            } catch (error) {
-                console.error('강사 정보를 삭제하는 중 오류가 발생했습니다.', error);
-            }
-        }
-    };
+
 
     const handleCancel = () => {
         onSave(); // 수정 모드 해제
@@ -123,10 +113,12 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
                         <div className="input-group">
                             <label className="form-label info_detail">주소2</label>
                             <input type="text" name="m_address2" value={updateMember.m_address2} onChange={handleChange} />
+
                         </div>
-                        <button type="button" onClick={handleCancel}>취소</button>
-                        <button type="submit">저장</button>
-                        <button type="button" onClick={handleDelete}>삭제</button>
+
+                        <button type="submit" class="btn btn-primary">저장</button>
+                        <button type="button" class="btn btn-secondary" onClick={handleCancel}>취소</button>
+                        
                     </div>
                 </form>
             </div>

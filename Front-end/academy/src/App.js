@@ -27,11 +27,11 @@ import NoticeDetail from './components/notice/NoticeDetail';
 import NoticeModify from './components/notice/NoticeModify';
 import LectureBasic from './components/Basic/Lecture/LectureBasic';
 import RegisterModal from './components/Basic/student/registerModal';
-import NoticeBasic from './components/Basic/NoticeBasic';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분
 
 const App = () => {
     return (
+        <AuthProvider>
         <Router>
             <Routes>
                 <Route path='/basic' element={<Basic />} />
@@ -66,6 +66,7 @@ const App = () => {
 
             </Routes>
         </Router>
+        </AuthProvider>
     );
 };
 
