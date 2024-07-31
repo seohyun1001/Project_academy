@@ -53,7 +53,7 @@ const Header = () => {
                             <Link className="nav-link active nav_link" aria-current="page" to="/member">강사</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active nav_link" aria-current="page" href="#">강의</a>
+                            <Link className="nav-link active nav_link" aria-current="page" to="/lecture">강의</Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link active nav_link" aria-current="page" href="#">공지사항</a>
