@@ -32,47 +32,33 @@ import Testlist from './components/reference/TestList';
 import LectureBasic from './components/Basic/Lecture/LectureBasic';
 import RegisterModal from './components/Basic/student/registerModal';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분
+import Student from './components/student/Student';
 
 const App = () => {
     return (
         <AuthProvider>
-        <Router>
-            <Routes>
-                <Route path='/basic' element={<Basic />} />
-                <Route path='/noticeBasic' element={<NoticeBasic />} />
-                <Route path='/noticeDetail' element={<NoticeDetailBasic />} />
-                <Route path='/registerModal' element={<RegisterModal />} />
-
-                <Route path="/Member/Register" element={<Register />} />
-                <Route path="/Member/Login" element={<Login />} />
-                <Route path="/member" element={<Member />} />
-                
-                <Route path="/student" element={<StudentList />} />
-                <Route path="/student/register" element={<StudentRegister />} />
-                <Route path="/student/edit/:sno" element={<StudentEdit />} />
-                <Route path="/Noticelist" element={<Noticelist/>}/>
-                <Route path="/ReferenceList" element={<Referencelist/>}/>
-                <Route path="/NoticeRegister" element={<NoticeRegister/>}/>
-                <Route path="/Reference/:rno" element={<ReferenceDetail />} />
-                <Route path="/ReferenceRegister" element={<ReferenceRegister/>}/>
-                <Route path="/Noticelist" element={<Noticelist />} />
-                <Route path="/NoticeRegister" element={<NoticeRegister />} />
-                <Route path="/Notice/:nno" element={<NoticeDetail />} />
-                <Route path="/Reference/modify/:rno" element={<ReferenceModify/>}/>
-                <Route path="/Notice/modify/:nno" element={<NoticeModify/>}/>
-                <Route path="/TestList" element={<Testlist/>}/>
-                <Route path="/counseling/register" element={<CounselingRegister />} />
-                <Route path="/counseling/list" element={<CounselingList />} />
-                <Route path="/counseling/edit/:cno" element={<CounselingEdit/>} />
-                <Route path="/pay/register" element={<PayRegister/>} />
-                <Route path="/pay/list" element={<PayList/>} />
-                <Route path="/pay/edit/:pno" element={<PayEdit/>} />
-                <Route path='/lecture' element={<Lecture />}/>
-                <Route path='/lectureBasic' element={<LectureBasic />}/>
-                {/* 다른 라우트들도 추가할 수 있습니다 */}
-
-            </Routes>
-        </Router>
+            <Router>
+                <Routes>
+                    <Route path="/basic" element={<PrivateRoute><Basic /></PrivateRoute>} />
+                    <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
+                    <Route path="/member/login" element={<Login />} />
+                    <Route path="/list" element={<PrivateRoute><List /></PrivateRoute>} />
+                    <Route path="/read/:mno" element={<PrivateRoute><Read /></PrivateRoute>} />
+                    <Route path="/Member/Register" element={<PrivateRoute><Register /></PrivateRoute>} />
+                    <Route path="/modify/:mno" element={<PrivateRoute><Modify /></PrivateRoute>} />
+                    <Route path="/student" element={<PrivateRoute><Student /></PrivateRoute>} />
+                    <Route path="/student/register" element={<PrivateRoute><StudentRegister /></PrivateRoute>} />
+                    <Route path="/student/edit/:sno" element={<PrivateRoute><StudentEdit /></PrivateRoute>} />
+                    <Route path="/Noticelist" element={<PrivateRoute><Noticelist /></PrivateRoute>} />
+                    <Route path="/NoticeRegister" element={<PrivateRoute><NoticeRegister /></PrivateRoute>} />
+                    <Route path="/counseling/register" element={<PrivateRoute><CounselingRegister /></PrivateRoute>} />
+                    <Route path="/counseling/list" element={<PrivateRoute><CounselingList /></PrivateRoute>} />
+                    <Route path="/counseling/edit/:cno" element={<PrivateRoute><CounselingEdit /></PrivateRoute>} />
+                    <Route path="/pay/register" element={<PrivateRoute><PayRegister /></PrivateRoute>} />
+                    <Route path="/pay/list" element={<PrivateRoute><PayList /></PrivateRoute>} />
+                    <Route path="/pay/edit/:pno" element={<PrivateRoute><PayEdit /></PrivateRoute>} />
+                </Routes>
+            </Router>
         </AuthProvider>
     );
 };

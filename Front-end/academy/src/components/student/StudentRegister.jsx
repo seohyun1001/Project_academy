@@ -116,7 +116,6 @@ const StudentRegister = () => {
                                         type="file"
                                         onChange={handleImageChange}
                                         className="form-control"
-                                        required
                                     />
                                 </div>
                                 <div className="form-group">

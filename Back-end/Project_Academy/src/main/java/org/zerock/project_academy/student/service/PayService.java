@@ -15,4 +15,6 @@ public interface PayService {
     void remove(Long pno);
 
     List<PayDTO> getAll();
+
+    List<PayDTO> getBySno(Long sno);
 }

@@ -39,7 +39,7 @@
 //             alert('이미지를 선택해 주세요.');
 //             return;
 //         }
-        
+
 //         const formData = new FormData();
 //         formData.append('file', profileImage);
 
@@ -81,7 +81,7 @@
 //     //             <p><strong>상태:</strong> {student.s_status}</p>
 //     //             <p><strong>주소 1:</strong> {student.s_address1}</p>
 //     //             <p><strong>주소 2:</strong> {student.s_address2}</p>
-                
+
 //     //             <button className="btn btn-primary" onClick={handleEdit}>수정</button>
 //     //             <button className="btn btn-danger" onClick={handleDelete}>삭제</button>
 //     //         </div>
@@ -157,6 +157,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './StudentDetail.css';
+import RelatedClasses from '../Basic/RelatedClasses';
+import Counseling from '../Basic/Counseling';
 
 const StudentDetail = ({ student, onStudentDeleted }) => {
     const [profileImage, setProfileImage] = useState(null);
@@ -209,34 +212,67 @@ const StudentDetail = ({ student, onStudentDeleted }) => {
     };
 
     return (
-        <div className="card profile_card">
-            <div className="card-header">
-                <h3>{student.s_name} 학생 상세 정보</h3>
-            </div>
-            <div className="card-body">
-                <div className="d-flex">
-                    <div>
-                        {student.s_profileImage ? (
-                            <img src={student.s_profileImage} alt="Profile" width="150" height="150" />
-                        ) : (
-                            <img src="/student/images/basicimg.png" alt="Default Profile" width="150" height="150" />
-                        )}
+        <div class="card profile_card">
+            <div class="d-flex flex-wrap main_info">
+                <div class="picture">
+                    {student.s_profileImage ? (
+                        <img src={student.s_profileImage} alt="Profile" width="200" height="225" />
+                    ) : (
+                        <img src="/student/images/basicimg.png" alt="Default Profile" width="200" height="225" />
+                    )}
+                </div>
+                <div class="d-flex flex-column info_list">
+
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">이름</label>
+                        <p type="text" name="" id="" >{student.s_name}</p>
                     </div>
-                    <div className="ms-3">
-                        <p><strong>이름:</strong> {student.s_name}</p>
-                        <p><strong>학생번호:</strong> {student.sno}</p>
-                        <p><strong>생년월일:</strong> {student.s_birthday}</p>
-                        <p><strong>전화번호:</strong> {student.s_phone}</p>
-                        <p><strong>메일:</strong> {student.s_email}</p>
-                        <p><strong>주소 1:</strong> {student.s_address1}</p>
-                        <p><strong>주소 2:</strong> {student.s_address2}</p>
-                        <p><strong>상태:</strong> {student.s_status}</p>
-                        <button className="btn btn-primary me-2" onClick={handleEdit}>수정</button>
-                        <button className="btn btn-danger" onClick={handleDelete}>삭제</button>
+
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">학생번호</label>
+                        <p type="text" name="" id="">{student.sno}</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">생년월일</label>
+                        <p type="text" name="" id="">{student.s_birthday}</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">전화번호</label>
+                        <p type="text" name="" id="">{student.s_phone}</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">메일</label>
+                        <p type="text" name="" id="">{student.s_email}</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">주소1</label>
+                        <p type="text" name="" id="">{student.s_address1}</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">주소2</label>
+                        <p type="text" name="" id="">{student.s_address2}</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="" class="form-label info_detail">현재 상태</label>
+                        <p type="text" name="" id="">{student.s_status}</p>
+                    </div>
+                    <div className='button-group'>
+                    <button className="action-button" onClick={handleEdit}>수정</button>
+                    <button className="action-button delete-button" onClick={handleDelete}>삭제</button>
                     </div>
                 </div>
             </div>
+            
+            <RelatedClasses sno={student.sno} />
+            <Counseling sno={student.sno} />
         </div>
+
     );
 };
 
