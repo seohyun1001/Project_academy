@@ -2,12 +2,15 @@ package org.zerock.project_academy.lecture.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.project_academy.lecture.domain.Lecture;
 import org.zerock.project_academy.lecture.dto.LectureDTO;
 import org.zerock.project_academy.lecture.service.LectureService;
+import org.zerock.project_academy.member.domain.Member;
+import org.zerock.project_academy.member.repository.MemberRepository;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -20,10 +23,13 @@ import java.util.Optional;
 public class LectureController {
 
     private final LectureService lectureService;
+    private final ModelMapper modelMapper;
+    private final MemberRepository memberRepository;
 
     @PostMapping
-    public ResponseEntity<Object> register(@RequestBody Lecture lecture) {
-        return new ResponseEntity<>(lectureService.registerLecture(lecture), HttpStatus.CREATED);
+    public ResponseEntity<Object> register(@RequestBody LectureDTO lectureDTO) {
+        LectureDTO savedLectureDTO = lectureService.registerLecture(lectureDTO);
+        return new ResponseEntity<>(savedLectureDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/list")

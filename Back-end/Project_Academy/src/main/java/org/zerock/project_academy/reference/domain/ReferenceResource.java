@@ -14,10 +14,10 @@ public class ReferenceResource implements Comparable<ReferenceResource> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rrno;
-
     private String rr_name;
     private String rr_path;
     private String rr_type;
+    private Long file_size;
     private int rr_ord;
 
     @ManyToOne
@@ -29,7 +29,7 @@ public class ReferenceResource implements Comparable<ReferenceResource> {
         return this.rr_ord = nrOther.rr_ord;
     }
 
-    public void changeResource_r(Reference reference){
-        this.reference = reference;
-    }
+//    public void changeResource_r(Reference reference){
+//        this.reference = reference;
+//    }
 }

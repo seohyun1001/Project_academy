@@ -25,6 +25,11 @@ import NoticeDetailBasic from './components/Basic/notice/NoticeDetailBasic';
 
 import NoticeDetail from './components/notice/NoticeDetail';
 import NoticeModify from './components/notice/NoticeModify';
+import Referencelist from './components/reference/ReferenceList';
+import ReferenceRegister from './components/reference/ReferenceRegister';
+import ReferenceDetail from './components/reference/ReferenceDetail';
+import ReferenceModify from './components/reference/ReferenceModify';
+import Testlist from './components/reference/TestList';
 import LectureBasic from './components/Basic/Lecture/LectureBasic';
 import RegisterModal from './components/Basic/student/registerModal';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분
@@ -48,8 +53,12 @@ const App = () => {
                 <Route path="/student/edit/:sno" element={<StudentEdit />} />
 
                 <Route path="/Noticelist" element={<Noticelist />} />
+                <Route path="/ReferenceList" element={<Referencelist/>}/>
                 <Route path="/NoticeRegister" element={<NoticeRegister />} />
+                <Route path="/Reference/:rno" element={<ReferenceDetail />} />
+                <Route path="/ReferenceRegister" element={<ReferenceRegister/>}/>
                 <Route path="/Notice/:nno" element={<NoticeDetail />} />
+                <Route path="/Reference/modify/:rno" element={<ReferenceModify/>}/>
                 <Route path="/Notice/modify/:nno" element={<NoticeModify/>}/>
 
                 <Route path="/counseling/register" element={<CounselingRegister />} />
@@ -62,6 +71,8 @@ const App = () => {
                 <Route path='/lecture' element={<Lecture />}/>
                 <Route path='/lectureBasic' element={<LectureBasic />}/>
                 
+                <Route path="/TestList" element={<Testlist/>}/>
+
                 {/* 다른 라우트들도 추가할 수 있습니다 */}
 
             </Routes>

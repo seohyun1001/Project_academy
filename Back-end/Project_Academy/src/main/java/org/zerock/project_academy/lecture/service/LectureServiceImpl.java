@@ -28,8 +28,13 @@ public class  LectureServiceImpl implements LectureService {
     private final MemberRepository memberRepository;
 
     @Override
-    public Lecture registerLecture(Lecture lecture) {
-        return lectureRepository.save(lecture);
+    public LectureDTO registerLecture(LectureDTO lectureDTO) {
+        Lecture lecture = modelMapper.map(lectureDTO, Lecture.class);
+        Member member = memberRepository.findById(lectureDTO.getMno())
+                .orElseThrow(() -> new IllegalArgumentException("Invaild member ID"));
+        lecture.setMember_l(member);
+        Lecture savedLecture = lectureRepository.save(lecture);
+        return modelMapper.map(savedLecture, LectureDTO.class);
     }
 
     @Override
