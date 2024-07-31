@@ -95,31 +95,33 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
                         style={{ display: 'none' }} // 파일 입력 버튼 숨기기
                     />
                     <div className="d-flex flex-column info_list">
-                        <div className="input-group">
-                            <label className="form-label info_detail">이름</label>
+                        <div className="d-flex align-items-center mb-3">
+                            <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>이름</label>
                             <input type="text" name="m_name" value={updateMember.m_name} onChange={handleChange} />
                         </div>
-                        <div className="input-group">
-                            <label className="form-label info_detail">이메일</label>
+                        <div className="d-flex align-items-center mb-3">
+                            <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>이메일</label>
                             <input type="email" name="m_email" value={updateMember.m_email} onChange={handleChange} />
                         </div>
-                        <div className="input-group">
-                            <label className="form-label info_detail">전화번호</label>
+                        <div className="d-flex align-items-center mb-3">
+                            <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>전화번호</label>
                             <input type="text" name="m_phone" value={updateMember.m_phone} onChange={handleChange} />
                         </div>
-                        <div className="input-group">
-                            <label className="form-label info_detail">주소1</label>
+                        <div className="d-flex align-items-center mb-3">
+                            <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>주소1</label>
                             <input type="text" name="m_address1" value={updateMember.m_address1} onChange={handleChange} />
                         </div>
-                        <div className="input-group">
-                            <label className="form-label info_detail">주소2</label>
+                        <div className="d-flex align-items-center mb-3">
+                            <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>주소2</label>
                             <input type="text" name="m_address2" value={updateMember.m_address2} onChange={handleChange} />
 
                         </div>
-
-                        <button type="submit" class="btn btn-primary">저장</button>
-                        <button type="button" class="btn btn-secondary" onClick={handleCancel}>취소</button>
-                        
+                        <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
+                        <div className="btn-group mt-3">
+                            <button type="submit" className="btn btn-outline-primary">저장</button>
+                            <button type="button" className="btn btn-outline-secondary" onClick={handleCancel}>취소</button>
+                        </div>
+                        </div>
                     </div>
                 </form>
             </div>

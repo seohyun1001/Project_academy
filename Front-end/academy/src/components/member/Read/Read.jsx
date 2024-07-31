@@ -56,11 +56,14 @@ const Read = ({member, onEditClick, onMemberDeleted}) => {
             </div>
             </div>
             <div>
-            <button type="button" class="btn btn-primary" onClick={onEditClick}>수정</button>
-            <button type="button" class="btn btn-danger" onClick={handleDelete}>삭제</button>
+            <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
+            <div className="btn-group mt-3">
+            <button type="button" class="btn btn-outline-primary" onClick={onEditClick}>수정</button>
+            <button type="button" class="btn btn-outline-danger" onClick={handleDelete}>삭제</button>
+            </div>
+            </div>
             </div>
         </div>
     );
 }
-
 export default Read;
