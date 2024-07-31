@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
             console.log('로그인 성공:', { username: mno, m_name });
         } catch (error) {
             console.error('로그인 실패:', error);
+            throw error;
         }
     };
 
