@@ -22,20 +22,22 @@ import NoticeBasic from './components/Basic/NoticeBasic';
 import Read from './components/member/Read/Read';
 import Modify from './components/member/Modify/Modify';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분
+import Student from './components/student/Student';
 
 const App = () => {
     return (
         <AuthProvider>
             <Router>
                 <Routes>
-                    <Route path="/member/login" element={<Login />} />
+                    
                     <Route path="/basic" element={<PrivateRoute><Basic /></PrivateRoute>} />
                     <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
-                    <Route path="/read/:mno" element={<PrivateRoute><Read /></PrivateRoute>} />
-                    <Route path="/modify/:mno" element={<PrivateRoute><Modify /></PrivateRoute>} />
+                    <Route path="/member/login" element={<Login />} />
                     <Route path="/list" element={<PrivateRoute><List /></PrivateRoute>} />
+                    <Route path="/read/:mno" element={<PrivateRoute><Read /></PrivateRoute>} />
                     <Route path="/Member/Register" element={<PrivateRoute><Register /></PrivateRoute>} />
-                    <Route path="/student" element={<PrivateRoute><StudentList /></PrivateRoute>} />
+                    <Route path="/modify/:mno" element={<PrivateRoute><Modify /></PrivateRoute>} />
+                    <Route path="/student" element={<PrivateRoute><Student /></PrivateRoute>} />
                     <Route path="/student/register" element={<PrivateRoute><StudentRegister /></PrivateRoute>} />
                     <Route path="/student/edit/:sno" element={<PrivateRoute><StudentEdit /></PrivateRoute>} />
                     <Route path="/Noticelist" element={<PrivateRoute><Noticelist /></PrivateRoute>} />
