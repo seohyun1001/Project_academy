@@ -90,17 +90,28 @@ import { useNavigate } from "react-router-dom";
 
 const StudentList = ({ onStudentClick }) => {
     const [students, setStudents] = useState([]);
+    const [filteredStudents, setFilteredStudents] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
 
-    const fetchStudents = () => {
+    useEffect(() => {
+        // 학생 목록을 서버에서 가져오기
         axios.get('http://localhost:8092/student')
-            .then(response => setStudents(response.data))
+            .then(response => {
+                setStudents(response.data);
+                setFilteredStudents(response.data); // 처음 로드 시 필터링된 학생 목록도 설정
+            })
             .catch(error => console.error('학생을 불러오는 중에 오류가 발생했습니다.', error));
-    };
+    }, []);
 
     useEffect(() => {
-        fetchStudents();
-    }, []);
+        // 검색어에 따라 학생 목록 필터링
+        setFilteredStudents(
+            students.filter(student =>
+                student.s_name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+    }, [searchTerm, students]);
 
     const handleRegister = () => {
         navigate('/student/register');
@@ -112,18 +123,31 @@ const StudentList = ({ onStudentClick }) => {
             .catch(error => console.error('학생 상세 정보를 불러오는 중에 오류가 발생했습니다.', error));
     };
 
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();  // 폼 제출 시 페이지 새로고침 방지
+    };
 
     return (
         <div className="row text-center">
             <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary">
-                <a href="/"
-                    className="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
-                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <form onSubmit={handleSearchSubmit} className="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis border-bottom">
+                    <input
+                        className="form-control me-2"
+                        type="search"
+                        placeholder="검색어를 입력해주세요."
+                        aria-label="Search"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
                     <button className="btn btn-outline-dark" type="submit">Search</button>
-                </a>
+                </form>
                 <button className="btn btn-primary mb-3" onClick={handleRegister}>추가</button>
                 <div className="list-group list-group-flush border-bottom scrollarea scrollBar">
-                    {students.map(student => (
+                    {filteredStudents.map(student => (
                         <a href="#" className="list-group-item list-group-item-action py-3 lh-sm"
                             key={student.sno}
                             aria-current="true"
