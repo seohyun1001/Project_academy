@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const LectureInfoRegister = ({onRegisterComplete, setShowRegister }) => {
+const LectureInfoRegister = ({ onRegisterComplete, setShowRegister }) => {
 
   const [lecture, setLecture] = useState({
     lno: "",
@@ -10,7 +10,7 @@ const LectureInfoRegister = ({onRegisterComplete, setShowRegister }) => {
     l_classroom: "",
     l_start: "",
     l_end: "",
-    mno:""
+    mno: ""
   });
 
   const [members, setMembers] = useState([]); // 강사 목록 상태 추가
@@ -61,7 +61,7 @@ const LectureInfoRegister = ({onRegisterComplete, setShowRegister }) => {
       alert('강의가 등록되었습니다.')
       onRegisterComplete();
       setShowRegister(false);
-      // ************************* 상세보기로 가는 코드 추가해야 함
+
     } catch (error) {
       console.error("There was an error registering the lecture!", error);
       alert('알 수 없는 이유로 강의가 등록되지 않았습니다.')
@@ -69,63 +69,66 @@ const LectureInfoRegister = ({onRegisterComplete, setShowRegister }) => {
   };
 
   return (
-    <div class="card profile_card">
-      <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} class="card profile_card">
       <div class="d-flex flex-wrap lecture_main_info">
         <div class="d-flex flex-column lecture_info_list">
           <div class="input-group">
             <label for="" class="form-label info_detail">강의명</label>
-            <input type="text" name="l_name" value={lecture.l_name} onChange={handleChange} />
+            <input type="text" class="form-control" name="l_name" value={lecture.l_name} onChange={handleChange} />
           </div>
 
           <div class="input-group">
             <label for="" class="form-label info_detail">강의코드</label>
-            <input type="text" name="lno" value={lecture.lno} onChange={handleChange} />
+            <input type="text" class="form-control" name="lno" value={lecture.lno} onChange={handleChange} />
           </div>
 
           <div class="input-group">
             <label for="" class="form-label info_detail">강의실</label>
-            <input type="text" name="l_classroom" value={lecture.l_classroom} onChange={handleChange} />
+            <input type="text" class="form-control" name="l_classroom" value={lecture.l_classroom} onChange={handleChange} />
           </div>
 
           <div class="input-group">
             <label for="" class="form-label info_detail">시작일</label>
-            <input type="date" name="l_start" value={lecture.l_start} onChange={handleChange} />
+            <input type="date" class="form-control" name="l_start" value={lecture.l_start} onChange={handleChange} />
           </div>
         </div>
 
         <div class="d-flex flex-column lecture_info_list">
           <div class="input-group">
             <label for="" class="form-label info_detail">강의 분류</label>
-            <input type="text" name="l_category" value={lecture.l_category} onChange={handleChange} />
+            <input type="text" class="form-control" name="l_category" value={lecture.l_category} onChange={handleChange} />
           </div>
 
           <div class="input-group">
-              <label for="" class="form-label info_detail">강사 사번</label>
-              <select name="mno" value={lecture.mno} onChange={handleMemberChange}>
-                <option value="">Select Instructor</option>
-                {members.map((member) => (
-                  <option key={member.mno} value={member.mno}>
-                    {member.mno} - {member.m_name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <label for="" class="form-label info_detail">강사 사번</label>
+            <select name="mno" class="form-control" value={lecture.mno} onChange={handleMemberChange}>
+              <option value="">Select Instructor</option>
+              {members.map((member) => (
+                <option key={member.mno} value={member.mno}>
+                  {member.mno} - {member.m_name}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div class="input-group">
             <label for="" class="form-label info_detail">담당 강사</label>
-            <p type="text" name="mno" value={lecture.mno} onChange={handleChange}></p>
+            <input type="text" class="form-control" name="mno" value={lecture.mno} onChange={handleChange} readonly />
           </div>
 
           <div class="input-group">
             <label for="" class="form-label info_detail">종료일</label>
-            <input type="date" name="l_end" value={lecture.l_end} onChange={handleChange} />
+            <input type="date" class="form-control" name="l_end" value={lecture.l_end} onChange={handleChange} />
           </div>
+
         </div>
+        <div class="container">
+            <button class="btn btn-outline-primary" type="submit">등록하기</button>
+            <button class="btn btn-outline-danger" type="">삭제하기</button>
+        </div>
+
       </div>
-      <button type="submit">등록</button>
-      </form>
-    </div>
+    </form>
 
   )
 }
