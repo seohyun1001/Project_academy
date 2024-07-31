@@ -57,7 +57,7 @@ const StudentInfo = ({ student, onStudentDeleted }) => {
 
   return (
     <div class="card profile_card">
-      <div class="d-flex flex-wrap main_info">
+      {/* <div class="d-flex flex-wrap main_info">
         <img class="img-thumbnail picture float-start"></img>
         <div class="d-flex flex-column info_list">
           <div class="input-group">
@@ -90,7 +90,7 @@ const StudentInfo = ({ student, onStudentDeleted }) => {
             <p type="text" name="" id="">이수중</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 };
