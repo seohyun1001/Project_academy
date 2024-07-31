@@ -53,6 +53,7 @@ const LectureList = () => {
 
     const handleModificationComplete = () => { // Added handleModificationComplete function
         fetchLectures(); // Refetch lectures list
+        setSelectedLectureId(null);
     };
 
     const handleSearchChange = (e) => { // 검색어 변경 핸들러 추가
