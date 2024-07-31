@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const Modify = ({ member, onSave, onMemberDeleted }) => {
     const [updateMember, setUpdatedMember] = useState({ ...member });
     const [file, setFile] = useState(null);
+    const defaultImage = '/profile_pictures/basicimg.png';
     const [preview, setPreview] = useState(updateMember.m_picture || null);
     const fileInputRef = useRef(null);
 
@@ -18,7 +19,7 @@ const Modify = ({ member, onSave, onMemberDeleted }) => {
             };
             reader.readAsDataURL(file);
         } else {
-            setPreview(updateMember.m_picture);
+            setPreview(updateMember.m_picture || defaultImage);
         }
     }, [file, updateMember.m_picture]);
 
