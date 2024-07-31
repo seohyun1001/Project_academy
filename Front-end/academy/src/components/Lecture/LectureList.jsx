@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import LectureInfo from "../Basic/Lecture/LectureInfo";
-import LectureInfoRegister from "../Basic/Lecture/LectureInfoRegister";
+import LectureInfo from "./LectureInfo";
+import LectureInfoRegister from "./LectureInfoRegister";
 
 const LectureList = () => {
     const [lectures, setLectures] = useState([]);
