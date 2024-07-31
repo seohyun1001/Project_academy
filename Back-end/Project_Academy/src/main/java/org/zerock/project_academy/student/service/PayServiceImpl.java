@@ -15,6 +15,7 @@ import org.zerock.project_academy.student.repository.StudentRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -107,6 +108,23 @@ public class PayServiceImpl implements PayService {
             dtoList.add(dto); // dtoList에 추가
         }
         return dtoList;
+    }
+
+    @Override
+    public List<PayDTO> getBySno(Long sno) {
+        List<Pay> pays = payRepository.findByStudent_p_Sno(sno);
+        return pays.stream()
+                .map(pay -> PayDTO.builder()
+                        .pno(pay.getPno())
+                        .paid(pay.isPaid())
+                        .lno(pay.getLecture_p().getLno())
+                        .l_name(pay.getLecture_p().getL_name())
+                        .sno(pay.getStudent_p().getSno())
+                        .s_name(pay.getStudent_p().getS_name())
+                        .moddate(pay.getModDate())
+                        .regdate(pay.getRegDate())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 }

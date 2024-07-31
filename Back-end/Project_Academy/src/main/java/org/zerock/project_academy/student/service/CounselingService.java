@@ -1,6 +1,7 @@
 package org.zerock.project_academy.student.service;
 
 import org.zerock.project_academy.student.dto.CounselingDTO;
+import org.zerock.project_academy.student.dto.PayDTO;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface CounselingService {
     void remove(Long cno);
 
     List<CounselingDTO> getAll();
+
+    List<CounselingDTO> getBySno(Long sno);
 }

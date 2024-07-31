@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.project_academy.student.dto.CounselingDTO;
+import org.zerock.project_academy.student.dto.PayDTO;
 import org.zerock.project_academy.student.dto.StudentDTO;
 import org.zerock.project_academy.student.service.CounselingService;
 
@@ -65,5 +66,15 @@ public class CounselingController {
         counselingService.remove(cno);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/student/{sno}")
+    public ResponseEntity<List<CounselingDTO>> getBySno(@PathVariable Long sno) {
+        List<CounselingDTO> counselingList = counselingService.getBySno(sno);
+        if (counselingList != null && !counselingList.isEmpty()) {
+            return ResponseEntity.ok(counselingList);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
