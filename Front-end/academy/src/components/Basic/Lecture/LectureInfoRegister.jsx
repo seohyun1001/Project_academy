@@ -13,10 +13,10 @@ const LectureInfoRegister = ({ onRegisterComplete, setShowRegister }) => {
     mno: ""
   });
 
-  const [members, setMembers] = useState([]); // 강사 목록 상태 추가
+  const [members, setMembers] = useState([]);
 
   useEffect(() => {
-    const fetchMembers = async () => { // 강사 목록 불러오기 함수
+    const fetchMembers = async () => {
       try {
         const response = await axios.get('/member/list');
         setMembers(response.data);
@@ -26,7 +26,7 @@ const LectureInfoRegister = ({ onRegisterComplete, setShowRegister }) => {
       }
     };
 
-    fetchMembers(); // 컴포넌트가 마운트될 때 강사 목록 불러오기
+    fetchMembers();
   }, []);
 
   const handleChange = (e) => {
@@ -37,7 +37,7 @@ const LectureInfoRegister = ({ onRegisterComplete, setShowRegister }) => {
     });
   };
 
-  const handleMemberChange = (e) => { // 강사 사번 변경 핸들러
+  const handleMemberChange = (e) => {
     const memberId = e.target.value;
     setLecture({
       ...lecture,
@@ -65,6 +65,19 @@ const LectureInfoRegister = ({ onRegisterComplete, setShowRegister }) => {
     } catch (error) {
       console.error("There was an error registering the lecture!", error);
       alert('알 수 없는 이유로 강의가 등록되지 않았습니다.')
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`/lecture/${lecture.lno}`);
+      console.log(response.data);
+      alert('강의가 삭제되었습니다.');
+      onRegisterComplete();
+      setShowRegister(false);
+    } catch (error) {
+      console.error("There was an error deleting the lecture!", error);
+      alert('알 수 없는 이유로 강의가 삭제되지 않았습니다.')
     }
   };
 
@@ -124,7 +137,6 @@ const LectureInfoRegister = ({ onRegisterComplete, setShowRegister }) => {
         </div>
         <div class="container">
             <button class="btn btn-outline-primary" type="submit">등록하기</button>
-            <button class="btn btn-outline-danger" type="">삭제하기</button>
         </div>
 
       </div>

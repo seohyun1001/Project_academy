@@ -3,7 +3,7 @@ import axios from "axios";
 import LectureProfile from "./LectureProfile";
 import LectureModify from "./LectureModify";
 
-const LectureInfo = ({ lectureId, onModificationComplete  }) => {
+const LectureInfo = ({ lectureId, onModificationComplete }) => {
 
   const [lecture, setLecture] = useState({
     lno: "",
@@ -41,6 +41,20 @@ const LectureInfo = ({ lectureId, onModificationComplete  }) => {
     onModificationComplete();
   };
 
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(`${lecture.lno} - ${lecture.l_name} 강의를 삭제하시겠습니까?`);
+    if (confirmDelete) {
+      try {
+        await axios.delete(`/lecture/${lectureId}`);
+        window.alert(`${lecture.lno} - ${lecture.l_name} 강의가 삭제되었습니다.`);
+        onModificationComplete();
+      } catch (error) {
+        console.error("There was an error deleting the lecture!", error);
+        window.alert('알 수 없는 이유로 강의가 삭제되지 않았습니다.');
+      }
+    }
+  };
+
   if (!lectureId) {
     return null;
   }
@@ -48,11 +62,11 @@ const LectureInfo = ({ lectureId, onModificationComplete  }) => {
   return (
     <>
       {isModifying ? (
-        <LectureModify 
-        lectureId={lectureId} 
-        setIsModifying={setIsModifying} 
-        onModificationComplete={handleModificationComplete} 
-      />
+        <LectureModify
+          lectureId={lectureId}
+          setIsModifying={setIsModifying}
+          onModificationComplete={handleModificationComplete}
+        />
       ) : (
         <>
           <div class="card profile_card">
@@ -101,10 +115,14 @@ const LectureInfo = ({ lectureId, onModificationComplete  }) => {
                   <label for="" class="form-label info_detail">종료일</label>
                   <p>{lecture.l_end}</p>
                 </div>
-              </div><button onClick={() => setIsModifying(true)}>Modify</button>
+              </div>
+            </div>
+            <div class="container">
+              <button class="btn btn-outline-primary" onClick={() => setIsModifying(true)}>수정하기</button>
+              <button class="btn btn-outline-danger" onClick={handleDelete} >삭제하기</button>
             </div>
           </div>
-          
+
 
           <LectureProfile />
         </>
