@@ -1,120 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { useAuth } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const CounselingRegister = () => {
-    const [counseling, setCounseling] = useState({
-        c_content: '',
-        lno: '',
-        l_name: '',
-        sno: '',
-        s_name: ''
+const MemberLogin = () => {
+    const [loginRequest, setLoginRequest] = useState({
+        username: '',
+        password: '',
+        rememberMe: false
     });
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const [lectures, setLectures] = useState([]);
-    const [students, setStudents] = useState([]);
+    const { login } = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchLectures = async () => {
-            try {
-                const response = await axios.get('/lecture/list');
-                setLectures(response.data);
-            } catch (error) {
-                console.error('Failed to fetch lectures', error);
-            }
-        };
-
-        const fetchStudents = async () => {
-            try {
-                const response = await axios.get('/student');
-                setStudents(response.data);
-            } catch (error) {
-                console.error('Failed to fetch students', error);
-            }
-        };
-
-        fetchLectures();
-        fetchStudents();
-    }, []);
-
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setCounseling({ ...counseling, [name]: value });
+        const { name, value, type, checked } = e.target;
+        setLoginRequest({
+            ...loginRequest,
+            [name]: type === 'checkbox' ? checked : value
+        });
     };
 
-    const handleLectureChange = (e) => {
-        const selectedLecture = lectures.find(lecture => lecture.lno === e.target.value);
-        if (selectedLecture) {
-            setCounseling({ ...counseling, lno: selectedLecture.lno, l_name: selectedLecture.l_name });
-        }
-    };
-
-    const handleStudentChange = (e) => {
-        const selectedStudent = students.find(student => student.sno.toString() === e.target.value);
-        if (selectedStudent) {
-            setCounseling({ ...counseling, sno: selectedStudent.sno, s_name: selectedStudent.s_name });
-        }
-    };
-
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/counseling', counseling);
-            if (response.status === 201) {
-                alert('등록 성공');
-                navigate('/'); // 등록 성공 후 메인 페이지로 이동
-            } else {
-                alert('상담 등록 중 오류가 발생했습니다.');
-            }
+            await login(loginRequest.username, loginRequest.password, loginRequest.rememberMe);
+            navigate('/basic'); // 로그인 후 홈 페이지로 이동
         } catch (error) {
-            console.error('상담 등록 중 오류가 발생했습니다.', error);
-            alert('상담 등록 중 오류가 발생했습니다.');
+            setErrorMessage('로그인 실패: 사용자 이름 또는 비밀번호가 잘못되었습니다.');
         }
     };
 
     return (
         <div className="container">
             <div className="card">
-                <h2>상담 등록</h2>
-                <form onSubmit={handleSubmit}>
+                <h2>Welcome!</h2>
+                {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
+                <form onSubmit={handleLogin}>
                     <div>
-                        <label>상담 내용:</label>
                         <input
                             type="text"
-                            name="c_content"
-                            value={counseling.c_content}
+                            name="username"
+                            value={loginRequest.username}
                             onChange={handleChange}
+                            placeholder="Username"
                             required
                         />
                     </div>
                     <div>
-                        <label>강의 선택:</label>
-                        <select name="lno" value={counseling.lno} onChange={handleLectureChange} required>
-                            <option value="">강의를 선택하세요</option>
-                            {lectures.map(lecture => (
-                                <option key={lecture.lno} value={lecture.lno}>
-                                    {lecture.lno} - {lecture.l_name}
-                                </option>
-                            ))}
-                        </select>
+                        <input
+                            type="password"
+                            name="password"
+                            value={loginRequest.password}
+                            onChange={handleChange}
+                            placeholder="Password"
+                            required
+                        />
                     </div>
-                    <div>
-                        <label>학생 선택:</label>
-                        <select name="sno" value={counseling.sno} onChange={handleStudentChange} required>
-                            <option value="">학생을 선택하세요</option>
-                            {students.map(student => (
-                                <option key={student.sno} value={student.sno.toString()}>
-                                    {student.sno} - {student.s_name}
-                                </option>
-                            ))}
-                        </select>
+                    <div className="checkbox-container">
+                        <input
+                            type="checkbox"
+                            name="rememberMe"
+                            checked={loginRequest.rememberMe}
+                            onChange={handleChange}
+                        />
+                        <label>자동 로그인</label>
                     </div>
-                    <button type="submit">등록</button>
+                    <button type="submit">로그인</button>
                 </form>
             </div>
         </div>
     );
 };
 
-export default CounselingRegister;
+export default MemberLogin;

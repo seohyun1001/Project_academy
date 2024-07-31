@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-// import './MemberRegister.css'; // CSS 파일 추가
 
 const MemberRegister = () => {
     const [member, setMember] = useState({
