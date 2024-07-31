@@ -14,6 +14,7 @@ import Basic from './components/Basic/Basic';
 import NoticeBasic from './components/Basic/NoticeBasic';
 import Read from './components/member/Read/Read';
 import Modify from './components/member/Modify/Modify';
+import Student from './components/student/Student';
 
 
 const App = () => {
@@ -25,19 +26,18 @@ const App = () => {
 
                 <Route path="/read/:mno" element={<Read />} />
                 <Route path="/modify/:mno" element={<Modify />} />
-                <Route path="/list" element={<List />} />
                 <Route path="/MemberRegister" element={<Register />} />
                 <Route path="/MemberLogin" element={<Login />} />
                 <Route path="/member" element={<List />} />
                 <Route path="/Member/Register" element={<Register />} />
                 <Route path="/Member/Login" element={<Login />} />
-                <Route path="/student" element={<StudentList />} />
+                <Route path="/studentList" element={<StudentList />} />
                 <Route path="/student/register" element={<StudentRegister />} />
                 <Route path="/student/edit/:sno" element={<StudentEdit />} />
                 <Route path="/Noticelist" element={<Noticelist/>}/>
                 <Route path="/NoticeRegister" element={<NoticeRegister/>}/>
                 <Route path="/counseling/register" element={<CounselingRegister />} />
-
+                <Route path='/student' element={<Student/>}/>
                 {/* 다른 라우트들도 추가할 수 있습니다 */}
 
             </Routes>
