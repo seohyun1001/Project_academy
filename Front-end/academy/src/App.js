@@ -1,11 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Header from './components/Basic/Header';
-import SideBar from './components/Basic/SideBar';
-import MainInfo from './components/Basic/MainInfo';
-import RelatedClasses from './components/Basic/RelatedClasses';
-import Counseling from './components/Basic/Counseling';
 import Footer from './components/Basic/Footer';
 import List from './components/member/List/List';
 import Register from './components/member/memberRegister/MemberRegister';
@@ -25,33 +21,31 @@ import Basic from './components/Basic/Basic';
 import NoticeBasic from './components/Basic/NoticeBasic';
 import Read from './components/member/Read/Read';
 import Modify from './components/member/Modify/Modify';
-
+import PrivateRoute from './PrivateRoute'; // 추가된 부분
 
 const App = () => {
     return (
         <AuthProvider>
             <Router>
                 <Routes>
-                    <Route path='/basic' element={<Basic />} />
-                    <Route path='/noticeBasic' element={<NoticeBasic />} />
-                    <Route path="/read/:mno" element={<Read />} />
-                    <Route path="/modify/:mno" element={<Modify />} />
-                    <Route path="/list" element={<List />} />
-                    <Route path="/Member/Register" element={<Register />} />
-                    <Route path="/Member/Login" element={<Login />} />
-                    <Route path="/student" element={<StudentList />} />
-                    <Route path="/student/register" element={<StudentRegister />} />
-                    <Route path="/student/edit/:sno" element={<StudentEdit />} />
-                    <Route path="/Noticelist" element={<Noticelist />} />
-                    <Route path="/NoticeRegister" element={<NoticeRegister />} />
-                    <Route path="/counseling/register" element={<CounselingRegister />} />
-                    <Route path="/counseling/list" element={<CounselingList />} />
-                    <Route path="/counseling/edit/:cno" element={<CounselingEdit />} />
-                    <Route path="/pay/register" element={<PayRegister />} />
-                    <Route path="/pay/list" element={<PayList />} />
-                    <Route path="/pay/edit/:pno" element={<PayEdit />} />
-                    {/* 다른 라우트들도 추가할 수 있습니다 */}
-
+                    <Route path="/member/login" element={<Login />} />
+                    <Route path="/basic" element={<PrivateRoute><Basic /></PrivateRoute>} />
+                    <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
+                    <Route path="/read/:mno" element={<PrivateRoute><Read /></PrivateRoute>} />
+                    <Route path="/modify/:mno" element={<PrivateRoute><Modify /></PrivateRoute>} />
+                    <Route path="/list" element={<PrivateRoute><List /></PrivateRoute>} />
+                    <Route path="/Member/Register" element={<PrivateRoute><Register /></PrivateRoute>} />
+                    <Route path="/student" element={<PrivateRoute><StudentList /></PrivateRoute>} />
+                    <Route path="/student/register" element={<PrivateRoute><StudentRegister /></PrivateRoute>} />
+                    <Route path="/student/edit/:sno" element={<PrivateRoute><StudentEdit /></PrivateRoute>} />
+                    <Route path="/Noticelist" element={<PrivateRoute><Noticelist /></PrivateRoute>} />
+                    <Route path="/NoticeRegister" element={<PrivateRoute><NoticeRegister /></PrivateRoute>} />
+                    <Route path="/counseling/register" element={<PrivateRoute><CounselingRegister /></PrivateRoute>} />
+                    <Route path="/counseling/list" element={<PrivateRoute><CounselingList /></PrivateRoute>} />
+                    <Route path="/counseling/edit/:cno" element={<PrivateRoute><CounselingEdit /></PrivateRoute>} />
+                    <Route path="/pay/register" element={<PrivateRoute><PayRegister /></PrivateRoute>} />
+                    <Route path="/pay/list" element={<PrivateRoute><PayList /></PrivateRoute>} />
+                    <Route path="/pay/edit/:pno" element={<PrivateRoute><PayEdit /></PrivateRoute>} />
                 </Routes>
             </Router>
         </AuthProvider>

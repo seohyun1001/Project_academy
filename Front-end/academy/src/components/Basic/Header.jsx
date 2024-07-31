@@ -6,10 +6,6 @@ const Header = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
 
-    const handleLogin = () => {
-        navigate('/member/login');
-    };
-
     const handleLogout = () => {
         logout();
         navigate('/member/login');
@@ -38,8 +34,9 @@ const Header = () => {
                                     <button type="button" className="btn btn-outline-light me-2" onClick={handleLogout}>Logout</button>
                                 </>
                             ) : (
-                                <button type="button" className="btn btn-outline-light me-2" onClick={handleLogin}>Login</button>
+                                <></>
                             )}
+
                         </div>
                     </div>
                 </div>
