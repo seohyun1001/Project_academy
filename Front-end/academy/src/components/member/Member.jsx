@@ -17,6 +17,7 @@ const Member = () => {
     useEffect(() => {
         fetchMembers();
     }, []);
+    
     // 강사 목록을 새로고침합니다.
     const fetchMembers = () => {
         axios.get('http://localhost:8092/member/list')
