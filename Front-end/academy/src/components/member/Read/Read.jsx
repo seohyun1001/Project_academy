@@ -65,6 +65,20 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
         fetchLectures();
     };
 
+    const handleLectureClick = async (lecture) => {
+        if (window.confirm(`강의 ${lecture.l_name}를 삭제하시겠습니까?`)) {
+            try {
+                const updatedLecture = { ...lecture, mno: 1000 };
+                await axios.post(`http://localhost:8092/lecture/modify`, updatedLecture); // PUT 요청
+                alert('삭제되었습니다.');
+                refreshData(); // 데이터 갱신 함수 호출
+            } catch (error) {
+                console.error('삭제하는 중 오류가 발생했습니다.', error);
+                alert('삭제하는 중 오류가 발생했습니다.');
+            }
+        }
+    };
+
     const canEditOrDelete = roleSet.includes('ADMIN') || loggedInMno === member.mno;
 
     const handleShowModal = () => setShowModal(true);
@@ -143,7 +157,7 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
                             </thead>
                             <tbody>
                                 {lectures.map((lec) => (
-                                    <tr key={lec.lno}>
+                                    <tr key={lec.lno} onClick={() => handleLectureClick(lec)}>
                                         <td>{lec.lno}</td>
                                         <td>{lec.l_name}</td>
                                         <td>{lec.l_start}</td>
