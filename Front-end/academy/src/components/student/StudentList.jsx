@@ -134,7 +134,7 @@ const StudentList = ({ onStudentClick }) => {
     return (
         <div className="row text-center">
             <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary">
-                <form onSubmit={handleSearchSubmit} className="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis border-bottom">
+                <a className="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis border-bottom">
                     <input
                         className="form-control me-2"
                         type="search"
@@ -143,9 +143,10 @@ const StudentList = ({ onStudentClick }) => {
                         value={searchTerm}
                         onChange={handleSearchChange}
                     />
-                    <button className="btn btn-outline-dark" type="submit">Search</button>
-                </form>
-                <button className="btn btn-primary mb-3" onClick={handleRegister}>추가</button>
+                    {/* <button className="btn btn-outline-dark" type="submit">Search</button> */}
+                    <button className="btn btn-outline-dark l_register_btn" onClick={handleRegister}>등록</button>
+                </a>
+
                 <div className="list-group list-group-flush border-bottom scrollarea scrollBar">
                     {filteredStudents.map(student => (
                         <a href="#" className="list-group-item list-group-item-action py-3 lh-sm"
