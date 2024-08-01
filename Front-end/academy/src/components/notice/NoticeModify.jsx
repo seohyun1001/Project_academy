@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom"
+import Header from "../Basic/Header";
 
 const NoticeModify = () => {
     const { nno } = useParams();
@@ -37,12 +38,12 @@ const NoticeModify = () => {
     };
 
     const deleteSubmit = async (nrno) => {
-        if(window.confirm('삭제하시겠습니까?')) {
-            try{
-                await axios.delete('http://localhost:8092/notice/files/'+nrno);
+        if (window.confirm('삭제하시겠습니까?')) {
+            try {
+                await axios.delete('http://localhost:8092/notice/files/' + nrno);
                 // navigate('/Noticelist')
-                setNoticeResource(noticeResource.filter(notice =>notice.nrno !==  nrno))
-            } catch(error) {
+                setNoticeResource(noticeResource.filter(notice => notice.nrno !== nrno))
+            } catch (error) {
                 console.error("파일을 삭제하는 중 오류가 발생했습니다.")
             }
         }
@@ -93,58 +94,115 @@ const NoticeModify = () => {
     };
 
     return (
-        <div className="container">
-            <div className="row">
-                <h2>수정중</h2>
-                <form onSubmit={onSubmit}>
-                    <div className="mb-3">
-                        <input
-                            onChange={onInputChange}
-                            type="text"
-                            name="n_title"
-                            value={notice.n_title}
-                            required
-                            placeholder="제목"
-                        />
-                        <input
-                            onChange={onInputChange}
-                            type="text"
-                            id="n_content"
-                            className="form-control"
-                            placeholder="내용"
-                            name="n_content"
-                            value={notice.n_content}
-                        />
-
+        <body>
+            <Header />
+            <div className="container notice_con">
+                <h2 className="notice">수정중</h2>
+                <form onSubmit={(e) => e.preventDefault()}>
+                    <div className="container">
+                        <div className="d-flex flex-wrap justify-content-between">
+                            <p className="d-flex notice_title">제목:
+                                <input
+                                    onChange={onInputChange}
+                                    type="text"
+                                    name="n_title"
+                                    className="form-control"
+                                    value={notice.n_title}
+                                    required
+                                    placeholder="제목"
+                                />
+                            </p>
+                            <span>작성자 : {notice.writer}</span>
+                            {/* <span>등록일 : {reference.regDate ? for matDate(reference.regDate) : 'Date not available'}</span> */}
+                        </div>
+                        <p className="notice_content" >내용
+                            <textarea
+                                onChange={onInputChange}
+                                id="n_content"
+                                className="form-control"
+                                placeholder="내용"
+                                name="n_content"
+                                value={notice.n_content}
+                                rows="20"
+                            />
+                        </p>
+                        <div>
+                        </div>
+                        <p>첨부파일</p>
                         <input
                             onChange={onInputChange}
                             type="file"
                             id="nr_name"
                             className="form-control"
                             name="nr_name"
-                        // accept=".pdf,.doc,.docx"
                         />
-                        <input
-                            onChange={onInputChange}
-                            type="hidden"
-                            id="writer"
-                            className="form-control"
-                            name="writer"
-                            value={notice.writer}
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-outline-primary px-3 mx-2">
-                        등록
-                    </button>
-                </form>
-                {noticeResource.map((nr, index) => (
-                            <div>
-                            <p key={nr.nrno}>{nr.nr_name}</p>
-                            <button type="button" onClick={()=>{deleteSubmit(nr.nrno)}}>삭제</button>
+                        {noticeResource.map((nr) => (
+                            <div key={nr.nrno}>
+                                <p>{nr.nr_name} <button type="button" onClick={() => deleteSubmit(nr.nrno)}>X</button></p>
                             </div>
                         ))}
+                    </div>
+                    <div className="d-flex flex-wrap justify-content-between btns">
+                        <button type="button" className="btn btn-outline-dark noticeListBtn" onClick={() => navigate('/referencelist')}>목록으로 돌아가기</button>
+                        <div>
+                            <button type="button" className="btn btn-outline-primary px-3 mx-2" onClick={onSubmit}>수정</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
+        </body>
+        // <div className="container">
+        //     <div className="row">
+        //         <h2>수정중</h2>
+        //         <form onSubmit={onSubmit}>
+        //             <div className="mb-3">
+        //                 <input
+        //                     onChange={onInputChange}
+        //                     type="text"
+        //                     name="n_title"
+        //                     value={notice.n_title}
+        //                     required
+        //                     placeholder="제목"
+        //                 />
+        //                 <input
+        //                     onChange={onInputChange}
+        //                     type="text"
+        //                     id="n_content"
+        //                     className="form-control"
+        //                     placeholder="내용"
+        //                     name="n_content"
+        //                     value={notice.n_content}
+        //                 />
+
+        //                 <input
+        //                     onChange={onInputChange}
+        //                     type="file"
+        //                     id="nr_name"
+        //                     className="form-control"
+        //                     name="nr_name"
+        //                 // accept=".pdf,.doc,.docx"
+        //                 />
+        //                 <input
+        //                     onChange={onInputChange}
+        //                     type="hidden"
+        //                     id="writer"
+        //                     className="form-control"
+        //                     name="writer"
+        //                     value={notice.writer}
+        //                 />
+        //             </div>
+        //             <button type="submit" className="btn btn-outline-primary px-3 mx-2">
+        //                 등록
+        //             </button>
+        //         </form>
+        //         {noticeResource.map((nr, index) => (
+        //                     <div>
+        //                     <p key={nr.nrno}>{nr.nr_name}</p>
+        //                     <button type="button" onClick={()=>{deleteSubmit(nr.nrno)}}>삭제</button>
+        //                     </div>
+        //                 ))}
+        //     </div>
+        // </div>
     )
 
 };

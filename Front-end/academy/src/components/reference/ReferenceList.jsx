@@ -133,7 +133,7 @@ function Referencelist() {
       <Header />
       <div className="container notice_con">
         <div className="d-flex justify-content-between mb-4">
-          <h2 className="notice_title">공지사항</h2>
+          <h2 className="notice_title" style={{fontSize: "30px"}}>자료실</h2>
           <div className="d-flex">
             <input
               id="searchInput"

@@ -35,6 +35,7 @@ import TestModify from './components/reference/TestModify';
 
 const App = () => {
     return (
+        <AuthProvider>
         <Router>
             <Routes>
                 <Route path='/basic' element={<Basic />} />
@@ -71,6 +72,7 @@ const App = () => {
 
             </Routes>
         </Router>
+        </AuthProvider>
     );
 };
 

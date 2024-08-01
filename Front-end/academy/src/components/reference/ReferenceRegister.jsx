@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../Basic/Header";
+import Footer from "../Basic/Footer";
 
 const TestRegister = () => {
     const navigate = useNavigate();
@@ -106,7 +107,9 @@ const TestRegister = () => {
             </div>
             </form>
         </div>
+        <Footer/>
         </body>
+        
         // <div className="row">
         //     <h2>자료실</h2>
         //     <form onSubmit={onSubmit}>
