@@ -72,6 +72,7 @@ public class ReferenceServiceImpl implements ReferenceService {
                 .r_content(reference.getR_content())
                 .r_image(reference.getR_image())
                 .writer(reference.getWriter())
+                .regDate(reference.getRegDate())
                 .references_resource(rrDtoList)
                 .build();
 
