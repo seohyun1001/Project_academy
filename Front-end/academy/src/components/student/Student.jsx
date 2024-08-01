@@ -5,12 +5,13 @@ import Footer from "../Basic/Footer";
 import StudentInfo from "./StudentInfo";
 import StudentDetail from "./StudentDetail";
 import StudentRegister from "./StudentRegister";
-import StudentEdit from "./StudentEdit"; // Import StudentEdit component
+import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
+import StudentEdit from "./StudentEdit";
 
 const Student = () => {
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [showRegister, setShowRegister] = useState(false);
-    const [showEdit, setShowEdit] = useState(false); // New state for showing StudentEdit
+    const [showEdit, setShowEdit] = useState(false);
 
     const handleStudentClick = (student) => {
         if (selectedStudent && selectedStudent.sno === student.sno) {
@@ -18,6 +19,7 @@ const Student = () => {
         } else {
             setSelectedStudent(student);
         }
+        setShowEdit(false);
     };
 
     const handleStudentDeleted = () => {
@@ -27,18 +29,14 @@ const Student = () => {
 
     const handleRegisterClick = () => {
         setShowRegister(prevState => !prevState);
-        if (selectedStudent) {
-            setSelectedStudent(null);
-        }
-        setShowEdit(false); // Hide StudentEdit when showing StudentRegister
+        setSelectedStudent(null);
+        setShowEdit(false);
     };
 
     const handleEditClick = () => {
-        setShowEdit(prevState => !prevState);
-        if (selectedStudent) {
-            setShowRegister(false); // Hide StudentRegister when showing StudentEdit
-        }
-    };
+        setShowEdit(true);
+        setShowRegister(false);
+    }
 
     return (
         <div className="vsc-initialized">
@@ -50,9 +48,9 @@ const Student = () => {
                         {showRegister ? (
                             <StudentRegister />
                         ) : showEdit ? (
-                            selectedStudent ? <StudentEdit /> : <StudentInfo />
+                            <StudentEdit sno={selectedStudent.sno} />
                         ) : selectedStudent ? (
-                            <StudentDetail student={selectedStudent} onStudentDeleted={handleStudentDeleted} />
+                            <StudentDetail student={selectedStudent} onStudentDeleted={handleStudentDeleted} onEditClick={handleEditClick} />
                         ) : (
                             <StudentInfo />
                         )}

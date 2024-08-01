@@ -5,7 +5,7 @@ import './StudentDetail.css';
 import RelatedClasses from '../Basic/RelatedClasses';
 import Counseling from '../Basic/Counseling';
 
-const StudentDetail = ({ student, onStudentDeleted }) => {
+const StudentDetail = ({ student, onStudentDeleted, onEditClick }) => {
     const [profileImage, setProfileImage] = useState(null);
     const navigate = useNavigate();
 
@@ -24,8 +24,10 @@ const StudentDetail = ({ student, onStudentDeleted }) => {
     };
 
     const handleEdit = () => {
-        navigate(`/student/edit/${student.sno}`);
-    };
+        if (onEditClick) {
+            onEditClick();
+        }
+    }
 
     const handleImageChange = (e) => {
         setProfileImage(e.target.files[0]);
@@ -69,45 +71,45 @@ const StudentDetail = ({ student, onStudentDeleted }) => {
 
                     <div class="input-group">
                         <label for="" class="form-label info_detail">이름</label>
-                        <p type="text" name="" id="" >{student.s_name}</p>
+                        <p>{student.s_name}</p>
                     </div>
 
                     <div class="input-group">
                         <label for="" class="form-label info_detail">학생번호</label>
-                        <p type="text" name="" id="">{student.sno}</p>
+                        <p>{student.sno}</p>
                     </div>
 
                     <div class="input-group">
                         <label for="" class="form-label info_detail">생년월일</label>
-                        <p type="text" name="" id="">{student.s_birthday}</p>
+                        <p>{student.s_birthday}</p>
                     </div>
 
                     <div class="input-group">
                         <label for="" class="form-label info_detail">전화번호</label>
-                        <p type="text" name="" id="">{student.s_phone}</p>
+                        <p>{student.s_phone}</p>
                     </div>
 
                     <div class="input-group">
                         <label for="" class="form-label info_detail">메일</label>
-                        <p type="text" name="" id="">{student.s_email}</p>
+                        <p>{student.s_email}</p>
                     </div>
 
                     <div class="input-group">
                         <label for="" class="form-label info_detail">주소1</label>
-                        <p type="text" name="" id="">{student.s_address1}</p>
+                        <p>{student.s_address1}</p>
                     </div>
 
                     <div class="input-group">
                         <label for="" class="form-label info_detail">주소2</label>
-                        <p type="text" name="" id="">{student.s_address2}</p>
+                        <p>{student.s_address2}</p>
                     </div>
 
                     <div class="input-group">
                         <label for="" class="form-label info_detail">현재 상태</label>
-                        <p type="text" name="" id="">{student.s_status}</p>
+                        <p>{student.s_status}</p>
                     </div>
                     <div className='d-flex justify-content-end l_info_btns'>
-                    <button className="btn btn-outline-primary l_info_btn" onClick={handleEdit}>수정</button>
+                    <button className="btn btn-outline-primary l_info_btn" onClick={onEditClick}>수정</button>
                     <button className="btn btn-outline-danger l_info_btn" onClick={handleDelete}>삭제</button>
                     </div>
                 </div>

@@ -68,6 +68,7 @@ const StudentRegister = () => {
             }
 
             alert(`${sno} 번 학생이 성공적으로 등록되었습니다.`);
+            window.location.reload();
             // alert(`${response.data.sno} 번 학생이 성공적으로 등록되었습니다.`); -> response.data.sno를 찾지 못함
 
             setStudent({
