@@ -74,7 +74,7 @@ public class CounselingController {
         if (counselingList != null && !counselingList.isEmpty()) {
             return ResponseEntity.ok(counselingList);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(counselingList);
         }
     }
 }
