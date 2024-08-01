@@ -47,6 +47,7 @@ const Member = () => {
                         setIsEditing={setIsEditing}
                         showRegister={showRegister}
                         setShowRegister={setShowRegister}
+                        
                     />
                     <div className="col">
                         <div style={{ flex: 1 }}> {/*사이드바 옆에 위치할 수 있게 함 */}

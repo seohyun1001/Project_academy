@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MemberRegister from '../memberRegister/MemberRegister';
 
 const List = ({ members, selectedMember, setSelectedMember, fetchMember, setIsEditing, showRegister, setShowRegister }) => {
     const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태 추가
+    const [roleSet, setRoleSet] = useState([]);
+
+    useEffect(() => {
+        const storedRoleSet = JSON.parse(localStorage.getItem('roleSet'));
+        if (storedRoleSet) {
+            setRoleSet(storedRoleSet);
+        }
+    }, []);
 
     const handleMemberClick = (mno) => {
         if (selectedMember && selectedMember.mno === mno) {
@@ -37,9 +45,11 @@ const List = ({ members, selectedMember, setSelectedMember, fetchMember, setIsEd
                         value={searchTerm}
                         onChange={handleSearchChange}
                     />
-                    <button className="btn btn-outline-dark l_register_btn" type="button" onClick={handleRegisterClick}>
-                        {showRegister ? '취소' : '등록'}
-                    </button>
+                    {roleSet.includes('ADMIN') && (
+                        <button className="btn btn-outline-dark l_register_btn" type="button" onClick={handleRegisterClick}>
+                            {showRegister ? '취소' : '등록'}
+                        </button>
+                    )}
                 </a>
                 <div className="list-group list-group-flush border-bottom scrollarea scrollBar">
                     {filteredMembers.map(member => (
