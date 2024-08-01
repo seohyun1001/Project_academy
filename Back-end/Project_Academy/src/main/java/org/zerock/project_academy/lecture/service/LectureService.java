@@ -30,4 +30,6 @@ public interface LectureService {
     // delete
     void deleteLecture(String lno);
 
+    List<Lecture> findLecturesByMemberMno(String mno);
+
 }

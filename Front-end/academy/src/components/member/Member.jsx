@@ -1,11 +1,11 @@
 import Footer from "../Basic/Footer";
 import Header from "../Basic/Header";
-import List from "./List/List";
 import Read from "./Read/Read";
 import Modify from './Modify/Modify';
 import MemberRegister from "./memberRegister/MemberRegister";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import MemberList from "./List/MemberList";
 
 const Member = () => {
     const [members, setMembers] = useState([]); // 강사 목록
@@ -39,7 +39,7 @@ const Member = () => {
             <Header />
             <div className="container">
                 <div className="d-flex flex-wrap">
-                    <List 
+                    <MemberList 
                         members={members} 
                         selectedMember={selectedMember} 
                         setSelectedMember={setSelectedMember}

@@ -9,7 +9,7 @@ const LectureModify = ({ lectureId, setIsModifying, onModificationComplete }) =>
         l_classroom: "",
         l_start: "",
         l_end: "",
-        member_l: {
+        memberL: {
             mno: "",
             m_name: ""
         }
@@ -59,7 +59,7 @@ const LectureModify = ({ lectureId, setIsModifying, onModificationComplete }) =>
         const selectedMember = members.find(member => member.mno === memberId);
         setLecture({
             ...lecture,
-            member_l: {
+            memberL: {
                 mno: selectedMember.mno,
                 m_name: selectedMember.m_name
             }
@@ -76,7 +76,7 @@ const LectureModify = ({ lectureId, setIsModifying, onModificationComplete }) =>
                 l_classroom: lecture.l_classroom,
                 l_start: lecture.l_start,
                 l_end: lecture.l_end,
-                mno: lecture.member_l.mno
+                mno: lecture.memberL.mno
             };
             await axios.post(`/lecture/modify`, lectureDTO);
             window.alert("강의가 수정되었습니다.");
@@ -126,7 +126,7 @@ const LectureModify = ({ lectureId, setIsModifying, onModificationComplete }) =>
 
                         <div class="input-group">
                             <label class="form-label info_detail">강사 사번</label>
-                            <select name="mno" value={lecture.member_l.mno} onChange={handleMemberChange}>
+                            <select name="mno" value={lecture.memberL.mno} onChange={handleMemberChange}>
                                 <option value="">Select Instructor</option>
                                 {members.map((member) => (
                                     <option key={member.mno} value={member.mno}>
@@ -138,7 +138,7 @@ const LectureModify = ({ lectureId, setIsModifying, onModificationComplete }) =>
 
                         <div class="input-group">
                             <label class="form-label info_detail">담당 강사</label>
-                            <p>{lecture.member_l.m_name}</p>
+                            <p>{lecture.memberL.m_name}</p>
                         </div>
 
                         <div class="input-group">

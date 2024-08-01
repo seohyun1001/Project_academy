@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MemberRegister from '../memberRegister/MemberRegister';
 
-const List = ({ members, selectedMember, setSelectedMember, fetchMember, setIsEditing, showRegister, setShowRegister }) => {
+const MemberList = ({ members, selectedMember, setSelectedMember, fetchMember, setIsEditing, showRegister, setShowRegister }) => {
     const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태 추가
 
     const handleMemberClick = (mno) => {
@@ -60,4 +60,4 @@ const List = ({ members, selectedMember, setSelectedMember, fetchMember, setIsEd
     );
 };
 
-export default List;
+export default MemberList;

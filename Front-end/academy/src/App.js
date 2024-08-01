@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Header from './components/Basic/Header';
 import Footer from './components/Basic/Footer';
-import List from './components/member/List/List';
+
 import Register from './components/member/memberRegister/MemberRegister';
 import Login from './components/member/memberLogin/MemberLogin';
 import StudentList from './components/student/StudentList';
@@ -33,6 +33,7 @@ import LectureBasic from './components/Basic/Lecture/LectureBasic';
 import RegisterModal from './components/Basic/student/registerModal';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분
 import Student from './components/student/Student';
+import MemberList from './components/member/List/MemberList';
 
 const App = () => {
     return (
@@ -42,7 +43,7 @@ const App = () => {
                     <Route path="/basic" element={<PrivateRoute><Basic /></PrivateRoute>} />
                     <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
                     <Route path="/member/login" element={<Login />} />
-                    <Route path="/list" element={<PrivateRoute><List /></PrivateRoute>} />
+                    <Route path="/member/list" element={<PrivateRoute><MemberList /></PrivateRoute>} />
                     <Route path="/Member/Register" element={<PrivateRoute><Register /></PrivateRoute>} />
                     <Route path='/member' element={<PrivateRoute><Member /></PrivateRoute>} />
 
