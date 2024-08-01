@@ -39,19 +39,21 @@ import LectureList from './components/Lecture/LectureList';
 
 const App = () => {
     return (
-        <Router>
-            <AuthProvider>
+        <AuthProvider>
+            <Router>
+
                 <div className='d-flex flex-column justify-content-between mainBody vsc-initialized'>
                     <Header />
                     <div class="container">
                         <div class="d-flex flex-wrap">
-                            
+
                         </div>
                     </div>
                     <Footer />
                 </div>
 
                 <Routes>
+                    
                     <Route path="/basic" element={<PrivateRoute><Basic /></PrivateRoute>} />
                     <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
                     <Route path="/member/login" element={<Login />} />
@@ -67,11 +69,11 @@ const App = () => {
                     <Route path="/NoticeRegister" element={<PrivateRoute><NoticeRegister /></PrivateRoute>} />
                     <Route path='/testlist' element={<PrivateRoute><Referencelist /></PrivateRoute>} />
 
-                    <Route path="/ReferenceList" element={<Referencelist/>}/>
-                    <Route path="/NoticeRegister" element={<NoticeRegister/>}/>
+                    <Route path="/ReferenceList" element={<Referencelist />} />
+                    <Route path="/NoticeRegister" element={<NoticeRegister />} />
                     <Route path="/Reference/:rno" element={<ReferenceDetail />} />
-                    <Route path="/ReferenceRegister" element={<ReferenceRegister/>}/>
-                    
+                    <Route path="/ReferenceRegister" element={<ReferenceRegister />} />
+
                     <Route path="/counseling/register" element={<PrivateRoute><CounselingRegister /></PrivateRoute>} />
                     <Route path="/counseling/list" element={<PrivateRoute><CounselingList /></PrivateRoute>} />
                     <Route path="/counseling/edit/:cno" element={<PrivateRoute><CounselingEdit /></PrivateRoute>} />
@@ -82,12 +84,9 @@ const App = () => {
                     <Route path="/lecturelist" element={<PrivateRoute><LectureList /></PrivateRoute>} />
                     <Route path="/lecture" element={<PrivateRoute><Lecture /></PrivateRoute>} />
                 </Routes>
+            </Router>
+        </AuthProvider>
 
-
-
-
-            </AuthProvider>
-        </Router>
     );
 };
 

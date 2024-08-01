@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import UndefinedModal from '../UndefinedModal';
 
 const Read = ({ member, onEditClick, onMemberDeleted }) => {
     const [updateMember, setUpdatedMember] = useState({ ...member });
@@ -8,6 +9,7 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
     const [roleSet, setRoleSet] = useState([]);
 
     const [lectures, setLectures] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
     const fetchLectures = async () => {
         if (member.mno) {
@@ -59,7 +61,14 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
         }
     };
 
+    const refreshData = () => {
+        fetchLectures();
+    };
+
     const canEditOrDelete = roleSet.includes('ADMIN') || loggedInMno === member.mno;
+
+    const handleShowModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
 
     return (
         <>
@@ -75,7 +84,7 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
                                 className="img-thumbnail picture float-start"
                                 src={defaultImage} alt="프로필 사진" />
                         }
-                        </div>
+                    </div>
                     <div className="d-flex flex-column info_list">
                         <div className="input-group">
                             <label htmlFor="" className="form-label info_detail">이름</label>
@@ -105,19 +114,24 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
                 </div>
                 <div>
                     {canEditOrDelete && (
-                    <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
+                        <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
                             <div className="btn-group mt-3">
                                 <button type="button" className="btn btn-outline-primary" onClick={onEditClick}>수정</button>
                                 <button type="button" className="btn btn-outline-danger" onClick={handleDelete}>삭제</button>
                             </div>
-                    </div>
+                        </div>
                     )}
                 </div>
             </div>
             <div className="card profile_card">
                 <div className="d-flex flex-wrap main_info">
                     <div className="d-flex flex-column class_list">
-                        <h4>담당 강의</h4>
+                        <div className='d-flex justify-content-between mb-4'>
+                            <h4 className='taked_lecture'>담당 강의</h4>
+                            <div className="btn-group mt-3">
+                                <button type="button" className="btn btn-outline-secondary" onClick={handleShowModal}>강의 추가</button> {/* 버튼 추가 */}
+                            </div>
+                        </div>
                         <table>
                             <thead>
                                 <tr>
@@ -141,6 +155,12 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
                     </div>
                 </div>
             </div>
+            <UndefinedModal
+                show={showModal}
+                handleClose={handleCloseModal}
+                newMno={member.mno} 
+                refreshData={refreshData}
+            />
         </>
     );
 }

@@ -89,6 +89,7 @@
 
 .class_list {
   margin-left: 30px;
+  margin-right: 30px;
 }
 
 .list {
@@ -206,4 +207,8 @@ td {
 
 .l_info_btn{
   margin-right: 5px;
+}
+
+.taked_lecture{
+  margin: 0;
 }
