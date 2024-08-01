@@ -49,15 +49,17 @@ const UndefinedModal = ({ show, handleClose, newMno, refreshData }) => {
                             <th>강의명</th>
                             <th>시작일자</th>
                             <th>종료일자</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {lectures.map((lec) => (
-                            <tr key={lec.lno} onClick={() => handleLectureClick(lec)}>
+                            <tr key={lec.lno} >
                                 <td>{lec.lno}</td>
                                 <td>{lec.l_name}</td>
                                 <td>{lec.l_start}</td>
                                 <td>{lec.l_end}</td>
+                                <td onClick={() => handleLectureClick(lec)}>추가</td>
                             </tr>
                         ))}
                     </tbody>
