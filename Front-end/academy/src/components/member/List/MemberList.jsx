@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MemberRegister from '../memberRegister/MemberRegister';
 
-const List = ({ members, selectedMember, setSelectedMember, fetchMember, setIsEditing, showRegister, setShowRegister }) => {
+const MemberList = ({ members, selectedMember, setSelectedMember, fetchMember, setIsEditing, showRegister, setShowRegister }) => {
     const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태 추가
 
     const handleMemberClick = (mno) => {
@@ -41,7 +41,7 @@ const List = ({ members, selectedMember, setSelectedMember, fetchMember, setIsEd
                         {showRegister ? '취소' : '등록'}
                     </button>
                 </a>
-                <div className="list-group list-group-flush border-bottom scrollarea">
+                <div className="list-group list-group-flush border-bottom scrollarea scrollBar">
                     {filteredMembers.map(member => (
                         <a
                             className="list-group-item list-group-item-action"
@@ -60,4 +60,4 @@ const List = ({ members, selectedMember, setSelectedMember, fetchMember, setIsEd
     );
 };
 
-export default List;
+export default MemberList;

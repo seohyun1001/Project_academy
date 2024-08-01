@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 import org.zerock.project_academy.lecture.domain.Lecture;
 import org.zerock.project_academy.lecture.repository.LectureRepository;
 import org.zerock.project_academy.student.domain.Counseling;
-import org.zerock.project_academy.student.domain.Pay;
 import org.zerock.project_academy.student.domain.Student;
 import org.zerock.project_academy.student.dto.CounselingDTO;
-import org.zerock.project_academy.student.dto.PayDTO;
 import org.zerock.project_academy.student.repository.CounselingRepository;
 import org.zerock.project_academy.student.repository.StudentRepository;
 

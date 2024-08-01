@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"member_l"})
+@ToString(exclude = {"memberL"})
 @Builder
 public class Lecture extends BaseEntity {
     @Id
@@ -25,7 +25,7 @@ public class Lecture extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "mno", referencedColumnName = "mno")
-    private Member member_l;
+    private Member memberL;
 
     public void changeLecture(String l_name, String l_category, String l_classroom) {
         this.l_name = l_name;
@@ -33,8 +33,8 @@ public class Lecture extends BaseEntity {
         this.l_classroom = l_classroom;
     }
 
-    public void setMember_l(Member member_l) {
-        this.member_l = member_l;
+    public void setmemberL(Member memberL) {
+        this.memberL = memberL;
     }
 
 }

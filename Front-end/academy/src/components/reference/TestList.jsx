@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Header from "../Basic/Header";
+import Footer from "../Basic/Footer";
 
-function Noticelist() {
-  const [noticeList, setNoticeList] = useState([]);
+function Referencelist() {
+  const [referenceList, setReferenceList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [currentItems, setCurrentItems] = useState([]);
@@ -11,10 +13,11 @@ function Noticelist() {
 
   const uploadRegister = async () => {
     try {
-      const result = await axios.get("http://localhost:8092/notice/list");
-      setNoticeList(result.data);
+      const result = await axios.get("http://localhost:8092/reference/list");
+      console.log(result.data); // 데이터 확인용
+      setReferenceList(result.data);
     } catch (error) {
-      console.error("Error fetching notice list:", error);
+      console.error("Error fetching reference list:", error);
     }
   };
 
@@ -23,17 +26,21 @@ function Noticelist() {
   }, []);
 
   useEffect(() => {
-    const filteredList = noticeList.filter(notice =>
-        notice.n_title.toLowerCase().includes(searchTerm.toLowerCase())
+    // 필터링 및 페이지네이션 처리
+    const filteredList = referenceList.filter(reference =>
+      reference.r_title.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    setCurrentItems(filteredList.slice(indexOfFirstItem, indexOfLastItem));
-  }, [currentPage, itemsPerPage, noticeList, searchTerm]);
+
+    // 최신 글부터 표시하기 위해 reverse() 사용
+    setCurrentItems(filteredList.slice(indexOfFirstItem, indexOfLastItem).reverse());
+  }, [currentPage, itemsPerPage, referenceList, searchTerm]);
 
   const totalPages = Math.ceil(
-    noticeList.filter(notice =>
-        notice.n_title.toLowerCase().includes(searchTerm.toLowerCase())
+    referenceList.filter(reference =>
+      reference.r_title.toLowerCase().includes(searchTerm.toLowerCase())
     ).length / itemsPerPage
   );
 
@@ -55,62 +62,133 @@ function Noticelist() {
 
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(
-        <button
+        <li
           key={i}
-          onClick={() => handleClick(i)}
-          className={currentPage === i ? 'active' : ''}
+          className={`page-item ${currentPage === i ? 'active' : ''}`}
         >
-          {i}
-        </button>
+          <a
+            className="page-link"
+            onClick={() => handleClick(i)}
+            style={{ cursor: 'pointer' }}
+          >
+            {i}
+          </a>
+        </li>
       );
     }
 
     return (
-      <div>
-        {startPage > 1 && <button onClick={() => handleClick(startPage - 1)}>◀</button>}
+      <ul className="pagination mb-0">
+        {startPage > 1 && (
+          <li className="page-item">
+            <a
+              className="page-link"
+              onClick={() => handleClick(startPage - 1)}
+              style={{ cursor: 'pointer' }}
+            >
+              &laquo;
+            </a>
+          </li>
+        )}
         {pageNumbers}
-        {endPage < totalPages && <button onClick={() => handleClick(endPage + 1)}>▶</button>}
-      </div>
+        {endPage < totalPages && (
+          <li className="page-item">
+            <a
+              className="page-link"
+              onClick={() => handleClick(endPage + 1)}
+              style={{ cursor: 'pointer' }}
+            >
+              &raquo;
+            </a>
+          </li>
+        )}
+      </ul>
     );
   };
 
+  const formatDate = (dateStr) => {
+    if (!dateStr) {
+      return 'Date not available';
+    }
+
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) {
+      console.warn(`Invalid date: ${dateStr}`);
+      return 'Invalid Date';
+    }
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월을 2자리로 포맷
+    const day = String(date.getDate()).padStart(2, '0'); // 일을 2자리로 포맷
+    return `${year}-${month}-${day}`;
+  };
+
+  const handleSearch = () => {
+    // 검색 버튼 클릭 시 검색어를 상태에 저장
+    setSearchTerm(document.getElementById('searchInput').value);
+  };
+
   return (
-    <div className="container">
-      <input
-        type="text"
-        placeholder="검색..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="form-control my-2"
-      />
-      <table className="table border shadow my-4">
-        <thead>
-          <tr>
-            <th scope="col">번호</th>
-            <th scope="col">제목</th>
-            <th scope="col">작성자</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentItems.map((notice, index) => (
-            <tr key={index}>
-              <th scope="row">{(currentPage - 1) * itemsPerPage + index + 1}</th>
-              <td>
-                <Link to={`/notice/${notice.nno}`}>
-                  {notice.n_title}
-                </Link>
-              </td>
-              <td>{notice.writer}</td>
+    <body>
+      <Header />
+      <div className="container notice_con">
+        <div className="d-flex justify-content-between mb-4">
+          <h2 className="notice_title">공지사항</h2>
+          <div className="d-flex">
+            <input
+              id="searchInput"
+              className="form-control me-2"
+              type="text"
+              placeholder="검색..."
+            />
+            <button
+              className="btn btn-outline-dark"
+              type="button"
+              onClick={handleSearch} // 검색 버튼 클릭 시 handleSearch 호출
+            >
+              Search
+            </button>
+          </div>
+        </div>
+
+        <table className="table table-hover border shadow-sm mb-4">
+          <thead>
+            <tr>
+              <th scope="col">번호</th>
+              <th scope="col">제목</th>
+              <th scope="col">등록일</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="pagination">{renderPageNumbers()}</div>
-      <Link className="btn btn-primary my-2" to={'/noticeregister'}>
-        작성
-      </Link>
-    </div>
+          </thead>
+          <tbody>
+            {currentItems.map((reference, index) => (
+              <tr key={index}>
+                <th scope="row">{(currentPage - 1) * itemsPerPage + index + 1}</th>
+                <td>
+                  <Link to={`/Reference/${reference.rno}`}>
+                    {reference.r_title}
+                  </Link>
+                </td>
+                <td>{formatDate(reference.regDate)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <div className="mx-auto"> {/* 페이지 번호를 가운데로 정렬 */}
+            {renderPageNumbers()}
+          </div>
+          <div className="text-end">
+            <Link className="btn btn-outline-dark" to={'/referenceregister'}>
+              등록
+            </Link>
+          </div>
+        </div>
+        
+        <Footer />
+      </div>
+    </body>
   );
 }
 
-export default Noticelist;
+export default Referencelist;

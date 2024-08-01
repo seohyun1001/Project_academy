@@ -32,7 +32,7 @@ public class  LectureServiceImpl implements LectureService {
         Lecture lecture = modelMapper.map(lectureDTO, Lecture.class);
         Member member = memberRepository.findById(lectureDTO.getMno())
                 .orElseThrow(() -> new IllegalArgumentException("Invaild member ID"));
-        lecture.setMember_l(member);
+        lecture.setmemberL(member);
         Lecture savedLecture = lectureRepository.save(lecture);
         return modelMapper.map(savedLecture, LectureDTO.class);
     }
@@ -77,13 +77,13 @@ public class  LectureServiceImpl implements LectureService {
                 lectureDTO.getL_classroom()
                 );
 
-//         추가된 부분: member_l 필드 업데이트
+//         추가된 부분: memberL 필드 업데이트
         Optional<Member> memberResult = memberRepository.findById(lectureDTO.getMno());
         if (!memberResult.isPresent()) {
             log.error("Member not found with ID: {}", lectureDTO.getMno());
             throw new NoSuchElementException("Member not found with ID: " + lectureDTO.getMno());
         }
-        lecture.setMember_l(memberResult.get());
+        lecture.setmemberL(memberResult.get());
 
         Lecture savedLecture = lectureRepository.save(lecture);
         log.info("Lecture modified and saved: {}", savedLecture);
@@ -93,5 +93,10 @@ public class  LectureServiceImpl implements LectureService {
     @Override
     public void deleteLecture(String lno) {
         lectureRepository.deleteById(lno);
+    }
+
+    @Override
+    public List<Lecture> findLecturesByMemberMno(String mno) {
+        return lectureRepository.findByMemberL_Mno(mno);
     }
 }

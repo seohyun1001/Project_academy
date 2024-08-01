@@ -12,7 +12,7 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
     l_classroom: "",
     l_start: "",
     l_end: "",
-    member_l: {
+    memberL: {
       mno: "",
       m_name: ""
     }
@@ -102,12 +102,12 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
 
                 <div class="input-group">
                   <label for="" class="form-label info_detail">강사 사번</label>
-                  <p>{lecture.member_l.mno}</p>
+                  <p>{lecture.memberL.mno}</p>
                 </div>
 
                 <div class="input-group">
                   <label for="" class="form-label info_detail">담당 강사</label>
-                  <p>{lecture.member_l.m_name}</p>
+                  <p>{lecture.memberL.m_name}</p>
                 </div>
 
 

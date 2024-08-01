@@ -1,3 +1,7 @@
+.mainBody{
+  min-height: 1000px;
+}
+
 .container-fluid {
   padding-left: 50px;
   padding-right: 50px;
@@ -127,6 +131,7 @@ td {
 
 
 .notice_con {
+  min-height: 800px;
   max-width: 1000px;
   margin-top: 30px;
   margin-bottom: 30px;

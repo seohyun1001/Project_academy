@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import "./MemberLogin.css"
 
 const MemberLogin = () => {
     const [loginRequest, setLoginRequest] = useState({
@@ -32,8 +33,8 @@ const MemberLogin = () => {
     };
 
     return (
-        <div className="container">
-            <div className="card">
+        <div className='login-body'>
+            <div class="login-container">
                 <h2>Welcome!</h2>
                 {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
                 <form onSubmit={handleLogin}>
@@ -43,7 +44,7 @@ const MemberLogin = () => {
                             name="username"
                             value={loginRequest.username}
                             onChange={handleChange}
-                            placeholder="Username"
+                            placeholder="사번"
                             required
                         />
                     </div>
@@ -53,13 +54,14 @@ const MemberLogin = () => {
                             name="password"
                             value={loginRequest.password}
                             onChange={handleChange}
-                            placeholder="Password"
+                            placeholder="비밀번호"
                             required
                         />
                     </div>
-                    <div className="checkbox-container">
+                    <div className="radio-container">
                         <input
                             type="checkbox"
+                            className='login_radioBtn'
                             name="rememberMe"
                             checked={loginRequest.rememberMe}
                             onChange={handleChange}
@@ -70,6 +72,7 @@ const MemberLogin = () => {
                 </form>
             </div>
         </div>
+
     );
 };
 
