@@ -151,7 +151,7 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
                 {payList.map((pay, index) => ( // 추가된 부분
                   <div key={index} className="col-lg-4">
                     <img className="bd-placeholder-img rounded-circle" width="100" height="100" src={pay.student_p.s_profileImage} alt="Student profile" /> {/* 수정된 부분 */}
-                    <h5 className="fw-normal" style={{ color: pay.paid ? 'black' : 'red' }}>{pay.student_p.s_name}</h5> {/* 추가된 부분 */}
+                    <h5 className="fw-normal" style={{ color: pay.paid ? 'black' : 'blue' }}>{pay.student_p.s_name}</h5> {/* 추가된 부분 */}
                   </div>
                 ))}
               </div>
