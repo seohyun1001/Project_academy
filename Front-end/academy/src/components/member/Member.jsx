@@ -37,6 +37,17 @@ const Member = () => {
         setSelectedMember(null);  // 선택된 강사 정보 초기화
     };
 
+    // 강사 정보가 수정된 후 목록과 선택된 강사 정보를 업데이트합니다.
+    const handleMemberUpdated = (updatedMember) => {
+        if (updatedMember) {
+            setMembers(prevMembers => prevMembers.map(member => 
+                member.mno === updatedMember.mno ? updatedMember : member
+            ));
+            setSelectedMember(updatedMember);
+        }
+        setIsEditing(false);
+    };
+
     return (
         <div className="vsc-initialized">
             <Header />
@@ -67,11 +78,9 @@ const Member = () => {
                                     {selectedMember && isEditing && (
                                         <Modify 
                                             member={selectedMember} 
-                                            onSave={() => {
-                                                fetchMember(selectedMember.mno); // 수정 후 최신 데이터 불러오기
-                                                setIsEditing(false);
-                                            }}
+                                            onSave={handleMemberUpdated} // 수정 후 데이터 업데이트 콜백
                                             onMemberDeleted={handleMemberDeleted} // 삭제 후 목록 새로고침 콜백 전달
+                                            setSelectedMember={setSelectedMember}
                                         />
                                     )}
                                 </>

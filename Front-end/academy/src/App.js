@@ -1,12 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import Header from './components/Basic/Header';
-import Footer from './components/Basic/Footer';
 import List from './components/member/List/List';
 import Register from './components/member/memberRegister/MemberRegister';
 import Login from './components/member/memberLogin/MemberLogin';
-import StudentList from './components/student/StudentList';
 import StudentRegister from './components/student/StudentRegister';
 import StudentEdit from './components/student/StudentEdit';
 import Noticelist from './components/notice/NoticeList';
@@ -44,6 +41,7 @@ const App = () => {
                     <Route path="/member/login" element={<Login />} />
                     <Route path="/list" element={<PrivateRoute><List /></PrivateRoute>} />
                     <Route path="/Member/Register" element={<PrivateRoute><Register /></PrivateRoute>} />
+                    <Route path="/member" element={<PrivateRoute><Member /></PrivateRoute>} />
 
                     <Route path="/student" element={<PrivateRoute><Student /></PrivateRoute>} />
                     <Route path="/student/register" element={<PrivateRoute><StudentRegister /></PrivateRoute>} />
