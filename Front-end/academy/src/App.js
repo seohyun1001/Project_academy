@@ -59,6 +59,11 @@ const App = () => {
                     <Route path="/NoticeRegister" element={<PrivateRoute><NoticeRegister /></PrivateRoute>} />
                     <Route path='/testlist' element={<PrivateRoute><Referencelist /></PrivateRoute>} />
 
+                    <Route path="/ReferenceList" element={<Referencelist/>}/>
+                    <Route path="/NoticeRegister" element={<NoticeRegister/>}/>
+                    <Route path="/Reference/:rno" element={<ReferenceDetail />} />
+                    <Route path="/ReferenceRegister" element={<ReferenceRegister/>}/>
+                    
                     <Route path="/counseling/register" element={<PrivateRoute><CounselingRegister /></PrivateRoute>} />
                     <Route path="/counseling/list" element={<PrivateRoute><CounselingList /></PrivateRoute>} />
                     <Route path="/counseling/edit/:cno" element={<PrivateRoute><CounselingEdit /></PrivateRoute>} />
