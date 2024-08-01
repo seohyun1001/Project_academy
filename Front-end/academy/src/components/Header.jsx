@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import LectureList from './Lecture/LectureList';
 
 const Header = () => {
     const { user, logout } = useAuth();
+    const [showLectureList, setShowLectureList] = useState(false);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -53,7 +55,7 @@ const Header = () => {
                             <Link className="nav-link active nav_link" aria-current="page" to="/member">강사</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link active nav_link" aria-current="page" to="/lecture">강의</Link>
+                            <Link className="nav-link active nav_link" aria-current="page" to="/lecturelist">강의</Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link active nav_link" aria-current="page" href="#">공지사항</a>
@@ -66,6 +68,12 @@ const Header = () => {
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                         <button className="btn btn-outline-dark" type="submit">Search</button>
                     </form>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="d-flex flex-wrap">
+                    <LectureList />
                 </div>
             </div>
         </div>

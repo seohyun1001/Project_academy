@@ -1,5 +1,5 @@
 .mainBody{
-  min-height: 1000px;
+  min-height: 900px;
 }
 
 .container-fluid {
@@ -127,6 +127,7 @@ td {
 .d-flex.flex-column.align-items-stretch.flex-shrink-0.bg-body-tertiary {
   /* width: 380px; */
   padding-bottom: 15px;
+  min-width: 301px;
 }
 
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import Header from './components/Basic/Header';
-import Footer from './components/Basic/Footer';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 import Register from './components/member/memberRegister/MemberRegister';
 import Login from './components/member/memberLogin/MemberLogin';
@@ -34,16 +34,22 @@ import RegisterModal from './components/Basic/student/registerModal';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분
 import Student from './components/student/Student';
 import MemberList from './components/member/List/MemberList';
+import LectureList from './components/Lecture/LectureList';
 
 const App = () => {
     return (
         <Router>
             <AuthProvider>
-                <div className='d-flex flex-column justify-content-between mainBody'>
+                <div className='d-flex flex-column justify-content-between mainBody vsc-initialized'>
                     <Header />
+                    <div class="container">
+                        <div class="d-flex flex-wrap">
+                            
+                        </div>
+                    </div>
                     <Footer />
                 </div>
-                
+
                 <Routes>
                     <Route path="/basic" element={<PrivateRoute><Basic /></PrivateRoute>} />
                     <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
@@ -67,6 +73,7 @@ const App = () => {
                     <Route path="/pay/list" element={<PrivateRoute><PayList /></PrivateRoute>} />
                     <Route path="/pay/edit/:pno" element={<PrivateRoute><PayEdit /></PrivateRoute>} />
 
+                    <Route path="/lecturelist" element={<PrivateRoute><LectureList /></PrivateRoute>} />
                     <Route path="/lecture" element={<PrivateRoute><Lecture /></PrivateRoute>} />
                 </Routes>
 

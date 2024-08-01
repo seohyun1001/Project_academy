@@ -1,5 +1,5 @@
-import Footer from "../Basic/Footer";
-import Header from "../Basic/Header";
+import Footer from "../Footer";
+import Header from "../Header";
 import Read from "./Read/Read";
 import Modify from './Modify/Modify';
 import MemberRegister from "./memberRegister/MemberRegister";
