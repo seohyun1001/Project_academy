@@ -130,4 +130,9 @@ public class PayServiceImpl implements PayService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Pay> getByLno(String lno) {
+        return payRepository.findByLecture_p_Lno(lno);
+    }
+
 }

@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../Basic/Header";
+import Header from "../Header";
+
 
 const TestRegister = () => {
     const navigate = useNavigate();

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import LectureProfile from "./LectureProfile";
 import LectureModify from "./LectureModify";
 
 const LectureInfo = ({ lectureId, onModificationComplete }) => {
@@ -18,7 +17,24 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
     }
   });
 
+  const [payList, setPayList] = useState([]);
   const [isModifying, setIsModifying] = useState(false);
+
+  const fetchPayList = async () => {
+    if (lectureId) {
+      try {
+        const response = await axios.get(`/pay/lecture/${lectureId}`);
+        const payData = await Promise.all(response.data.map(async (pay) => {
+          const studentResponse = await axios.get(`/student/${pay.student_p.sno}`);
+          return { ...pay, student_p: studentResponse.data };
+        }));
+        setPayList(payData);
+      } catch (error) {
+        console.error("Error fetching the pay list:", error);
+        window.alert("Error fetching pay list for lecture with id " + lectureId);
+      }
+    }
+  };
 
   const fetchLecture = async () => {
     if (lectureId) {
@@ -34,10 +50,12 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
 
   useEffect(() => {
     fetchLecture();
+    fetchPayList();
   }, [lectureId]);
 
   const handleModificationComplete = () => {
     fetchLecture();
+    fetchPayList();
     onModificationComplete();
   };
 
@@ -126,7 +144,19 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
           </div>
 
 
-          <LectureProfile />
+          <div class="card profile_card2">
+            <h4>수강 학생</h4>
+            <div class="container">
+              <div class="row">
+                {payList.map((pay, index) => ( // 추가된 부분
+                  <div key={index} className="col-lg-4">
+                    <img className="bd-placeholder-img rounded-circle" width="100" height="100" src={pay.student_p.s_profileImage} alt="Student profile" /> {/* 수정된 부분 */}
+                    <h5 className="fw-normal" style={{ color: pay.paid ? 'black' : 'red' }}>{pay.student_p.s_name}</h5> {/* 추가된 부분 */}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </>
       )}
     </>
