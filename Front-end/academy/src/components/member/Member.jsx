@@ -1,11 +1,12 @@
-import Footer from "../Footer";
-import Header from "../Header";
+
 import Read from "./Read/Read";
 import Modify from './Modify/Modify';
 import MemberRegister from "./memberRegister/MemberRegister";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MemberList from "./List/MemberList";
+import Header from "../Header";
+import Footer from "../Footer";
 
 const Member = () => {
     const [members, setMembers] = useState([]); // 강사 목록
@@ -35,50 +36,46 @@ const Member = () => {
     };
 
     return (
-        <div className="vsc-initialized">
-            <Header />
-            <div className="container">
-                <div className="d-flex flex-wrap">
-                    <MemberList 
-                        members={members} 
-                        selectedMember={selectedMember} 
-                        setSelectedMember={setSelectedMember}
-                        fetchMember={fetchMember} 
-                        setIsEditing={setIsEditing}
-                        showRegister={showRegister}
-                        setShowRegister={setShowRegister}
-                    />
-                    <div className="col">
-                        <div style={{ flex: 1 }}> {/*사이드바 옆에 위치할 수 있게 함 */}
-                            {showRegister ? (
-                                <MemberRegister />
-                            ) : (
-                                <>
-                                    {selectedMember && !isEditing && (
-                                        <Read 
-                                            member={selectedMember}
-                                            onEditClick={() => setIsEditing(true)} // 수정 버튼 클릭 시 수정 모드로 전환
-                                            onMemberDeleted={handleMemberDeleted}  // 삭제 후 목록 새로고침 콜백 전달
-                                        />
-                                    )}
-                                    {selectedMember && isEditing && (
-                                        <Modify 
-                                            member={selectedMember} 
-                                            onSave={() => {
-                                                fetchMember(selectedMember.mno); // 수정 후 최신 데이터 불러오기
-                                                setIsEditing(false);
-                                            }}
-                                            onMemberDeleted={handleMemberDeleted} // 삭제 후 목록 새로고침 콜백 전달
-                                        />
-                                    )}
-                                </>
+
+        <>
+            <MemberList
+                members={members}
+                selectedMember={selectedMember}
+                setSelectedMember={setSelectedMember}
+                fetchMember={fetchMember}
+                setIsEditing={setIsEditing}
+                showRegister={showRegister}
+                setShowRegister={setShowRegister}
+            />
+            <div className="col">
+                <div style={{ flex: 1 }}> {/*사이드바 옆에 위치할 수 있게 함 */}
+                    {showRegister ? (
+                        <MemberRegister />
+                    ) : (
+                        <>
+                            {selectedMember && !isEditing && (
+                                <Read
+                                    member={selectedMember}
+                                    onEditClick={() => setIsEditing(true)} // 수정 버튼 클릭 시 수정 모드로 전환
+                                    onMemberDeleted={handleMemberDeleted}  // 삭제 후 목록 새로고침 콜백 전달
+                                />
                             )}
-                        </div>
-                    </div>
+                            {selectedMember && isEditing && (
+                                <Modify
+                                    member={selectedMember}
+                                    onSave={() => {
+                                        fetchMember(selectedMember.mno); // 수정 후 최신 데이터 불러오기
+                                        setIsEditing(false);
+                                    }}
+                                    onMemberDeleted={handleMemberDeleted} // 삭제 후 목록 새로고침 콜백 전달
+                                />
+                            )}
+                        </>
+                    )}
                 </div>
             </div>
-            <Footer />
-        </div>
+        </>
+
     );
 };
 

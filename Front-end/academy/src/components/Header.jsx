@@ -2,15 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import LectureList from './Lecture/LectureList';
+import Member from './member/Member';
 
 const Header = () => {
     const { user, logout } = useAuth();
     const [showLectureList, setShowLectureList] = useState(false);
+    const [showMember, setShowMember] = useState(false);
     const navigate = useNavigate();
 
     const handleLogout = () => {
         logout();
         navigate('/member/login');
+    };
+
+    const toggleLectureList = () => { // Added function to toggle the LectureList visibility
+        setShowLectureList(prevState => {
+            const newState = !prevState;
+            if (newState) setShowMember(false); // Hide Member when LectureList is shown
+            return newState;
+        });
+    };
+    const toggleMember = () => {
+        setShowMember(prevState => {
+            const newState = !prevState;
+            if (newState) setShowLectureList(false); // Hide LectureList when Member is shown
+            return newState;
+        });
     };
 
     useEffect(() => {
@@ -51,15 +68,19 @@ const Header = () => {
                         <li class="nav-item">
                             <Link class="nav-link active nav_link" aria-current="page" to="/student">학생</Link>
                         </li>
+
                         <li className="nav-item">
-                            <Link className="nav-link active nav_link" aria-current="page" to="/member">강사</Link>
+                        <a className="nav-link active nav_link" aria-current="page" onClick={toggleMember}>강사</a>
                         </li>
+
                         <li className="nav-item">
-                            <Link className="nav-link active nav_link" aria-current="page" to="/lecturelist">강의</Link>
+                            <a className="nav-link active nav_link" aria-current="page" onClick={toggleLectureList}>강의</a>
                         </li>
+
                         <li className="nav-item">
                             <a className="nav-link active nav_link" aria-current="page" href="#">공지사항</a>
                         </li>
+
                         <li className="nav-item">
                             <a className="nav-link active nav_link nav_link_last" aria-current="page" href="#">자료실</a>
                         </li>
@@ -73,7 +94,8 @@ const Header = () => {
 
             <div class="container">
                 <div class="d-flex flex-wrap">
-                    <LectureList />
+                    {showMember && <Member />}
+                    {showLectureList && <LectureList />}
                 </div>
             </div>
         </div>
