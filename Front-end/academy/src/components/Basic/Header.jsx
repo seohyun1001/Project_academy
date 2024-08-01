@@ -41,17 +41,19 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-            <div className="container con_menubar">
-                <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li className="nav-item">
-                            <a className="nav-link active nav_link" aria-current="page" href="#">학생</a>
+
+            <div class="container con_menubar">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li class="nav-item">
+                            <Link class="nav-link active nav_link" aria-current="page" to="/student">학생</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link active nav_link" aria-current="page" to="/member">강사</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active nav_link" aria-current="page" href="#">강의</a>
+                            <Link className="nav-link active nav_link" aria-current="page" to="/lecture">강의</Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link active nav_link" aria-current="page" href="#">공지사항</a>

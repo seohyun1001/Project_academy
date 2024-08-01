@@ -66,4 +66,14 @@ public class PayController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/student/{sno}")
+    public ResponseEntity<List<PayDTO>> getBySno(@PathVariable Long sno) {
+        List<PayDTO> payList = payService.getBySno(sno);
+        if (payList != null && !payList.isEmpty()) {
+            return ResponseEntity.ok(payList);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

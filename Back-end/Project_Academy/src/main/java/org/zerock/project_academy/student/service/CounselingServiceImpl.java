@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import org.zerock.project_academy.lecture.domain.Lecture;
 import org.zerock.project_academy.lecture.repository.LectureRepository;
 import org.zerock.project_academy.student.domain.Counseling;
+import org.zerock.project_academy.student.domain.Pay;
 import org.zerock.project_academy.student.domain.Student;
 import org.zerock.project_academy.student.dto.CounselingDTO;
+import org.zerock.project_academy.student.dto.PayDTO;
 import org.zerock.project_academy.student.repository.CounselingRepository;
 import org.zerock.project_academy.student.repository.StudentRepository;
 
@@ -110,4 +112,21 @@ public class CounselingServiceImpl implements CounselingService {
         }
         return dtoList;
     }
+
+    @Override
+    public List<CounselingDTO> getBySno(Long sno) {
+        List<Counseling> counselings = counselingRepository.findByStudent_c_Sno(sno);
+        return counselings.stream()
+                .map(counseling -> CounselingDTO.builder()
+                        .cno(counseling.getCno())
+                        .c_content(counseling.getC_content())
+                        .sno(counseling.getStudent_c().getSno())
+                        .s_name(counseling.getStudent_c().getS_name())
+                        .moddate(counseling.getModDate())
+                        .regdate(counseling.getRegDate())
+                        .build())
+                .collect(Collectors.toList());
+
+    }
 }
+

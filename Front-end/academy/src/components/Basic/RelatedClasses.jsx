@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const RelatedClasses = () => {
+const RelatedClasses = ({ sno }) => {
+    const [classes, setClasses] = useState([]);
+
+    useEffect(() => {
+        axios.get(`http://localhost:8092/pay/student/${sno}`)
+            .then(response => {
+                setClasses(response.data);
+            })
+            .catch(error => {
+                console.error("There was an error fetching the data!", error);
+            });
+    }, [sno]);
+
     return (
-        <div class="card profile_card">
-            <div class="d-flex flex-wrap main_info">
-                <div class="d-flex flex-column class_list">
+        <div className="card profile_card">
+            <div className="d-flex flex-wrap main_info">
+                <div className="d-flex flex-column class_list">
                     <h4>수강 이력</h4>
                     <table>
                         <thead>
@@ -16,18 +29,20 @@ const RelatedClasses = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>DB01</td>
-                                <td>database</td>
-                                <td>2024-07-23</td>
-                                <td>수납 완료</td>
-                            </tr>
+                            {classes.map((cls) => (
+                                <tr key={cls.pno}>
+                                    <td>{cls.lno}</td>
+                                    <td>{cls.l_name}</td>
+                                    <td>{new Date(cls.regdate).toLocaleDateString()}</td>
+                                    <td>{cls.paid ? "수납 완료" : "미수납"}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default RelatedClasses;

@@ -1,4 +1,3 @@
-// src/components/member/memberLogin/MemberLogin.jsx
 import React, { useState } from 'react';
 import { useAuth } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +8,7 @@ const MemberLogin = () => {
         password: '',
         rememberMe: false
     });
+    const [errorMessage, setErrorMessage] = useState('');
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -23,14 +23,19 @@ const MemberLogin = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        await login(loginRequest.username, loginRequest.password, loginRequest.rememberMe);
-        navigate('/basic'); // 로그인 후 홈 페이지로 이동
+        try {
+            await login(loginRequest.username, loginRequest.password, loginRequest.rememberMe);
+            navigate('/basic'); // 로그인 후 홈 페이지로 이동
+        } catch (error) {
+            setErrorMessage('로그인 실패: 사용자 이름 또는 비밀번호가 잘못되었습니다.');
+        }
     };
 
     return (
         <div className="container">
             <div className="card">
                 <h2>Welcome!</h2>
+                {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
                 <form onSubmit={handleLogin}>
                     <div>
                         <input

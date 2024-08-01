@@ -23,8 +23,6 @@ import java.util.Optional;
 public class LectureController {
 
     private final LectureService lectureService;
-    private final ModelMapper modelMapper;
-    private final MemberRepository memberRepository;
 
     @PostMapping
     public ResponseEntity<Object> register(@RequestBody LectureDTO lectureDTO) {

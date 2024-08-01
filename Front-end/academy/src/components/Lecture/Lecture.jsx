@@ -13,9 +13,6 @@ const Lecture = () => {
             <div class="container">
                 <div class="d-flex flex-wrap">
                     <LectureList />
-                    <div class="col">
-                        <MainInfo />
-                    </div>
                 </div>
             </div>
             <Footer />
