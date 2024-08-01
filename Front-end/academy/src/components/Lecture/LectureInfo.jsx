@@ -148,6 +148,7 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
                 </div>
               </div>
             </div>
+            
             <div class="d-flex justify-content-end l_info_btns">
               <div>
                 <button class="btn btn-outline-primary l_info_btn" onClick={() => setIsModifying(true)}>수정하기</button>

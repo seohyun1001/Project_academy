@@ -126,15 +126,17 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
                         </div>
                     </div>
                 </div>
-                <div>
-                    {canEditOrDelete && (
+                <div class="d-flex justify-content-end l_info_btns">
+                    
                         <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
-                            <div className="btn-group mt-3">
-                                <button type="button" className="btn btn-outline-primary" onClick={onEditClick}>수정</button>
-                                <button type="button" className="btn btn-outline-danger" onClick={handleDelete}>삭제</button>
+                            <div >
+                                {canEditOrDelete && (
+                                <button type="button" className="btn btn-outline-primary l_info_btn" onClick={onEditClick}>수정</button>)}
+                                {roleSet.includes('ADMIN') && (
+                                <button type="button" className="btn btn-outline-danger l_info_btn" onClick={handleDelete}>삭제</button>)}
                             </div>
                         </div>
-                    )}
+                    
                 </div>
             </div>
             <div className="card profile_card">
@@ -143,7 +145,7 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
                         <div className='d-flex justify-content-between mb-4'>
                             <h4 className='taked_lecture'>담당 강의</h4>
                             <div className="btn-group mt-3">
-                                <button type="button" className="btn btn-outline-secondary" onClick={handleShowModal}>강의 추가</button> {/* 버튼 추가 */}
+                                <button type="button" className="btn btn-outline-secondary member_read_addLectureBtn" onClick={handleShowModal}>강의 추가</button> {/* 버튼 추가 */}
                             </div>
                         </div>
                         <table>
@@ -153,15 +155,17 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
                                     <th>강의명</th>
                                     <th>시작일자</th>
                                     <th>등록일자</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {lectures.map((lec) => (
-                                    <tr key={lec.lno} onClick={() => handleLectureClick(lec)}>
+                                    <tr key={lec.lno} >
                                         <td>{lec.lno}</td>
                                         <td>{lec.l_name}</td>
                                         <td>{lec.l_start}</td>
                                         <td>{lec.l_end}</td>
+                                        <td style={{color:'red'}} onClick={() => handleLectureClick(lec)}><strong>x</strong></td>
                                     </tr>
                                 ))}
                             </tbody>

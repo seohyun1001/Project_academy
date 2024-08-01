@@ -89,6 +89,9 @@
 
 .class_list {
   margin-left: 30px;
+}
+
+.member_read_addLectureBtn{
   margin-right: 30px;
 }
 
@@ -212,3 +215,4 @@ td {
 .taked_lecture{
   margin: 0;
 }
+
