@@ -18,7 +18,6 @@ public class Reference extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rno;
-
     private String r_title;
     private String r_content;
     private String r_image;
