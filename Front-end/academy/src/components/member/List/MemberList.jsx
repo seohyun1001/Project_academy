@@ -25,7 +25,8 @@ const MemberList = ({ members, selectedMember, setSelectedMember, fetchMember, s
 
     // 검색어에 따라 목록 필터링
     const filteredMembers = members.filter(member =>
-        member.m_name.toLowerCase().includes(searchTerm.toLowerCase())
+        member.m_name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        !member.mno.toString().startsWith('1') // mno가 1로 시작하는 강사 제외
     );
 
     return (
