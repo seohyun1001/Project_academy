@@ -56,8 +56,6 @@ const TestRegister = () => {
     };
 
     return (
-        <body>
-      <Header />
         <div class="container notice_con">
             <h2 class="notice">공지사항</h2>
             <form onSubmit={onSubmit}>
@@ -106,7 +104,6 @@ const TestRegister = () => {
             </div>
             </form>
         </div>
-        </body>
         // <div className="row">
         //     <h2>자료실</h2>
         //     <form onSubmit={onSubmit}>

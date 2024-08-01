@@ -1,16 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom";
+import Header from "../Basic/Header";
 
 const ReferenceModify = () => {
     const { rno } = useParams();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
     const [reference, setReference] = useState({
         r_title: "",
         r_content: "",
         writer: localStorage.getItem('m_name') || "",
-    })
+        regDate: ""  // regDate 추가
+    });
     const [referenceResource, setReferenceResource] = useState([]);
     const [rr_name, setRrName] = useState(null);
 
@@ -27,26 +29,44 @@ const ReferenceModify = () => {
     };
 
     const getReference = async () => {
-        const response = await (await axios.get(`http://localhost:8092/reference/read?rno=${rno}`)).data;
-        console.log(response)
-        console.log(response.references_resource)
-        setReference(response);
-        setReferenceResource(response.references_resource);
-        setLoading(false);
-
+        try {
+            const response = await axios.get(`http://localhost:8092/reference/read?rno=${rno}`);
+            console.log(response.data);  // 응답 확인
+            setReference(response.data);
+            setReferenceResource(response.data.references_resource);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching reference data:", error);
+        }
     };
 
     const deleteSubmit = async (rrno) => {
-        if(window.confirm('삭제하시겠습니까?')) {
-            try{
-                await axios.delete('http://localhost:8092/reference/files/'+rrno);
-                // navigate('/Noticelist')
-                setReferenceResource(referenceResource.filter(reference =>reference.rrno !==  rrno))
-            } catch(error) {
-                console.error("파일을 삭제하는 중 오류가 발생했습니다.")
+        if (window.confirm('삭제하시겠습니까?')) {
+            try {
+                await axios.delete('http://localhost:8092/reference/files/' + rrno);
+                setReferenceResource(referenceResource.filter(reference => reference.rrno !== rrno));
+            } catch (error) {
+                console.error("파일을 삭제하는 중 오류가 발생했습니다.");
             }
         }
-    }
+    };
+
+    const formatDate = (dateStr) => {
+        if (!dateStr) {
+            return 'Date not available';
+        }
+
+        const date = new Date(dateStr);
+        if (isNaN(date.getTime())) {
+            console.warn(`Invalid date: ${dateStr}`);
+            return 'Invalid Date';
+        }
+
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 월을 2자리로 포맷
+        const day = String(date.getDate()).padStart(2, '0'); // 일을 2자리로 포맷
+        return `${year}-${month}-${day}`;
+    };
 
     useEffect(() => {
         getReference();
@@ -60,7 +80,7 @@ const ReferenceModify = () => {
             formData.append("r_title", reference.r_title);
             formData.append("r_content", reference.r_content);
             formData.append("writer", reference.writer);
-            console.log(formData)
+            console.log(formData);
 
             if (rr_name) {
                 formData.append("files", rr_name);
@@ -70,75 +90,74 @@ const ReferenceModify = () => {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-            }).then(result => {
-                if (result.status === 200) {
-                    alert("공지사항 등록이 성공적으로 완료되었습니다." + reference.writer);
-                    navigate("/referencelist");
-                }
-            }).catch(error => {
-                console.log(error);
             });
-        } catch (error) {
 
-            console.error("등록 중 오류가 발생했습니다.", error);
-            alert("등록 중 오류가 발생했습니다.");
+            if (response.status === 200) {
+                alert("공지사항 수정이 성공적으로 완료되었습니다.");
+                navigate("/referencelist");
+            }
+        } catch (error) {
+            console.error("수정 중 오류가 발생했습니다.", error);
+            alert("수정 중 오류가 발생했습니다.");
         }
     };
 
     return (
-        <div className="container">
-            <div className="row">
-                <h2>수정중</h2>
+        <body>
+            <Header />
+            <div className="container notice_con">
+                <h2 className="notice">수정중</h2>
                 <form onSubmit={onSubmit}>
-                    <div className="mb-3">
-                        <input
-                            onChange={onInputChange}
-                            type="text"
-                            name="r_title"
-                            value={reference.r_title}
-                            required
-                            placeholder="제목"
-                        />
-                        <input
-                            onChange={onInputChange}
-                            type="text"
-                            id="r_content"
-                            className="form-control"
-                            placeholder="내용"
-                            name="r_content"
-                            value={reference.r_content}
-                        />
-
+                    <div className="container">
+                        <div className="d-flex flex-wrap justify-content-between">
+                            <p className="notice_title">제목:
+                                <input
+                                    onChange={onInputChange}
+                                    type="text"
+                                    name="r_title"
+                                    value={reference.r_title}
+                                    required
+                                    placeholder="제목"
+                                />
+                            </p>
+                            <span>작성자 : {reference.writer}</span>
+                            <span>등록일 : {reference.regDate ? formatDate(reference.regDate) : 'Date not available'}</span>
+                        </div>
+                        <p className="notice_content">내용
+                            <input
+                                onChange={onInputChange}
+                                type="text"
+                                id="r_content"
+                                className="form-control"
+                                placeholder="내용"
+                                name="r_content"
+                                value={reference.r_content}
+                            />
+                        </p>
+                        <p>첨부파일</p>
                         <input
                             onChange={onInputChange}
                             type="file"
                             id="rr_name"
                             className="form-control"
                             name="rr_name"
-                        // accept=".pdf,.doc,.docx"
                         />
-                        <input
-                            onChange={onInputChange}
-                            type="hidden"
-                            id="writer"
-                            className="form-control"
-                            name="writer"
-                            value={reference.writer}
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-outline-primary px-3 mx-2">
-                        등록
-                    </button>
-                </form>
-                {referenceResource.map((rr, index) => (
-                            <div>
-                            <p key={rr.rrno}>{rr.rr_name}</p>
-                            <button type="button" onClick={()=>{deleteSubmit(rr.rrno)}}>삭제</button>
+                        {referenceResource.map((rr) => (
+                            <div key={rr.rrno}>
+                                <p>{rr.rr_name} <button type="button" onClick={() => deleteSubmit(rr.rrno)}>X</button></p>
                             </div>
                         ))}
+                    </div>
+                    <div className="d-flex flex-wrap justify-content-between btns">
+                        <button type="button" className="btn btn-outline-dark noticeListBtn" onClick={() => navigate('/referencelist')}>목록으로 돌아가기</button>
+                        <div>
+                            <button type="submit" className="btn btn-outline-primary px-3 mx-2">수정</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-    )
-
+        </body>
+    );
 };
+
 export default ReferenceModify;

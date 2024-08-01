@@ -28,6 +28,8 @@ import ReferenceModify from './components/reference/ReferenceModify';
 import Testlist from './components/reference/TestList';
 import LectureBasic from './components/Basic/Lecture/LectureBasic';
 import RegisterModal from './components/Basic/student/registerModal';
+import TestRegister from './components/reference/TestRegister';
+import TestModify from './components/reference/TestModify';
 
 const App = () => {
     return (
@@ -37,11 +39,9 @@ const App = () => {
                 <Route path='/noticeBasic' element={<NoticeBasic />} />
                 <Route path='/noticeDetail' element={<NoticeDetailBasic />} />
                 <Route path='/registerModal' element={<RegisterModal />} />
-
                 <Route path="/Member/Register" element={<Register />} />
                 <Route path="/Member/Login" element={<Login />} />
                 <Route path="/member" element={<Member />} />
-                
                 <Route path="/student" element={<StudentList />} />
                 <Route path="/student/register" element={<StudentRegister />} />
                 <Route path="/student/edit/:sno" element={<StudentEdit />} />
@@ -53,9 +53,11 @@ const App = () => {
                 <Route path="/Noticelist" element={<Noticelist />} />
                 <Route path="/NoticeRegister" element={<NoticeRegister />} />
                 <Route path="/Notice/:nno" element={<NoticeDetail />} />
+                <Route path="/TestRegister" element={<TestRegister/>}/>
                 <Route path="/Reference/modify/:rno" element={<ReferenceModify/>}/>
                 <Route path="/Notice/modify/:nno" element={<NoticeModify/>}/>
                 <Route path="/TestList" element={<Testlist/>}/>
+                <Route path='/TestModify' element={<TestModify/>}/>
                 <Route path="/counseling/register" element={<CounselingRegister />} />
                 <Route path="/counseling/list" element={<CounselingList />} />
                 <Route path="/counseling/edit/:cno" element={<CounselingEdit/>} />

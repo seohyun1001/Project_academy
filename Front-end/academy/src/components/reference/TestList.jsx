@@ -162,7 +162,7 @@ function Referencelist() {
           <tbody>
             {currentItems.map((reference, index) => (
               <tr key={index}>
-                <th scope="row">{(currentPage - 1) * itemsPerPage + index + 1}</th>
+                <th scope="row">{reference.rno}</th>
                 <td>
                   <Link to={`/Reference/${reference.rno}`}>
                     {reference.r_title}
