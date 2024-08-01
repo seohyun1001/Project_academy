@@ -37,8 +37,13 @@ import MemberList from './components/member/List/MemberList';
 
 const App = () => {
     return (
-        <AuthProvider>
-            <Router>
+        <Router>
+            <AuthProvider>
+                <div className='d-flex flex-column justify-content-between mainBody'>
+                    <Header />
+                    <Footer />
+                </div>
+                
                 <Routes>
                     <Route path="/basic" element={<PrivateRoute><Basic /></PrivateRoute>} />
                     <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
@@ -53,6 +58,7 @@ const App = () => {
 
                     <Route path="/Noticelist" element={<PrivateRoute><Noticelist /></PrivateRoute>} />
                     <Route path="/NoticeRegister" element={<PrivateRoute><NoticeRegister /></PrivateRoute>} />
+                    <Route path='/testlist' element={<PrivateRoute><Referencelist /></PrivateRoute>} />
 
                     <Route path="/counseling/register" element={<PrivateRoute><CounselingRegister /></PrivateRoute>} />
                     <Route path="/counseling/list" element={<PrivateRoute><CounselingList /></PrivateRoute>} />
@@ -63,8 +69,12 @@ const App = () => {
 
                     <Route path="/lecture" element={<PrivateRoute><Lecture /></PrivateRoute>} />
                 </Routes>
-            </Router>
-        </AuthProvider>
+
+
+
+
+            </AuthProvider>
+        </Router>
     );
 };
 

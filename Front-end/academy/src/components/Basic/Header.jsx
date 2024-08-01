@@ -20,7 +20,7 @@ const Header = () => {
     }, []);
 
     return (
-        <>
+        <div>
             <div className="p-3 text-bg-dark">
                 <div className="container">
                     <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -68,7 +68,7 @@ const Header = () => {
                     </form>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
