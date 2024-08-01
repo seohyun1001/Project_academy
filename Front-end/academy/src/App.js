@@ -33,6 +33,8 @@ import RegisterModal from './components/Basic/student/registerModal';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분
 import Student from './components/student/Student';
 import MemberList from './components/member/List/MemberList';
+import TestRegister from './components/reference/TestRegister';
+import TestModify from './components/reference/TestModify';
 
 const App = () => {
     return (
