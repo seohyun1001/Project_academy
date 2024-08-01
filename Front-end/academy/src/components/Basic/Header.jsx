@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Header = () => {
     const { user, logout } = useAuth();
@@ -50,10 +50,10 @@ const Header = () => {
                             <Link class="nav-link active nav_link" aria-current="page" to="/student">학생</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active nav_link" aria-current="page" href="#">강사</a>
+                            <Link className="nav-link active nav_link" aria-current="page" to="/member">강사</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active nav_link" aria-current="page" href="#">강의</a>
+                            <Link className="nav-link active nav_link" aria-current="page" to="/lecture">강의</Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link active nav_link" aria-current="page" href="#">공지사항</a>

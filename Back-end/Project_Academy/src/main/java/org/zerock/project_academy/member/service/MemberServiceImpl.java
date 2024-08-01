@@ -3,6 +3,7 @@ package org.zerock.project_academy.member.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,12 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
+
+    @Value("${org.zerock.upload.path}")
+    private String uploadDir;
+
+    @Value("${org.zerock.default.member-profile-image}")
+    private String defaultProfileImagePath;
 
     @Transactional
     @Override
@@ -50,7 +57,16 @@ public class MemberServiceImpl implements MemberService {
     }
 
     public Optional<Member> findByMno(String mno) {
+        Optional<Member> optionalMember = memberRepository.findByMno(mno);
+
+        if(optionalMember.isPresent()) {
+            MemberDTO memberDTO = modelMapper.map(optionalMember.get(), MemberDTO.class);
+            if(memberDTO.getM_picture() == null || memberDTO.getM_picture().isEmpty()) {
+                memberDTO.setM_picture("/profile_pictures/basicimg.png");
+            }
+        }
         return memberRepository.findByMno(mno);
+
     }
 
     @Override

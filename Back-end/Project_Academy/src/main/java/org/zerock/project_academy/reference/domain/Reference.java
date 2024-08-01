@@ -23,9 +23,9 @@ public class Reference extends BaseEntity {
     private String r_content;
     private String r_image;
 
-    @ManyToOne
-    @JoinColumn(name = "writer", referencedColumnName = "m_name")
-    private Member member;
+//    @ManyToOne
+//    @JoinColumn(name = "writer", referencedColumnName = "m_name")
+    private String writer;
 
     @OneToMany(mappedBy = "reference",
             cascade = {CascadeType.ALL},
@@ -39,6 +39,12 @@ public class Reference extends BaseEntity {
 
 //    public void clearResource_r(){}
 
-    // 주석 처리한 부분은 spring boot(아마도 b01)의 domain 패키지의 Board 클래스를 확인하기
+// 주석 처리한 부분은 spring boot(아마도 b01)의 domain 패키지의 Board 클래스를 확인하기
+    public void changeReference(String r_title, String r_content, String r_image, Member member) {
+        this.r_title = r_title;
+        this.r_content = r_content;
+        this.r_image = r_image;
+//        this.writer = writer;
+    }
 
 }

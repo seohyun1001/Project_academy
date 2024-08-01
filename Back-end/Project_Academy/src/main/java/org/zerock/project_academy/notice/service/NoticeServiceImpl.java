@@ -9,14 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zerock.project_academy.member.domain.Member;
 import org.zerock.project_academy.member.repository.MemberRepository;
 import org.zerock.project_academy.notice.domain.Notice;
+import org.zerock.project_academy.notice.domain.NoticeResource;
 import org.zerock.project_academy.notice.dto.NoticeDTO;
 import org.zerock.project_academy.notice.dto.NoticeListDTO;
+import org.zerock.project_academy.notice.dto.NoticeResourceListDTO;
 import org.zerock.project_academy.notice.repository.NoticeRepository;
 import org.zerock.project_academy.notice.repository.NoticeResourceRepository;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,8 +52,32 @@ public class NoticeServiceImpl implements NoticeService {
         return modelMapper.map(savedNotice, NoticeDTO.class);
     }
     @Override
-    public Optional<Notice> findOneNoticeById(Long nno) {
-        return noticeRepository.findById(nno);
+    public NoticeListDTO findOneNoticeById(Long nno) {
+        Optional<Notice> result=noticeRepository.findById(nno);
+        Notice notice = result.orElseThrow();
+        Set<NoticeResource> nrList = notice.getNoticeResourceSet();
+        List<NoticeResourceListDTO> nrDtoList = new ArrayList<>();
+        for(NoticeResource noticeResource : nrList) {
+            nrDtoList.add(NoticeResourceListDTO.builder()
+                    .nrno(noticeResource.getNrno())
+                    .file_size(noticeResource.getFile_size())
+                    .nr_name(noticeResource.getNr_name())
+                    .nr_ord(noticeResource.getNr_ord())
+                    .nr_path(noticeResource.getNr_path())
+                    .nr_type(noticeResource.getNr_type())
+                    .nno(noticeResource.getNotice().getNno())
+                    .build());
+        }
+        NoticeListDTO noticeListDTO = NoticeListDTO.builder()
+                .nno(notice.getNno())
+                .n_title(notice.getN_title())
+                .n_content(notice.getN_content())
+                .n_image(notice.getN_image())
+                .writer(notice.getWriter())
+                .notice_resource(nrDtoList)
+                .build();
+
+        return noticeListDTO;
     }
 
     @Override
