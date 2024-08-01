@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
 const Read = ({ member, onEditClick, onMemberDeleted }) => {
     const [updateMember, setUpdatedMember] = useState({ ...member });
     const defaultImage = '/profile_pictures/basicimg.png'; // 기본 이미지 경로 설정
+    const [loggedInMno, setLoggedInMno] = useState(null);
+    const [roleSet, setRoleSet] = useState([]);
 
     const [lectures, setLectures] = useState([]);
 
@@ -20,7 +21,20 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
         }
     };
 
+
+
     useEffect(() => {
+        const storedMno = localStorage.getItem('mno');
+        const storedRoleSet = JSON.parse(localStorage.getItem('roleSet'));
+
+        if (storedMno) {
+            setLoggedInMno(storedMno);
+        }
+
+        if (storedRoleSet) {
+            setRoleSet(storedRoleSet);
+        }
+
         // 컴포넌트가 마운트될 때 멤버 정보를 최신 상태로 불러옵니다.
         const fetchMember = async () => {
             try {
@@ -45,59 +59,59 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
         }
     };
 
+    const canEditOrDelete = roleSet.includes('ADMIN') || loggedInMno === member.mno;
 
     return (
         <>
-            <div class="card profile_card">
-                <div class="d-flex flex-wrap main_info">
+            <div className="card profile_card">
+                <div className="d-flex flex-wrap main_info">
                     <div>
                         {member.m_picture ?
                             <img
-                                class="img-thumbnail picture float-start"
+                                className="img-thumbnail picture float-start"
                                 src={member.m_picture} alt="프로필 사진" />
                             :
                             <img
-                                class="img-thumbnail picture float-start"
+                                className="img-thumbnail picture float-start"
                                 src={defaultImage} alt="프로필 사진" />
                         }
-                        {/* <img 
-                        class="img-thumbnail picture float-start" 
-                        src={getProfileImage()} alt="프로필 사진" /> */}
-                    </div>
-                    <div class="d-flex flex-column info_list">
-                        <div class="input-group">
-                            <label for="" class="form-label info_detail">이름</label>
+                        </div>
+                    <div className="d-flex flex-column info_list">
+                        <div className="input-group">
+                            <label htmlFor="" className="form-label info_detail">이름</label>
                             <p>{member.m_name}</p>
                         </div>
-                        <div class="input-group">
-                            <label for="" class="form-label info_detail">강사 번호</label>
+                        <div className="input-group">
+                            <label htmlFor="" className="form-label info_detail">강사 번호</label>
                             <p>{member.mno}</p>
                         </div>
-                        <div class="input-group">
-                            <label for="" class="form-label info_detail">이메일</label>
+                        <div className="input-group">
+                            <label htmlFor="" className="form-label info_detail">이메일</label>
                             <p>{member.m_email}</p>
                         </div>
-                        <div class="input-group">
-                            <label for="" class="form-label info_detail">전화번호</label>
+                        <div className="input-group">
+                            <label htmlFor="" className="form-label info_detail">전화번호</label>
                             <p>{member.m_phone}</p>
                         </div>
-                        <div class="input-group">
-                            <label for="" class="form-label info_detail">주소1</label>
+                        <div className="input-group">
+                            <label htmlFor="" className="form-label info_detail">주소1</label>
                             <p>{member.m_address1}</p>
                         </div>
-                        <div class="input-group">
-                            <label for="" class="form-label info_detail">주소2</label>
+                        <div className="input-group">
+                            <label htmlFor="" className="form-label info_detail">주소2</label>
                             <p>{member.m_address2}</p>
                         </div>
                     </div>
                 </div>
                 <div>
+                    {canEditOrDelete && (
                     <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
-                        <div className="btn-group mt-3">
-                            <button type="button" class="btn btn-outline-primary" onClick={onEditClick}>수정</button>
-                            <button type="button" class="btn btn-outline-danger" onClick={handleDelete}>삭제</button>
-                        </div>
+                            <div className="btn-group mt-3">
+                                <button type="button" className="btn btn-outline-primary" onClick={onEditClick}>수정</button>
+                                <button type="button" className="btn btn-outline-danger" onClick={handleDelete}>삭제</button>
+                            </div>
                     </div>
+                    )}
                 </div>
             </div>
             <div className="card profile_card">
@@ -130,4 +144,5 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
         </>
     );
 }
+
 export default Read;

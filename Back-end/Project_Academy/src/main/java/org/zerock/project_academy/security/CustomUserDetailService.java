@@ -46,6 +46,7 @@ public class CustomUserDetailService implements UserDetailsService {
                 member.getM_email(),
                 member.getM_address1(),
                 member.getM_address2(),
+                member.getRoleSet(),
                 //ROLE_ADMIN, ROLE_TEACHER
                 authorities
         );

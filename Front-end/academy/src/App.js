@@ -6,7 +6,6 @@ import Footer from './components/Footer';
 
 import Register from './components/member/memberRegister/MemberRegister';
 import Login from './components/member/memberLogin/MemberLogin';
-import StudentList from './components/student/StudentList';
 import StudentRegister from './components/student/StudentRegister';
 import StudentEdit from './components/student/StudentEdit';
 import Noticelist from './components/notice/NoticeList';
@@ -34,6 +33,8 @@ import RegisterModal from './components/Basic/student/registerModal';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분
 import Student from './components/student/Student';
 import MemberList from './components/member/List/MemberList';
+import TestRegister from './components/reference/TestRegister';
+import TestModify from './components/reference/TestModify';
 import LectureList from './components/Lecture/LectureList';
 
 const App = () => {
@@ -56,7 +57,7 @@ const App = () => {
                     <Route path="/member/login" element={<Login />} />
                     <Route path="/member/list" element={<PrivateRoute><MemberList /></PrivateRoute>} />
                     <Route path="/Member/Register" element={<PrivateRoute><Register /></PrivateRoute>} />
-                    <Route path='/member' element={<PrivateRoute><Member /></PrivateRoute>} />
+                    <Route path="/member" element={<PrivateRoute><Member /></PrivateRoute>} />
 
                     <Route path="/student" element={<PrivateRoute><Student /></PrivateRoute>} />
                     <Route path="/student/register" element={<PrivateRoute><StudentRegister /></PrivateRoute>} />
@@ -66,6 +67,11 @@ const App = () => {
                     <Route path="/NoticeRegister" element={<PrivateRoute><NoticeRegister /></PrivateRoute>} />
                     <Route path='/testlist' element={<PrivateRoute><Referencelist /></PrivateRoute>} />
 
+                    <Route path="/ReferenceList" element={<Referencelist/>}/>
+                    <Route path="/NoticeRegister" element={<NoticeRegister/>}/>
+                    <Route path="/Reference/:rno" element={<ReferenceDetail />} />
+                    <Route path="/ReferenceRegister" element={<ReferenceRegister/>}/>
+                    
                     <Route path="/counseling/register" element={<PrivateRoute><CounselingRegister /></PrivateRoute>} />
                     <Route path="/counseling/list" element={<PrivateRoute><CounselingList /></PrivateRoute>} />
                     <Route path="/counseling/edit/:cno" element={<PrivateRoute><CounselingEdit /></PrivateRoute>} />

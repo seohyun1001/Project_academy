@@ -26,12 +26,16 @@ function Referencelist() {
   }, []);
 
   useEffect(() => {
+    // 필터링 및 페이지네이션 처리
     const filteredList = referenceList.filter(reference =>
       reference.r_title.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    setCurrentItems(filteredList.slice(indexOfFirstItem, indexOfLastItem));
+
+    // 최신 글부터 표시하기 위해 reverse() 사용
+    setCurrentItems(filteredList.slice(indexOfFirstItem, indexOfLastItem).reverse());
   }, [currentPage, itemsPerPage, referenceList, searchTerm]);
 
   const totalPages = Math.ceil(
@@ -74,7 +78,7 @@ function Referencelist() {
     }
 
     return (
-      <ul className="pagination justify-content-center">
+      <ul className="pagination mb-0">
         {startPage > 1 && (
           <li className="page-item">
             <a
@@ -128,7 +132,7 @@ function Referencelist() {
     <body>
       <Header />
       <div className="container notice_con">
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between mb-4">
           <h2 className="notice_title">공지사항</h2>
           <div className="d-flex">
             <input
@@ -147,7 +151,7 @@ function Referencelist() {
           </div>
         </div>
 
-        <table className="table table-hover border shadow-sm my-4">
+        <table className="table table-hover border shadow-sm mb-4">
           <thead>
             <tr>
               <th scope="col">번호</th>
@@ -158,7 +162,7 @@ function Referencelist() {
           <tbody>
             {currentItems.map((reference, index) => (
               <tr key={index}>
-                <th scope="row">{(currentPage - 1) * itemsPerPage + index + 1}</th>
+                <th scope="row">{reference.rno}</th>
                 <td>
                   <Link to={`/Reference/${reference.rno}`}>
                     {reference.r_title}
@@ -169,7 +173,8 @@ function Referencelist() {
             ))}
           </tbody>
         </table>
-        <div className="d-flex justify-content-between align-items-center">
+
+        <div className="d-flex justify-content-between align-items-center mb-4">
           <div className="mx-auto"> {/* 페이지 번호를 가운데로 정렬 */}
             {renderPageNumbers()}
           </div>
@@ -178,9 +183,9 @@ function Referencelist() {
               등록
             </Link>
           </div>
-          </div>
-          <Footer/>
         </div>
+        <Footer />
+      </div>
     </body>
   );
 }

@@ -34,9 +34,12 @@ public class CounselingServiceImpl implements CounselingService {
                 .orElseThrow(() -> new RuntimeException("Lecture not found"));
 
         // ModelMapper를 사용하여 CounselingDTO를 Counseling 엔티티로 변환
-        Counseling counseling = modelMapper.map(counselingDTO, Counseling.class);
+        Counseling counseling = new Counseling();
+//                modelMapper.map(counselingDTO, Counseling.class);
 
         // Student와 Lecture를 수동으로 설정
+        counseling.setCno(counselingDTO.getCno());
+        counseling.setC_content(counselingDTO.getC_content());
         counseling.setStudent_c(student);
         counseling.setLecture_c(lecture);
 
