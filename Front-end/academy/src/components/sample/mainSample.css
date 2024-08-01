@@ -123,11 +123,32 @@
     width: 15%;
   }
 
-  .notice_title{
+  .notice{
     margin-bottom: 20px;
   }
 
   .scrollBar {
   overflow-y: scroll;
   height: 800px;
+  }
+
+  .paging_btn{
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .notice_content{
+    min-height: 500px;
+  }
+
+  .btns{
+    margin-top: 30px;
+  }
+
+  .notice_title{
+    font-size: 30px;
+  }
+  
+  .noticeModifyBtn{
+    margin-right: 10px;
   }

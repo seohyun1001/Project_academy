@@ -268,6 +268,7 @@ const StudentDetail = ({ student, onStudentDeleted }) => {
                     </div>
                 </div>
             </div>
+            
             <RelatedClasses sno={student.sno} />
             <Counseling sno={student.sno} />
         </div>

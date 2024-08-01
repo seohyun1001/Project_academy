@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import StudentList from "./StudentList";
-import Header from "../Basic/Header"
+import Header from "../Basic/Header";
 import Footer from "../Basic/Footer";
-import MainInfo from "../Basic/MainInfo";
 import StudentInfo from "./StudentInfo";
 import StudentDetail from "./StudentDetail";
 

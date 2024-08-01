@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface LectureService {
 
     // insert
-    Lecture registerLecture(Lecture lecture);
+    LectureDTO registerLecture(LectureDTO lectureDTO);
 
     // select
     List<Lecture> findAllLectures();
