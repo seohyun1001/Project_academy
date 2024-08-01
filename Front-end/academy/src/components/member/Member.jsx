@@ -12,10 +12,23 @@ const Member = () => {
     const [selectedMember, setSelectedMember] = useState(null); // 선택된 강사 정보
     const [isEditing, setIsEditing] = useState(false); // 수정 모드 여부
     const [showRegister, setShowRegister] = useState(false); // 회원 등록 화면 표시 여부
+    const [roleSet, setRoleSet] = useState([]);
+    const [loggedInMno, setLoggedInMno] = useState(null);
 
     // 컴포넌트가 처음 렌더링될 때 강사 목록을 가져옵니다.
     useEffect(() => {
         fetchMembers();
+
+        const storedMno = localStorage.getItem('mno');
+        const storedRoleSet = JSON.parse(localStorage.getItem('roleSet'));
+
+        if (storedMno) {
+            setLoggedInMno(storedMno);
+        }
+
+        if (storedRoleSet) {
+            setRoleSet(storedRoleSet);
+        }
     }, []);
     
     // 강사 목록을 새로고침합니다.
@@ -73,6 +86,8 @@ const Member = () => {
                                             member={selectedMember}
                                             onEditClick={() => setIsEditing(true)} // 수정 버튼 클릭 시 수정 모드로 전환
                                             onMemberDeleted={handleMemberDeleted}  // 삭제 후 목록 새로고침 콜백 전달
+                                            roleSet={roleSet}
+                                            loggedInMno={loggedInMno}
                                         />
                                     )}
                                     {selectedMember && isEditing && (

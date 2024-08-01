@@ -63,7 +63,8 @@ const MemberRegister = () => {
             const response = await axios.post('/member/register', member);
             if (response.status === 201) {
                 alert('회원 등록이 성공적으로 완료되었습니다.');
-                navigate('/'); // 회원 등록 후 홈 페이지로 이동
+                navigate('/member'); // 회원 등록 후 홈 페이지로 이동
+                window.location.reload();
             }
         } catch (error) {
             console.error('회원 등록 중 오류가 발생했습니다.', error);

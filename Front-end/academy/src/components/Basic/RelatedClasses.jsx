@@ -1,11 +1,31 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
+import PayRegister from "../pay/PayRegister";
+import PayEdit from "../pay/PayEdit";
+import Modal from "react-modal";
+
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        width: '50%', // 원하는 너비로 설정
+        maxHeight: '80%', // 최대 높이 설정
+        overflowY: 'auto' // 내용이 넘칠 경우 스크롤
+    }
+};
 
 const RelatedClasses = ({ sno }) => {
     const [classes, setClasses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [cache, setCache] = useState({});
+    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [selectedPay, setSelectedPay] = useState(null);
 
     useEffect(() => {
         const fetchClassData = async () => {
@@ -33,6 +53,11 @@ const RelatedClasses = ({ sno }) => {
         fetchClassData();
     }, [sno, cache]);
 
+    const handleEditClick = (pno) => {
+        setSelectedPay(pno);
+        setIsEditModalOpen(true);
+    };
+
     const renderedContent = useMemo(() => {
         if (loading) {
             return <div>Loading...</div>;
@@ -57,6 +82,24 @@ const RelatedClasses = ({ sno }) => {
                 <div className="d-flex flex-wrap main_info">
                     <div className="d-flex flex-column class_list">
                         <h4>수강 이력</h4>
+                        <button
+                            style={{
+                                backgroundColor: "#4CAF50", /* Green */
+                                border: "none",
+                                color: "white",
+                                padding: "10px 20px", /* 줄어든 패딩 */
+                                textAlign: "center",
+                                textDecoration: "none",
+                                display: "inline-block",
+                                fontSize: "14px", /* 줄어든 폰트 크기 */
+                                margin: "4px 2px",
+                                cursor: "pointer",
+                                borderRadius: "4px"
+                            }}
+                            onClick={() => setIsRegisterModalOpen(true)}
+                        >
+                            등록
+                        </button>
                         {classes.length === 0 ? (
                             <div><h5>수강 이력이 존재하지 않습니다.</h5></div>
                         ) : (
@@ -71,8 +114,8 @@ const RelatedClasses = ({ sno }) => {
                                 </thead>
                                 <tbody>
                                     {classes.map((cls) => (
-                                        <tr key={cls.pno}>
-                                            <td>{cls.lno}</td>
+                                        <tr key={cls.pno} onClick={() => handleEditClick(cls.pno)}>
+                                            <td><a>{cls.lno}</a></td>
                                             <td>{cls.l_name}</td>
                                             <td>{new Date(cls.regdate).toLocaleDateString()}</td>
                                             <td>{cls.paid ? "수납 완료" : "미수납"}</td>
@@ -87,7 +130,29 @@ const RelatedClasses = ({ sno }) => {
         );
     }, [loading, error, classes]);
 
-    return renderedContent;
+    return (
+        <>
+            {renderedContent}
+            <Modal
+                isOpen={isRegisterModalOpen}
+                onRequestClose={() => setIsRegisterModalOpen(false)}
+                style={customStyles}
+                contentLabel="Pay Register"
+                ariaHideApp={false}
+            >
+                <PayRegister onClose={() => setIsRegisterModalOpen(false)} />
+            </Modal>
+            <Modal
+                isOpen={isEditModalOpen}
+                onRequestClose={() => setIsEditModalOpen(false)}
+                style={customStyles}
+                contentLabel="Pay Edit"
+                ariaHideApp={false}
+            >
+                {selectedPay && <PayEdit pno={selectedPay} onClose={() => setIsEditModalOpen(false)} />}
+            </Modal>
+        </>
+    );
 }
 
 export default RelatedClasses;

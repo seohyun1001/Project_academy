@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.zerock.project_academy.member.domain.MemberRole;
 import org.zerock.project_academy.security.CustomUserDetailService;
 import org.zerock.project_academy.security.dto.MemberSecurityDTO;
 import org.zerock.project_academy.security.util.JWTUtil;
@@ -19,6 +20,7 @@ import java.util.Map;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Objects;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/auth")
@@ -43,9 +45,10 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtil.generateToken(Map.of("mno", mno));
 
-        // 사용자 정보를 가져와서 mno와 m_name을 응답에 포함
+        // 사용자 정보를 가져와서 mno, m_name, roleSet을 응답에 포함
         MemberSecurityDTO userDetails = (MemberSecurityDTO) authentication.getPrincipal();
         String mName = userDetails.getM_name();
+        Set<MemberRole> roleSet = userDetails.getRoleSet();
 
         if (rememberMe) {
             Cookie rememberMeCookie = new Cookie("remember-me", jwt);
@@ -56,7 +59,7 @@ public class AuthController {
         }
 
 
-        return ResponseEntity.ok().body(Map.of("accessToken", jwt, "mno", mno, "m_name", mName));
+        return ResponseEntity.ok().body(Map.of("accessToken", jwt, "mno", mno, "m_name", mName, "roleSet", roleSet));
     }
 
 
