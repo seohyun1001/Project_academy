@@ -73,7 +73,7 @@ public class PayController {
         if (payList != null && !payList.isEmpty()) {
             return ResponseEntity.ok(payList);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(payList);
         }
     }
 }
