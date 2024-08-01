@@ -13,25 +13,27 @@ const Member = () => {
     const [isEditing, setIsEditing] = useState(false); // 수정 모드 여부
     const [showRegister, setShowRegister] = useState(false); // 회원 등록 화면 표시 여부
 
+    // 컴포넌트가 처음 렌더링될 때 강사 목록을 가져옵니다.
     useEffect(() => {
         fetchMembers();
     }, []);
-
-    const handleMemberDeleted = () => {
-        fetchMembers();  // 강사 삭제 후 목록 새로고침
-        setSelectedMember(null);  // 선택된 강사 정보 초기화
-    };
-
+    // 강사 목록을 새로고침합니다.
     const fetchMembers = () => {
         axios.get('http://localhost:8092/member/list')
             .then(response => setMembers(response.data))
             .catch(error => console.error('강사를 불러오는 중에 오류가 발생했습니다.', error));
     };
-
+    // 선택된 강사의 상세 정보를 가져옵니다.
     const fetchMember = (mno) => {
         axios.get(`http://localhost:8092/member/read/${mno}`)
             .then(response => setSelectedMember(response.data))
             .catch(error => console.error('강사 상세 정보를 불러오는 중에 오류가 발생했습니다: ', error));
+    };
+
+    // 강사가 삭제된 후 목록을 새로고침하고 선택된 강사 정보를 초기화합니다.
+    const handleMemberDeleted = () => {
+        fetchMembers();  // 강사 삭제 후 목록 새로고침
+        setSelectedMember(null);  // 선택된 강사 정보 초기화
     };
 
     return (
