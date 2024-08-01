@@ -41,7 +41,7 @@ const List = ({ members, selectedMember, setSelectedMember, fetchMember, setIsEd
                         {showRegister ? '취소' : '등록'}
                     </button>
                 </a>
-                <div className="list-group list-group-flush border-bottom scrollarea">
+                <div className="list-group list-group-flush border-bottom scrollarea scrollBar">
                     {filteredMembers.map(member => (
                         <a
                             className="list-group-item list-group-item-action"

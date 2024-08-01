@@ -44,6 +44,7 @@ const App = () => {
                     <Route path="/member/login" element={<Login />} />
                     <Route path="/list" element={<PrivateRoute><List /></PrivateRoute>} />
                     <Route path="/Member/Register" element={<PrivateRoute><Register /></PrivateRoute>} />
+                    <Route path='/member' element={<PrivateRoute><Member /></PrivateRoute>} />
 
                     <Route path="/student" element={<PrivateRoute><Student /></PrivateRoute>} />
                     <Route path="/student/register" element={<PrivateRoute><StudentRegister /></PrivateRoute>} />

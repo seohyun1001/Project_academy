@@ -1,7 +1,7 @@
-.button-group {
+/* .button-group {
     display: flex;
-    gap: 10px; /* 버튼 간의 간격 */
-    margin-top: 10px; /* 버튼 그룹과 위 요소 간의 간격 */
+    gap: 10px;
+    margin-top: 10px;
   }
   
   .action-button {
@@ -24,4 +24,4 @@
   
   .delete-button:hover {
     background-color: #c82333;
-  }
+  } */
