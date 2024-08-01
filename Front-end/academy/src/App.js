@@ -1,9 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import Header from './components/Basic/Header';
+import Footer from './components/Basic/Footer';
 
 import Register from './components/member/memberRegister/MemberRegister';
 import Login from './components/member/memberLogin/MemberLogin';
-import StudentList from './components/student/StudentList';
 import StudentRegister from './components/student/StudentRegister';
 import StudentEdit from './components/student/StudentEdit';
 import Noticelist from './components/notice/NoticeList';

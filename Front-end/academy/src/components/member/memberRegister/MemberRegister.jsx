@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-// import './MemberRegister.css'; // CSS 파일 추가
 
 const MemberRegister = () => {
     const [member, setMember] = useState({
@@ -73,25 +72,27 @@ const MemberRegister = () => {
     };
 
     return (
-        <div className="container">
-            <div className="card">
-                <h2>회원 등록</h2>
+        <div className="card profile_card">
+            <div className="d-flex flex-wrap main_info">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label>회원 번호:</label>
-                        <div className="input-with-button">
-                            <input
-                                type="text"
-                                name="mno"
-                                value={member.mno}
-                                onChange={handleChange}
-                                required
-                            />
-                            <button type="button" onClick={handleUsernameCheck}>중복 검사</button>
+                    <div className="d-flex flex-column info_list">
+                        <div className="form-group mb-2 d-flex align-items-center" style={{ marginLeft: '-19px' }}>
+                            <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}> 회원 번호</label>
+                            <div className="d-flex flex-grow-1 align-items-center">
+                                <input
+                                    type="text"
+                                    name="mno"
+                                    value={member.mno}
+                                    onChange={handleChange}
+                                    required
+                                    className="me-2" // input과 button 사이에 공간을 추가
+                                />
+                                <button type="button" className="btn btn-outline-secondary" onClick={handleUsernameCheck}>중복 검사</button>
+                            </div>
                         </div>
                     </div>
                     <div className="form-group">
-                        <label>이름:</label>
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>이름</label>
                         <input
                             type="text"
                             name="m_name"
@@ -101,7 +102,7 @@ const MemberRegister = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>비밀번호:</label>
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>비밀번호</label>
                         <input
                             type="password"
                             name="m_password"
@@ -111,7 +112,7 @@ const MemberRegister = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>비밀번호 확인:</label>
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>비밀번호 확인</label>
                         <input
                             type="password"
                             name="m_passwordConfirm"
@@ -122,7 +123,7 @@ const MemberRegister = () => {
                     </div>
                     {!passwordMatch && <p className="error">비밀번호가 일치하지 않습니다.</p>}
                     <div className="form-group">
-                        <label>이메일:</label>
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>이메일</label>
                         <input
                             type="email"
                             name="m_email"
@@ -132,7 +133,7 @@ const MemberRegister = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>전화번호:</label>
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>전화번호</label>
                         <input
                             type="text"
                             name="m_phone"
@@ -142,7 +143,7 @@ const MemberRegister = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>주소1:</label>
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>주소1</label>
                         <input
                             type="text"
                             name="m_address1"
@@ -152,7 +153,7 @@ const MemberRegister = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>주소2:</label>
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>주소2</label>
                         <input
                             type="text"
                             name="m_address2"
@@ -160,7 +161,13 @@ const MemberRegister = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <button type="submit">등록</button>
+                    <div>
+                        <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
+                            <div className="btn-group mt-3">
+                                <button type="submit" className="btn btn-outline-primary">등록</button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

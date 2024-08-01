@@ -4,9 +4,9 @@ import Header from "../Header";
 import MainInfo from "../MainInfo";
 import RelatedClasses from "../RelatedClasses";
 import LectureList from "../../Lecture/LectureList";
-import LectureInfo from "./LectureInfo";
-import LectureProfile from "./LectureProfile";
-import LectureInfoRegister from "./LectureInfoRegister";
+import LectureInfo from "../../Lecture/LectureInfo";
+import LectureProfile from "../../Lecture/LectureProfile";
+import LectureInfoRegister from "../../Lecture/LectureInfoRegister";
 
 
 
@@ -16,7 +16,7 @@ const LectureBasic = () => {
             <Header />
             <div class="container">
                 <div class="d-flex flex-wrap">
-                    <LectureList />                    
+                    <LectureList />
                 </div>
             </div>
             <Footer />

@@ -12,6 +12,7 @@ import org.zerock.project_academy.lecture.service.LectureService;
 import org.zerock.project_academy.member.domain.Member;
 import org.zerock.project_academy.member.repository.MemberRepository;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -23,8 +24,6 @@ import java.util.Optional;
 public class LectureController {
 
     private final LectureService lectureService;
-    private final ModelMapper modelMapper;
-    private final MemberRepository memberRepository;
 
     @PostMapping
     public ResponseEntity<Object> register(@RequestBody LectureDTO lectureDTO) {
@@ -47,6 +46,12 @@ public class LectureController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lecture not found with id " + lno);
         }
+    }
+
+    @GetMapping("/memberLectures")
+    public ResponseEntity<List<Lecture>> getLecturesByMemberMno(@RequestParam String mno) {
+        List<Lecture> lectures = lectureService.findLecturesByMemberMno(mno);
+        return ResponseEntity.ok(lectures);
     }
 
     @DeleteMapping("{lno}")

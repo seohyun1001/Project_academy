@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useAuth } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import './MemberLogin.css'; // CSS 파일을 import 합니다.
+import "./MemberLogin.css"
 
 const MemberLogin = () => {
     const [loginRequest, setLoginRequest] = useState({
@@ -9,7 +9,9 @@ const MemberLogin = () => {
         password: '',
         rememberMe: false
     });
+    const [errorMessage, setErrorMessage] = useState('');
 
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -23,26 +25,18 @@ const MemberLogin = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/auth/login', loginRequest, { withCredentials: true });
-            const { accessToken, mno, m_name } = response.data;
-
-            // JWT 토큰과 사용자 정보를 로컬 스토리지에 저장
-            localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('username', mno);
-            localStorage.setItem('m_name', m_name);
-
-            alert('로그인 성공');
-            navigate('/'); // 로그인 후 홈 페이지로 이동
+            await login(loginRequest.username, loginRequest.password, loginRequest.rememberMe);
+            navigate('/basic'); // 로그인 후 홈 페이지로 이동
         } catch (error) {
-            console.error('로그인 중 오류가 발생했습니다.', error);
-            alert('로그인 중 오류가 발생했습니다.');
+            setErrorMessage('로그인 실패: 사용자 이름 또는 비밀번호가 잘못되었습니다.');
         }
     };
 
     return (
-        <div className="container">
-            <div className="card">
+        <div className='login-body'>
+            <div class="login-container">
                 <h2>Welcome!</h2>
+                {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
                 <form onSubmit={handleLogin}>
                     <div>
                         <input
@@ -50,7 +44,7 @@ const MemberLogin = () => {
                             name="username"
                             value={loginRequest.username}
                             onChange={handleChange}
-                            placeholder="Username"
+                            placeholder="사번"
                             required
                         />
                     </div>
@@ -60,13 +54,14 @@ const MemberLogin = () => {
                             name="password"
                             value={loginRequest.password}
                             onChange={handleChange}
-                            placeholder="Password"
+                            placeholder="비밀번호"
                             required
                         />
                     </div>
-                    <div className="checkbox-container">
+                    <div className="radio-container">
                         <input
                             type="checkbox"
+                            className='login_radioBtn'
                             name="rememberMe"
                             checked={loginRequest.rememberMe}
                             onChange={handleChange}
@@ -77,6 +72,7 @@ const MemberLogin = () => {
                 </form>
             </div>
         </div>
+
     );
 };
 

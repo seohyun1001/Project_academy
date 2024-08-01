@@ -110,4 +110,21 @@ public class CounselingServiceImpl implements CounselingService {
         }
         return dtoList;
     }
+
+    @Override
+    public List<CounselingDTO> getBySno(Long sno) {
+        List<Counseling> counselings = counselingRepository.findByStudent_c_Sno(sno);
+        return counselings.stream()
+                .map(counseling -> CounselingDTO.builder()
+                        .cno(counseling.getCno())
+                        .c_content(counseling.getC_content())
+                        .sno(counseling.getStudent_c().getSno())
+                        .s_name(counseling.getStudent_c().getS_name())
+                        .moddate(counseling.getModDate())
+                        .regdate(counseling.getRegDate())
+                        .build())
+                .collect(Collectors.toList());
+
+    }
 }
+

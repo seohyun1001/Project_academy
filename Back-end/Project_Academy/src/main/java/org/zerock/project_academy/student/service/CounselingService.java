@@ -15,4 +15,6 @@ public interface CounselingService {
     void remove(Long cno);
 
     List<CounselingDTO> getAll();
+
+    List<CounselingDTO> getBySno(Long sno);
 }
