@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const CounselingEdit = () => {
-    const { cno } = useParams();
-    const navigate = useNavigate();
+const CounselingEdit = ({ cno, onClose }) => {
     const [counseling, setCounseling] = useState({
         c_content: '',
         lno: '',
@@ -14,6 +12,7 @@ const CounselingEdit = () => {
     });
     const [lectures, setLectures] = useState([]);
     const [students, setStudents] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCounseling = async () => {
@@ -21,7 +20,7 @@ const CounselingEdit = () => {
                 const response = await axios.get(`/counseling/${cno}`);
                 setCounseling(response.data);
             } catch (error) {
-                console.error('Failed to fetch counseling', error);
+                console.error('Failed to fetch counseling details', error);
             }
         };
 
@@ -49,8 +48,11 @@ const CounselingEdit = () => {
     }, [cno]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setCounseling({ ...counseling, [name]: value });
+        const { name, value, type, checked } = e.target;
+        setCounseling({
+            ...counseling,
+            [name]: type === 'checkbox' ? checked : value
+        });
     };
 
     const handleLectureChange = (e) => {
@@ -68,10 +70,25 @@ const CounselingEdit = () => {
         try {
             await axios.put(`/counseling/${cno}`, counseling);
             alert('수정 성공');
-            navigate('/counseling/list');
+            onClose(); // 수정 성공 후 모달 닫기
+            window.location.reload(); // 페이지 새로고침
         } catch (error) {
             console.error('상담 수정 중 오류가 발생했습니다.', error);
             alert('상담 수정 중 오류가 발생했습니다.');
+        }
+    };
+
+    const handleDelete = async () => {
+        if (window.confirm("정말로 삭제하시겠습니까?")) {
+            try {
+                await axios.delete(`/counseling/${cno}`);
+                alert('삭제 성공');
+                onClose(); // 삭제 성공 후 모달 닫기
+                window.location.reload(); // 페이지 새로고침
+            } catch (error) {
+                console.error('상담 삭제 중 오류가 발생했습니다.', error);
+                alert('상담 삭제 중 오류가 발생했습니다.');
+            }
         }
     };
 
@@ -102,7 +119,7 @@ const CounselingEdit = () => {
                         </select>
                     </div>
                     <div>
-                        <label>학생 선택:</label>
+                        {/* <label>학생 선택:</label>
                         <select name="sno" value={counseling.sno} onChange={handleStudentChange} required>
                             <option value="">학생을 선택하세요</option>
                             {students.map(student => (
@@ -110,9 +127,11 @@ const CounselingEdit = () => {
                                     {student.sno} - {student.s_name}
                                 </option>
                             ))}
-                        </select>
+                        </select> */}
                     </div>
                     <button type="submit">수정</button>
+                    <button type="button" onClick={onClose}>닫기</button>
+                    <button type="button" onClick={handleDelete}>삭제</button>
                 </form>
             </div>
         </div>

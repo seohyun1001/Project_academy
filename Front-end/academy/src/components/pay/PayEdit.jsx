@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const PayEdit = () => {
-    const { pno } = useParams(); // URL에서 pno 파라미터를 가져옴
+const PayEdit = ({ pno, onClose }) => {
     const [pay, setPay] = useState({
         paid: false,
         lno: '',
@@ -71,10 +70,25 @@ const PayEdit = () => {
         try {
             await axios.put(`/pay/${pno}`, pay);
             alert('수정 성공');
-            navigate('/pay/list'); // 수정 성공 후 결제 목록 페이지로 이동
+            onClose(); // 수정 성공 후 모달 닫기
+            window.location.reload(); // 페이지 새로고침
         } catch (error) {
             console.error('결제 수정 중 오류가 발생했습니다.', error);
             alert('결제 수정 중 오류가 발생했습니다.');
+        }
+    };
+
+    const handleDelete = async () => {
+        if (window.confirm("정말로 삭제하시겠습니까?")) {
+            try {
+                await axios.delete(`/pay/${pno}`);
+                alert('삭제 성공');
+                onClose(); // 삭제 성공 후 모달 닫기
+                window.location.reload(); // 페이지 새로고침
+            } catch (error) {
+                console.error('결제 삭제 중 오류가 발생했습니다.', error);
+                alert('결제 삭제 중 오류가 발생했습니다.');
+            }
         }
     };
 
@@ -104,7 +118,7 @@ const PayEdit = () => {
                         </select>
                     </div>
                     <div>
-                        <label>학생 선택:</label>
+                        {/* <label>학생 선택:</label>
                         <select name="sno" value={pay.sno} onChange={handleStudentChange} required>
                             <option value="">학생을 선택하세요</option>
                             {students.map(student => (
@@ -112,9 +126,11 @@ const PayEdit = () => {
                                     {student.sno} - {student.s_name}
                                 </option>
                             ))}
-                        </select>
+                        </select> */}
                     </div>
                     <button type="submit">수정</button>
+                    <button type="button" onClick={onClose}>닫기</button>
+                    <button type="button" onClick={handleDelete}>삭제</button>
                 </form>
             </div>
         </div>

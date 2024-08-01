@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const CounselingRegister = () => {
+const CounselingRegister = ({onClose}) => {
     const [counseling, setCounseling] = useState({
         c_content: '',
         lno: '',
@@ -60,7 +60,9 @@ const CounselingRegister = () => {
             console.log(response); // 응답 확인용 로그
             if (response.status === 200) {
                 alert('등록 성공');
-                navigate('/counseling/list'); // 등록 성공 후 메인 페이지로 이동
+                navigate('/student'); // 등록 성공 후 메인 페이지로 이동
+                onClose(); // 모달 닫기
+                window.location.reload(); // 페이지 새로고침
             } else {
                 alert('상담 등록 중 오류가 발생했습니다.');
             }
@@ -108,6 +110,7 @@ const CounselingRegister = () => {
                         </select>
                     </div>
                     <button type="submit">등록</button>
+                    <button type="button" onClick={onClose}>닫기</button>
                 </form>
             </div>
         </div>

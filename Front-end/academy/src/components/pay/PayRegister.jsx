@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const PayRegister = () => {
+const PayRegister = ({ onClose }) => {
     const [pay, setPay] = useState({
         paid: false,
         lno: '',
@@ -59,7 +59,9 @@ const PayRegister = () => {
             const response = await axios.post('/pay', pay);
             if (response.status === 200) {
                 alert('등록 성공');
-                navigate('/pay/list'); // 등록 성공 후 메인 페이지로 이동
+                navigate('/student'); // 등록 성공 후 메인 페이지로 이동
+                onClose(); // 모달 닫기
+                window.location.reload(); // 페이지 새로고침
             } else {
                 alert('등록 중 오류가 발생했습니다.');
             }
@@ -106,6 +108,7 @@ const PayRegister = () => {
                         </select>
                     </div>
                     <button type="submit">등록</button>
+                    <button type="button" onClick={onClose}>닫기</button>
                 </form>
             </div>
         </div>
