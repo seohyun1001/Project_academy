@@ -10,6 +10,8 @@ function Referencelist() {
   const [currentItems, setCurrentItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showRegister, setShowRegister] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
+  const [selectedReference, setSelectedReference] = useState(null);
 
   const uploadRegister = async () => {
     try {
@@ -129,6 +131,10 @@ function Referencelist() {
   const handleRegisterClick = () =>{
     setShowRegister(true);
   };
+  const handleReferenceClick = (rno) =>{
+    setSelectedReference(rno);
+    setShowDetail(true);
+  }
 
   return (
     <div className="container notice_con">
@@ -167,10 +173,8 @@ function Referencelist() {
               {currentItems.map((reference, index) => (
                 <tr key={index}>
                   <th scope="row">{reference.rno}</th>
-                  <td>
-                    <Link to={`/reference/${reference.rno}`}>
-                      {reference.r_title}
-                    </Link>
+                  <td onClick={() => handleReferenceClick(reference.rno)} style={{ cursor: 'pointer' }}>
+                  {reference.r_title}
                   </td>
                   <td>{formatDate(reference.regDate)}</td>
                 </tr>

@@ -4,12 +4,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Referencelist from "./ReferenceList";
 
 
-const ReferenceDetail = () => {
+const ReferenceDetail = ({rno}) => {
   const navigate = useNavigate();
-  const { rno } = useParams();
   const [loading, setLoading] = useState(true)
   const [reference, setReference] = useState({});
   const [referenceResource, setReferenceResource] = useState([]);
+  const [showReferencelist, setReferenceList] = useState([]);
+
+
   const getReference = async () => {
     const response = await (await axios.get(`http://localhost:8092/reference/read?rno=${rno}`)).data;
     console.log(response)
