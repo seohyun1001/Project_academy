@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const CounselingRegister = ({onClose}) => {
+const CounselingRegister = ({ onClose }) => {
     const [counseling, setCounseling] = useState({
         c_content: '',
         lno: '',
@@ -85,6 +85,7 @@ const CounselingRegister = ({onClose}) => {
                             value={counseling.c_content}
                             onChange={handleChange}
                             required
+                            style={{ width: '500px', height: '250px' }}
                         />
                     </div>
                     <div>

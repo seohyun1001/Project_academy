@@ -173,7 +173,7 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
                       onClick={() => handleShowModal(pay.student_p)} // 수정된 부분
                       style={{ cursor: 'pointer' }} // 추가된 부분
                     />
-                    <h5 className="fw-normal" style={{ color: pay.paid ? 'black' : 'red' }}>{pay.student_p.s_name}</h5> {/* 수정된 부분 */}
+                    <h5 className="fw-normal" style={{ color: pay.paid ? 'black' : 'blue', marginLeft: '20px' }}>{pay.student_p.s_name}</h5> {/* 수정된 부분 */}
                   </div>
                 ))}
               </div>
