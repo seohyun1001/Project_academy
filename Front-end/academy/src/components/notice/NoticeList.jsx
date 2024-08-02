@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import NoticeRegister from "./NoticeRegister";
 import NoticeDetail from "./NoticeDetail";
 
@@ -140,7 +139,7 @@ function Noticelist() {
       {showRegister ? (
         <NoticeRegister />
       ) : showDetail ? (
-        <NoticeDetail nno={selectedNotice} />
+        <NoticeDetail nno={selectedNotice} setShowDetail={setShowDetail} />
       ) : (
         <>
           <div className="d-flex justify-content-between mb-4">
