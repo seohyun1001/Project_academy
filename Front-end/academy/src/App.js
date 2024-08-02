@@ -32,8 +32,7 @@ import RegisterModal from './components/Basic/student/registerModal';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분
 import Student from './components/student/Student';
 import StudentDetail from './components/student/StudentDetail';
-import TestRegister from './components/reference/TestRegister';
-import TestModify from './components/reference/TestModify';
+
 import LectureList from './components/Lecture/LectureList';
 
 

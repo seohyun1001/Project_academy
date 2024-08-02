@@ -4,6 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import LectureList from './Lecture/LectureList';
 import Member from './member/Member';
 import Student from './student/Student';
+import Noticelist from './notice/NoticeList';
+import Referencelist from './reference/ReferenceList';
 
 const Header = () => {
     const { user, logout } = useAuth();
@@ -120,7 +122,7 @@ const Header = () => {
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li class="nav-item">
-                            <Link class="nav-link active nav_link" aria-current="page" onClick={toggleStudent}>학생</Link>
+                            <a class="nav-link active nav_link" aria-current="page" onClick={toggleStudent}>학생</a>
                         </li>
 
                         <li className="nav-item">
@@ -132,11 +134,11 @@ const Header = () => {
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link active nav_link" aria-current="page" to="/noticelist">공지사항</Link>
+                            <a className="nav-link active nav_link" aria-current="page" onClick={toggleNotice}>공지사항</a>
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link active nav_link nav_link_last" aria-current="page" to="/referencelist">자료실</Link>
+                            <a className="nav-link active nav_link nav_link_last" aria-current="page" onClick={toggleReference}>자료실</a>
                         </li>
                     </ul>
                     <form className="d-flex" role="search">
@@ -151,6 +153,8 @@ const Header = () => {
                     {showMember && <Member />}
                     {showLecture && <LectureList />}
                     {showStudent && <Student />}
+                    {showNotice && <Noticelist />}
+                    {showReference && <Referencelist />}
                 </div>
             </div>
         </div>
