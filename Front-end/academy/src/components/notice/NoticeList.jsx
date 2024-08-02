@@ -10,7 +10,6 @@ function Noticelist() {
   const [currentItems, setCurrentItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showRegister, setShowRegister] = useState(false);
-  const [showDetail, setShowDetail] = useState(false);
   const [selectedNotice, setSelectedNotice] = useState(null);
 
 
@@ -131,15 +130,14 @@ function Noticelist() {
 
   const handleNoticeClick = (nno) => {
     setSelectedNotice(nno);
-    setShowDetail(true);
   };
 
   return (
     <div className="container notice_con">
-      {showRegister ? (
+      {showRegister ? ( // showRegister가 true인 경우 NoticeRegister 표시
         <NoticeRegister />
-      ) : showDetail ? (
-        <NoticeDetail nno={selectedNotice} setShowDetail={setShowDetail} />
+      ) : selectedNotice ? ( // selectedNotice가 있는 경우 NoticeDetail 표시
+        <NoticeDetail nno={selectedNotice} />
       ) : (
         <>
           <div className="d-flex justify-content-between mb-4">

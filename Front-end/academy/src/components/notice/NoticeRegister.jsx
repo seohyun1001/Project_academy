@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Noticelist from "./NoticeList";
+import NoticeDetail from "./NoticeDetail";
 
 const NoticeRegister = () => {
     const navigate = useNavigate();
@@ -13,6 +14,9 @@ const NoticeRegister = () => {
     const [nr_name, setNrName] = useState(null);
 
     const [showNoticeList, setShowNoticeList] = useState(false);
+    const [showNoticeDetail, setShowNoticeDetail] = useState(false);
+    const [registeredNno, setRegisteredNno] = useState(null); // 등록된 공지사항 번호 저장
+
 
     const onInputChange = (e) => {
         const { name, value, files } = e.target;
@@ -40,16 +44,29 @@ const NoticeRegister = () => {
                 formData.append("files", nr_name);
             }
 
+            // const response = await axios.post("/notice/register", formData, {
+            //     headers: {
+            //         "Content-Type": "multipart/form-data",
+            //     },
+            // }).then(result => {
+            //     if (result.status === 201) {
+            //         alert("공지사항 등록이 성공적으로 완료되었습니다.");
+            //         console.log(response.data.nno)
+            //         setRegisteredNno(response.data.nno); // 등록된 공지사항 번호 저장
+            //         setShowNoticeDetail(true); // 등록 후 NoticeDetail 컴포넌트 표시
+            //     }
+            // });
             const response = await axios.post("/notice/register", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-            }).then(result => {
-                if (result.status === 201) {
-                    alert("공지사항 등록이 성공적으로 완료되었습니다.");
-                    setShowNoticeList(true);
-                }
             });
+
+            if (response.status === 201) {
+                alert("공지사항 등록이 성공적으로 완료되었습니다.");
+                setRegisteredNno(response.data.nno); // 등록된 공지사항 번호 저장
+                setShowNoticeDetail(true); // 등록 후 NoticeDetail 컴포넌트 표시
+            }
         } catch (error) {
 
             console.error("등록 중 오류가 발생했습니다.", error);
@@ -63,8 +80,8 @@ const NoticeRegister = () => {
 
     return (
         <>
-            {showNoticeList ? (
-                <Noticelist />
+            {showNoticeDetail  ? (
+                <NoticeDetail nno={registeredNno} />
             ) : (
                 <>
                     <h2 class="notice">공지사항</h2>
@@ -107,7 +124,7 @@ const NoticeRegister = () => {
                         <div class="d-flex flex-wrap justify-content-between btns">
                             <button class="btn btn-outline-dark noticeListBtn" onClick={handleListClick}>목록으로 돌아가기</button>
                             <div class="">
-                                <button type="submit" className="btn btn-outline-primary px-3 mx-2">
+                                <button type="button" className="btn btn-outline-primary px-3 mx-2" onClick={onSubmit}>
                                     등록
                                 </button>
                             </div>

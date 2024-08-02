@@ -2,13 +2,15 @@ import React, { useEffect, useState, } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import NoticeModify from "./NoticeModify";
+import Noticelist from "./NoticeList";
 
-const NoticeDetail = ({ nno, setShowDetail }) => {
+const NoticeDetail = ({ nno }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [notice, setNotice] = useState({});
   const [noticeResource, setNoticeResource] = useState([]);
   const [showModify, setShowModify] = useState(false);
+  const [showList, setShowList] = useState(false);
 
   const getNotice = async () => {
     const response = await (await axios.get(`http://localhost:8092/notice/read?nno=${nno}`)).data;
@@ -29,7 +31,7 @@ const NoticeDetail = ({ nno, setShowDetail }) => {
         await axios.delete(`http://localhost:8092/notice/${nno}`)
         console.log(`${notice.nno} 공지사항 삭제 완료`);
         alert(`${notice.nno}가 삭제되었습니다.`);
-        setShowDetail(false);
+        setShowList(true); // 삭제 후 목록으로 돌아가도록 설정
       } catch (error) {
         console.log('삭제 중 오류가 발생하였습니다.', error);
         alert('삭제중 오류가 발생했습니다.')
@@ -61,8 +63,10 @@ const NoticeDetail = ({ nno, setShowDetail }) => {
     <>
       {loading ? (
         <p>Loading...</p>
-      ) : showModify ? (
-        <NoticeModify nno={nno} setShowModify={setShowModify} setShowDetail={setShowDetail} />
+      ) : showList ? ( // showList가 true인 경우 NoticeList 컴포넌트 표시
+        <Noticelist />
+      ) : showModify ? ( // showModify가 true인 경우 NoticeModify 컴포넌트 표시
+        <NoticeModify nno={nno} setShowModify={setShowModify} setShowDetail={() => setShowList(false)} /> // setShowModify, setShowDetail prop 추가
       ) : (
         <>
           <h2 class="notice">공지사항</h2>
@@ -84,7 +88,7 @@ const NoticeDetail = ({ nno, setShowDetail }) => {
           <div class="d-flex flex-wrap justify-content-between btns">
             <button
               className="btn btn-outline-dark noticeListBtn"
-              onClick={() => setShowDetail(false)}>
+              onClick={() => setShowList(true)}>
               목록으로 돌아가기
             </button>
             <div class="">
