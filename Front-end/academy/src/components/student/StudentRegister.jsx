@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
-import './StudentRegister.css';
 
 
 const StudentRegister = () => {
@@ -189,14 +187,17 @@ const StudentRegister = () => {
                                         required
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-primary btn-block">등록</button>
-                                <button type="button" className="btn btn-secondary btn-block" onClick={handleList}>목록</button>
+                                <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
+                                    <div className="btn-group mt-3">
+                                        <button type="submit" className="btn btn-outline-primary ">등록</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

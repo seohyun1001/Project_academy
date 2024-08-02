@@ -5,7 +5,6 @@ import Footer from "../Basic/Footer";
 import StudentInfo from "./StudentInfo";
 import StudentDetail from "./StudentDetail";
 import StudentRegister from "./StudentRegister";
-import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
 import StudentEdit from "./StudentEdit";
 
 const Student = () => {
