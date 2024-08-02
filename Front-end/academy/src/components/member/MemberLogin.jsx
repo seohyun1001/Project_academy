@@ -26,7 +26,7 @@ const MemberLogin = () => {
         e.preventDefault();
         try {
             await login(loginRequest.username, loginRequest.password, loginRequest.rememberMe);
-            navigate('/basic'); // 로그인 후 홈 페이지로 이동
+            navigate('/'); // 로그인 후 홈 페이지로 이동
         } catch (error) {
             setErrorMessage('로그인 실패: 사용자 이름 또는 비밀번호가 잘못되었습니다.');
         }

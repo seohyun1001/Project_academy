@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Header from "../Basic/Header";
-import Footer from "../Basic/Footer";
+import Header from "../Header";
+import Footer from "../Footer";
 
 const ReferenceDetail = () => {
   const navigate = useNavigate();

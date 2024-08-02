@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useSyncExternalStore } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Header from "../Basic/Header";
-import Footer from "../Basic/Footer";
+import Header from "../Header";
+import Footer from "../Footer";
 
 const NoticeDetail = () => {
   const navigate = useNavigate();

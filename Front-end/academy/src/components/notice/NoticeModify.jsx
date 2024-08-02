@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom"
-import Header from "../Basic/Header";
+import Header from "../Header";
 
 const NoticeModify = () => {
     const { nno } = useParams();

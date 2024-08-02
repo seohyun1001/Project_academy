@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Header from "../Basic/Header";
+import Header from "../Header";
 import './Reference.css';
 
 const ReferenceModify = () => {

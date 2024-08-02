@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../Basic/Header";
-import Footer from "../Basic/Footer";
+import Header from "../Header";
+import Footer from "../Footer";
 
 function Noticelist() {
   const [noticeList, setNoticeList] = useState([]);
