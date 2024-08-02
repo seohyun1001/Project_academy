@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ReferenceRegister from "./ReferenceRegister";
+import ReferenceDetail from "./ReferenceDetail";
 
 function Referencelist() {
   const [referenceList, setReferenceList] = useState([]);
@@ -140,6 +141,8 @@ function Referencelist() {
     <div className="container notice_con">
       {showRegister ? (
         <ReferenceRegister/>
+      ) : showDetail ?(
+        <ReferenceDetail rno={selectedReference} setShowDetail={setShowDetail}/>
       ) : (
         <>
           <div className="d-flex justify-content-between mb-4">
