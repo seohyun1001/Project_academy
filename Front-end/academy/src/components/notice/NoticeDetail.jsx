@@ -1,14 +1,12 @@
 import React, { useEffect, useState, } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Noticelist from "./NoticeList";
 
-const NoticeDetail = ({ nno }) => {
+const NoticeDetail = ({ nno, setShowDetail }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [notice, setNotice] = useState({});
   const [noticeResource, setNoticeResource] = useState([]);
-  const [showNoticeList, setShowNoticeList] = useState(false);
 
   const getNotice = async () => {
     const response = await (await axios.get(`http://localhost:8092/notice/read?nno=${nno}`)).data;
@@ -29,7 +27,7 @@ const NoticeDetail = ({ nno }) => {
         await axios.delete(`http://localhost:8092/notice/${nno}`)
         console.log(`${notice.nno} 공지사항 삭제 완료`);
         alert(`${notice.nno}가 삭제되었습니다.`);
-        navigate('/noticelist');
+        setShowDetail(false);
       } catch (error) {
         console.log('삭제 중 오류가 발생하였습니다.', error);
         alert('삭제중 오류가 발생했습니다.')
@@ -57,15 +55,9 @@ const NoticeDetail = ({ nno }) => {
     return `${year}-${month}-${day}`;
   };
 
-  const handleListClick = () => {
-    setShowNoticeList(true);
-  }
-
   return (
     <>
-      {showNoticeList ? (
-        <Noticelist />
-      ) : loading ? (
+      {loading ? (
         <p>Loading...</p>
       ) : (
         <>
@@ -88,8 +80,7 @@ const NoticeDetail = ({ nno }) => {
           <div class="d-flex flex-wrap justify-content-between btns">
             <button
               className="btn btn-outline-dark noticeListBtn"
-              onClick={handleListClick()} // 목록으로 돌아가기 버튼 클릭 시 showNoticeList 상태 변경
-            >
+              onClick={() => setShowDetail(false)}>
               목록으로 돌아가기
             </button>
             <div class="">
