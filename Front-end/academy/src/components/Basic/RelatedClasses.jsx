@@ -83,19 +83,7 @@ const RelatedClasses = ({ sno }) => {
                     <div className="d-flex flex-column class_list">
                         <h4>수강 이력</h4>
                         <button
-                            style={{
-                                backgroundColor: "#4CAF50", /* Green */
-                                border: "none",
-                                color: "white",
-                                padding: "10px 20px", /* 줄어든 패딩 */
-                                textAlign: "center",
-                                textDecoration: "none",
-                                display: "inline-block",
-                                fontSize: "14px", /* 줄어든 폰트 크기 */
-                                margin: "4px 2px",
-                                cursor: "pointer",
-                                borderRadius: "4px"
-                            }}
+                            style={{ position: 'absolute', bottom: '20px', right: '20px' }}
                             onClick={() => setIsRegisterModalOpen(true)}
                         >
                             등록
