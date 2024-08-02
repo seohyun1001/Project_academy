@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const PayRegister = ({ onClose }) => {
+const PayRegister = ({ sno, onClose }) => {
     const [pay, setPay] = useState({
         paid: false,
         lno: '',

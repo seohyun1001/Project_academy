@@ -8,15 +8,10 @@ import Footer from "../Footer";
 
 const Basic = () => {
     return (
-        <body class="vsc-initialized">
-            <Header />
-            <div class="container">
-                <div class="d-flex flex-wrap">
+        <div>
+            
+        </div>
 
-                </div>
-            </div>
-            <Footer />
-        </body>
     )
 }
 

@@ -43,7 +43,7 @@ const Layout = () => (
         <Header />
         <div className="container">
             <div className="d-flex flex-wrap">
-                {/* <Outlet /> */}
+                <Outlet />
             </div>
         </div>
         <Footer />
@@ -57,7 +57,7 @@ const App = () => {
                 <Routes>
                     <Route path="/member/login" element={<Login />} />
                     <Route element={<Layout />}>
-                        <Route path="/basic" element={<PrivateRoute><Basic /></PrivateRoute>} />
+                        <Route path="/" element={<PrivateRoute><Basic /></PrivateRoute>} />
                         <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
 
                         {/* <Route path="/member/list" element={<PrivateRoute><MemberList /></PrivateRoute>} /> */}
