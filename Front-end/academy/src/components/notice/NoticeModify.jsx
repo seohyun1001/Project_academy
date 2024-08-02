@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom"
 import Header from "../Header";
 
-const NoticeModify = ({ nno, setShowModify }) => {
-    const navigate = useNavigate();
+const NoticeModify = ({ nno, setShowModify, setShowDetail }) => {
     const [loading, setLoading] = useState(true)
     const [notice, setNotice] = useState({
         n_title: "",
@@ -74,7 +73,7 @@ const NoticeModify = ({ nno, setShowModify }) => {
                 if (result.status === 200) {
                     alert("공지사항 등록이 성공적으로 완료되었습니다." + notice.writer);
                     setShowModify(false);
-                    // window.location.reload();
+                    setShowDetail(true);
                 }
             }).catch(error => {
                 console.log(error);

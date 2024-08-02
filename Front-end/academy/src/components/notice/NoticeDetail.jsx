@@ -38,7 +38,7 @@ const NoticeDetail = ({ nno, setShowDetail }) => {
 
   useEffect(() => {
     getNotice();
-  }, [nno]);
+  }, [nno, showModify]);
 
   const formatDate = (dateStr) => {
     if (!dateStr) {
@@ -62,7 +62,7 @@ const NoticeDetail = ({ nno, setShowDetail }) => {
       {loading ? (
         <p>Loading...</p>
       ) : showModify ? (
-        <NoticeModify nno={nno} setShowModify={setShowModify} />
+        <NoticeModify nno={nno} setShowModify={setShowModify} setShowDetail={setShowDetail} />
       ) : (
         <>
           <h2 class="notice">공지사항</h2>
