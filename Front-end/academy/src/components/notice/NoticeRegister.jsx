@@ -80,7 +80,9 @@ const NoticeRegister = () => {
 
     return (
         <>
-            {showNoticeDetail  ? (
+            {showNoticeList ? (
+                <Noticelist />
+            ) : showNoticeDetail ? (
                 <NoticeDetail nno={registeredNno} />
             ) : (
                 <>
