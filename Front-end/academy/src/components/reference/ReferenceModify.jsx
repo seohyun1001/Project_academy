@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Header from "../Header";
 
-const ReferenceModify = ({ rno, setIsEditing }) => {
-  const navigate = useNavigate();
+const ReferenceModify = ({ rno, setShowModify, setShowDetail }) => {
+
   const [loading, setLoading] = useState(true);
   const [reference, setReference] = useState({
     r_title: "",
@@ -49,21 +48,13 @@ const ReferenceModify = ({ rno, setIsEditing }) => {
     }
   };
 
-  const formatDate = (dateStr) => {
-    if (!dateStr) return 'Date not available';
-    const date = new Date(dateStr);
-    if (isNaN(date.getTime())) return 'Invalid Date';
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
-
   useEffect(() => {
     getReference();
   }, [rno]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
     try {
       const formData = new FormData();
       formData.append("r_title", reference.r_title);
@@ -78,72 +69,76 @@ const ReferenceModify = ({ rno, setIsEditing }) => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+      }).then(result => {
+        if (result.status === 200) {
+          alert("공지사항 수정이 성공적으로 완료되었습니다.");
+          setShowModify(false);
+          setShowDetail(true);
+        }
+      }).catch(error => {
+        console.log(error);
       });
-
-      if (response.status === 200) {
-        alert("공지사항 수정이 성공적으로 완료되었습니다.");
-        setIsEditing(false); // 편집 모드 종료
-      }
     } catch (error) {
-      console.error("수정 중 오류가 발생했습니다.", error);
-      alert("수정 중 오류가 발생했습니다.");
+      console.error("등록 중 오류가 발생했습니다.", error);
+      alert("등록 중 오류가 발생했습니다.");
     }
   };
 
   return (
-    <div className="container notice_con">
-      <h2 className="notice">수정중</h2>
-      <form onSubmit={(e) => e.preventDefault()}>
+    <>
+    <h2 className="notice">수정중</h2>
+    <form onSubmit={(e) => e.preventDefault()}>
         <div className="container">
-          <div className="d-flex flex-wrap justify-content-between">
-            <p className="d-flex notice_title">제목:
-              <input
-                onChange={onInputChange}
-                type="text"
-                name="r_title"
-                className="form-control"
-                value={reference.r_title}
-                required
-                placeholder="제목"
-              />
-            </p>
-            <span>작성자 : {reference.writer}</span>
-          </div>
-          <p className="notice_content">내용
-            <textarea
-              onChange={onInputChange}
-              id="r_content"
-              className="form-control"
-              placeholder="내용"
-              name="r_content"
-              value={reference.r_content}
-              rows="20"
-            />
-          </p>
-          <p>첨부파일</p>
-          <input
-            onChange={onInputChange}
-            type="file"
-            id="rr_name"
-            className="form-control"
-            name="rr_name"
-          />
-          {referenceResource.map((rr) => (
-            <div key={rr.rrno}>
-              <p>{rr.rr_name} <button type="button" onClick={() => deleteSubmit(rr.rrno)}>X</button></p>
+            <div className="d-flex flex-wrap justify-content-between">
+                <p className="d-flex notice_title">제목:
+                    <input
+                        onChange={onInputChange}
+                        type="text"
+                        name="r_title"
+                        className="form-control"
+                        value={reference.r_title}
+                        required
+                        placeholder="제목"
+                    />
+                </p>
+                <span>작성자 : {reference.writer}</span>
+
             </div>
-          ))}
+            <p className="notice_content" >내용
+                <textarea
+                    onChange={onInputChange}
+                    id="r_content"
+                    className="form-control"
+                    placeholder="내용"
+                    name="r_content"
+                    value={reference.r_content}
+                    rows="20"
+                />
+            </p>
+            <div>
+            </div>
+            <p>첨부파일</p>
+            <input
+                onChange={onInputChange}
+                type="file"
+                id="rr_name"
+                className="form-control"
+                name="rr_name"
+            />
+            {referenceResource.map((rr) => (
+                <div key={rr.rrno}>
+                    <p>{rr.rr_name} <button type="button" onClick={() => deleteSubmit(rr.rrno)}>X</button></p>
+                </div>
+            ))}
         </div>
         <div className="d-flex flex-wrap justify-content-between btns">
-          <Link className="btn btn-outline-dark noticeListBtn" to='/referencelist'>목록으로 돌아가기</Link>
-          <div>
-            <button type="button" className="btn btn-outline-primary px-3 mx-2" onClick={onSubmit}>
-              수정
-            </button>
-          </div>
+            <button class="btn btn-outline-dark noticeListBtn" onClick={() => setShowModify(false)}>수정 취소</button>
+            <div>
+                <button type="button" className="btn btn-outline-primary px-3 mx-2" onClick={onSubmit}>수정</button>
+            </div>
         </div>
-      </form>
-    </div>
+    </form>
+</>
   );
 };
 

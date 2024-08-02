@@ -14,8 +14,6 @@ const NoticeDetail = ({ nno }) => {
 
   const getNotice = async () => {
     const response = await (await axios.get(`http://localhost:8092/notice/read?nno=${nno}`)).data;
-    console.log(response)
-    console.log(response.notice_resource)
     setNotice(response);
     setNoticeResource(response.notice_resource);
     setLoading(false);
@@ -99,7 +97,6 @@ const NoticeDetail = ({ nno }) => {
         </>
       )}
     </>
-
   );
 };
 
