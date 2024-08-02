@@ -1,12 +1,14 @@
 import React, { useEffect, useState, } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import NoticeModify from "./NoticeModify";
 
 const NoticeDetail = ({ nno, setShowDetail }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [notice, setNotice] = useState({});
   const [noticeResource, setNoticeResource] = useState([]);
+  const [showModify, setShowModify] = useState(false);
 
   const getNotice = async () => {
     const response = await (await axios.get(`http://localhost:8092/notice/read?nno=${nno}`)).data;
@@ -18,7 +20,7 @@ const NoticeDetail = ({ nno, setShowDetail }) => {
   };
 
   const handleModify = () => {
-    navigate(`/notice/modify/${notice.nno}`)
+    setShowModify(true); // 수정 시 수정 컴포넌트를 보여주도록 설정
   }
 
   const handleDelete = async () => {
@@ -59,6 +61,8 @@ const NoticeDetail = ({ nno, setShowDetail }) => {
     <>
       {loading ? (
         <p>Loading...</p>
+      ) : showModify ? (
+        <NoticeModify nno={nno} setShowModify={setShowModify} />
       ) : (
         <>
           <h2 class="notice">공지사항</h2>
