@@ -1,15 +1,13 @@
-import React, { useEffect, useState, } from "react";
+import React, { useEffect, useState, useSyncExternalStore } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Noticelist from "./NoticeList";
 
-const NoticeDetail = ({ nno }) => {
+const NoticeDetail = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const { nno } = useParams();
+  const [loading, setLoading] = useState(true)
   const [notice, setNotice] = useState({});
   const [noticeResource, setNoticeResource] = useState([]);
-  const [showNoticeList, setShowNoticeList] = useState(false);
-
   const getNotice = async () => {
     const response = await (await axios.get(`http://localhost:8092/notice/read?nno=${nno}`)).data;
     console.log(response)
@@ -18,6 +16,10 @@ const NoticeDetail = ({ nno }) => {
     setNoticeResource(response.notice_resource);
     setLoading(false);
   };
+
+  const handleList = () => {
+    navigate(`/NoticeList`)
+  }
 
   const handleModify = () => {
     navigate(`/notice/modify/${notice.nno}`)
@@ -38,8 +40,7 @@ const NoticeDetail = ({ nno }) => {
 
   useEffect(() => {
     getNotice();
-  }, [nno]);
-
+  }, []);
   const formatDate = (dateStr) => {
     if (!dateStr) {
       return 'Date not available';
@@ -57,50 +58,29 @@ const NoticeDetail = ({ nno }) => {
     return `${year}-${month}-${day}`;
   };
 
-  const handleListClick = () => {
-    setShowNoticeList(true);
-  }
-
   return (
     <>
-      {showNoticeList ? (
-        <Noticelist />
-      ) : loading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <h2 class="notice">공지사항</h2>
-          <div class="container">
-            <div className="d-flex flex-wrap justify-content-between">
-              <span className="notice_title">{notice.n_title}</span>
-              <span>작성자 : {notice.writer}</span>
-            </div>
-            <span> 등록일 : {formatDate(notice.regDate)} </span>
-            <pre className="notice_content">{notice.n_content}</pre>
-            {noticeResource.map((nr, index) => (
-              <p key={index}>
-                <a href={'http://localhost:8092/file/' + nr.nr_name}>{nr.nr_name}</a>
-              </p>
-            ))}
-          </div>
+      <h2 class="notice">공지사항</h2>
+      <div class="container">
+        <div class="d-flex flex-wrap justify-content-between">
+          <span class="notice_title">{notice.n_title}</span>
+          <span>작성자 :  {notice.writer} </span>
+        </div>
+        <span> 등록일 :{formatDate(notice.regDate)} </span>
+        <pre class="notice_content">{notice.n_content}</pre>
+        {noticeResource.map((nr, index) => (
+          <p key={index}><a href={'http://localhost:8092/file/' + nr.nr_name}>{nr.nr_name}</a></p>
+        ))}
+      </div>
 
-
-          <div class="d-flex flex-wrap justify-content-between btns">
-            <button
-              className="btn btn-outline-dark noticeListBtn"
-              onClick={handleListClick()} // 목록으로 돌아가기 버튼 클릭 시 showNoticeList 상태 변경
-            >
-              목록으로 돌아가기
-            </button>
-            <div class="">
-              <button className="btn btn-outline-primary noticeModifyBtn" onClick={handleModify}>수정</button>
-              <button className="btn btn-outline-danger noticeRemoveBtn" onClick={handleDelete}>삭제</button>
-            </div>
-          </div>
-        </>
-      )}
+      <div class="d-flex flex-wrap justify-content-between btns">
+        <Link class="btn btn-outline-dark noticeListBtn" to='/noticelist'>목록으로 돌아가기</Link>
+        <div class="">
+          <button className="btn btn-outline-primary noticeModifyBtn" onClick={handleModify}>수정</button>
+          <button className="btn btn-outline-danger noticeRemoveBtn" onClick={handleDelete}>삭제</button>
+        </div>
+      </div>
     </>
-
   );
 };
 

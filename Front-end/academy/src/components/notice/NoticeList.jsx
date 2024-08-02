@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import NoticeRegister from "./NoticeRegister";
-import NoticeDetail from "./NoticeDetail";
+import Header from "../Basic/Header";
+import Footer from "../Basic/Footer";
 
 function Noticelist() {
   const [noticeList, setNoticeList] = useState([]);
@@ -10,10 +10,6 @@ function Noticelist() {
   const [itemsPerPage] = useState(10);
   const [currentItems, setCurrentItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showRegister, setShowRegister] = useState(false);
-  const [showDetail, setShowDetail] = useState(false);
-  const [selectedNotice, setSelectedNotice] = useState(null);
-
 
   const uploadRegister = async () => {
     try {
@@ -127,62 +123,52 @@ function Noticelist() {
     setSearchTerm(document.getElementById('searchInput').value);
   };
 
-  const handleRegisterClick = () => {
-    setShowRegister(true);
-  };
-
-  const handleNoticeClick = (nno) => {
-    setSelectedNotice(nno);
-    setShowDetail(true);
-  };
 
   return (
-    <div className="container notice_con">
-      {showRegister ? (
-        <NoticeRegister />
-      ) : showDetail ? (
-        <NoticeDetail nno={selectedNotice} />
-      ) : (
-        <>
-          <div className="d-flex justify-content-between mb-4">
-            <h2 className="notice_title" style={{ fontSize: "30px" }}>공지사항</h2>
-            <div className="d-flex">
-              <input
-                id="searchInput"
-                className="form-control me-2"
-                type="text"
-                placeholder="검색..."
-              />
-              <button
-                className="btn btn-outline-dark"
-                type="button"
-                onClick={handleSearch} // 검색 버튼 클릭 시 handleSearch 호출
-              >
-                Search
-              </button>
-            </div>
+<body>
+      <Header />
+      <div className="container notice_con">
+        <div className="d-flex justify-content-between mb-4">
+          <h2 className="notice_title" style={{fontSize: "30px"}}>공지사항</h2>
+          <div className="d-flex">
+            <input
+              id="searchInput"
+              className="form-control me-2"
+              type="text"
+              placeholder="검색..."
+            />
+            <button
+              className="btn btn-outline-dark"
+              type="button"
+              onClick={handleSearch} // 검색 버튼 클릭 시 handleSearch 호출
+            >
+              Search
+            </button>
           </div>
+        </div>
 
-          <table className="table table-hover border shadow-sm mb-4">
-            <thead>
-              <tr>
-                <th scope="col">번호</th>
-                <th scope="col">제목</th>
-                <th scope="col">등록일</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentItems.map((notice, index) => (
-                <tr key={index}>
-                  <th scope="row">{notice.nno}</th>
-                  <td onClick={() => handleNoticeClick(notice.nno)} style={{ cursor: 'pointer' }}>
+        <table className="table table-hover border shadow-sm mb-4">
+          <thead>
+            <tr>
+              <th scope="col">번호</th>
+              <th scope="col">제목</th>
+              <th scope="col">등록일</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentItems.map((notice, index) => (
+              <tr key={index}>
+                <th scope="row">{notice.nno}</th>
+                <td>
+                  <Link to={`/notice/${notice.nno}`}>
                     {notice.n_title}
-                  </td>
-                  <td>{formatDate(notice.regDate)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </Link>
+                </td>
+                <td>{formatDate(notice.regDate)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
         <div className="d-flex justify-content-between align-items-center mb-4">
           <div className="mx-auto"> {/* 페이지 번호를 가운데로 정렬 */}
