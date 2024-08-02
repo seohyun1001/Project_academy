@@ -89,115 +89,106 @@ const StudentRegister = () => {
 
 
     return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
-                <div className="col-md-8">
-                    <div className="card">
-                        <div className="card-header">
-                            <h3 className="text-center">학생 등록 페이지</h3>
+        <div className="card profile_card">
+            <div className="d-flex flex-wrap main_info">
+                <form onSubmit={handleSubmit}>
+                    <div className="d-flex flex-column info_list">
+                        <div className="form-group mb-2 d-flex align-items-center" style={{ marginLeft: '-19px' }}>
+                            <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right', marginTop: '10px' }}>이름</label>
+                            <div className="d-flex flex-grow-1 align-items-center">
+                                <input
+                                    type="text"
+                                    name="s_name"
+                                    value={student.s_name}
+                                    onChange={handleChange}
+                                    required
+                                    className="me-2"
+                                />
+                            </div>
                         </div>
-                        <div className="card-body">
-                            <form onSubmit={handleSubmit}>
-                                <div className="form-group">
-                                    <label>이름:</label>
-                                    <input
-                                        type="text"
-                                        name="s_name"
-                                        value={student.s_name}
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>프로필 이미지:</label>
-                                    <input
-                                        type="file"
-                                        onChange={handleImageChange}
-                                        className="form-control"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>생년월일:</label>
-                                    <input
-                                        type="date"
-                                        name="s_birthday"
-                                        value={student.s_birthday}
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>메일:</label>
-                                    <input
-                                        type="email"
-                                        name="s_email"
-                                        value={student.s_email}
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>전화번호:</label>
-                                    <input
-                                        type="text"
-                                        name="s_phone"
-                                        value={student.s_phone}
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>상태:</label>
-                                    <select
-                                        name="s_status"
-                                        value={student.s_status}
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        required
-                                    >
-                                        <option value="">상태를 선택하세요</option>
-                                        <option value="수강">수강</option>
-                                        <option value="수료">수료</option>
-                                        <option value="퇴소">퇴소</option>
-                                    </select>
-                                </div>
-                                <div className="form-group">
-                                    <label>주소 1:</label>
-                                    <input
-                                        type="text"
-                                        name="s_address1"
-                                        value={student.s_address1}
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>주소 2:</label>
-                                    <input
-                                        type="text"
-                                        name="s_address2"
-                                        value={student.s_address2}
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        required
-                                    />
-                                </div>
-                                <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
-                                <div className="btn-group mt-3">
-                                    <button type="submit" className="btn btn-outline-primary ">등록</button>
-                                </div>
-                                </div>
-                    </form>
-                </div>
+                    </div>
+                    <div className="form-group d-flex align-items-center" style={{ marginLeft: '40px', marginBottom: '1rem' }}>
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right', marginTop: '10px' }}>프로필 이미지</label>
+                        <input
+                            type="file"
+                            onChange={handleImageChange}
+                            className="form-control me-2"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>생년월일</label>
+                        <input
+                            type="date"
+                            name="s_birthday"
+                            value={student.s_birthday}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>메일</label>
+                        <input
+                            type="email"
+                            name="s_email"
+                            value={student.s_email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>전화번호</label>
+                        <input
+                            type="text"
+                            name="s_phone"
+                            value={student.s_phone}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>상태</label>
+                        <select
+                            name="s_status"
+                            value={student.s_status}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">상태를 선택하세요</option>
+                            <option value="수강">수강</option>
+                            <option value="수료">수료</option>
+                            <option value="퇴소">퇴소</option>
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>주소 1</label>
+                        <input
+                            type="text"
+                            name="s_address1"
+                            value={student.s_address1}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>주소 2</label>
+                        <input
+                            type="text"
+                            name="s_address2"
+                            value={student.s_address2}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
+                            <div className="btn-group mt-3">
+                                <button type="submit" className="btn btn-outline-primary">등록</button>
+                                <button type="button" className="btn btn-outline-secondary" onClick={() => window.location.reload()}>목록</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-            </div >
-        </div >
     );
 };
 
