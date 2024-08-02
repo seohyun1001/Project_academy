@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import NoticeRegister from "./NoticeRegister";
+import NoticeDetail from "./NoticeDetail";
 
 function Noticelist() {
   const [noticeList, setNoticeList] = useState([]);
@@ -10,6 +11,9 @@ function Noticelist() {
   const [currentItems, setCurrentItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showRegister, setShowRegister] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
+  const [selectedNotice, setSelectedNotice] = useState(null);
+
 
   const uploadRegister = async () => {
     try {
@@ -126,10 +130,17 @@ function Noticelist() {
     setShowRegister(true);
   };
 
+  const handleNoticeClick = (nno) => {
+    setSelectedNotice(nno);
+    setShowDetail(true);
+  };
+
   return (
     <div className="container notice_con">
       {showRegister ? (
         <NoticeRegister />
+      ) : showDetail ? (
+        <NoticeDetail nno={selectedNotice} />
       ) : (
         <>
           <div className="d-flex justify-content-between mb-4">
@@ -163,10 +174,8 @@ function Noticelist() {
               {currentItems.map((notice, index) => (
                 <tr key={index}>
                   <th scope="row">{notice.nno}</th>
-                  <td>
-                    <Link to={`/notice/${notice.nno}`}>
-                      {notice.n_title}
-                    </Link>
+                  <td onClick={() => handleNoticeClick(notice.nno)} style={{ cursor: 'pointer' }}>
+                    {notice.n_title}
                   </td>
                   <td>{formatDate(notice.regDate)}</td>
                 </tr>
