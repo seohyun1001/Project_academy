@@ -122,7 +122,7 @@ const MemberRegister = () => {
                             required
                         />
                     </div>
-                    {!passwordMatch && <p className="error">비밀번호가 일치하지 않습니다.</p>}
+                    {!passwordMatch && <p className="error" style={{ marginLeft: '150px', color:'red'}}>비밀번호가 일치하지 않습니다.</p>}
                     <div className="form-group">
                         <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>이메일</label>
                         <input
