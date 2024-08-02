@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -38,58 +38,59 @@ import TestRegister from './components/reference/TestRegister';
 import TestModify from './components/reference/TestModify';
 import LectureList from './components/Lecture/LectureList';
 
+
+const Layout = () => (
+    <div className='d-flex flex-column justify-content-between mainBody vsc-initialized'>
+        <Header />
+        <div className="container">
+            <div className="d-flex flex-wrap">
+                <Outlet />
+            </div>
+        </div>
+        <Footer />
+    </div>
+);
+
 const App = () => {
     return (
-        <AuthProvider>
-            <Router>
-
-                <div className='d-flex flex-column justify-content-between mainBody vsc-initialized'>
-                    <Header />
-                    <div class="container">
-                        <div class="d-flex flex-wrap">
-
-                        </div>
-                    </div>
-                    <Footer />
-                </div>
-
+        <Router>
+            <AuthProvider>
                 <Routes>
-                    
-                    <Route path="/basic" element={<PrivateRoute><Basic /></PrivateRoute>} />
-                    <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
                     <Route path="/member/login" element={<Login />} />
-                    <Route path="/member/list" element={<PrivateRoute><MemberList /></PrivateRoute>} />
-                    <Route path="/Member/Register" element={<PrivateRoute><Register /></PrivateRoute>} />
-                    <Route path="/member" element={<PrivateRoute><Member /></PrivateRoute>} />
+                    <Route element={<Layout />}>
+                        <Route path="/basic" element={<PrivateRoute><Basic /></PrivateRoute>} />
+                        <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
 
-                    <Route path="/student" element={<PrivateRoute><Student /></PrivateRoute>} />
-                    <Route path="/student/register" element={<PrivateRoute><StudentRegister /></PrivateRoute>} />
-                    <Route path="/student/edit/:sno" element={<PrivateRoute><StudentEdit /></PrivateRoute>} />
-                    <Route path='/studentDetail' element={<PrivateRoute><StudentDetail/></PrivateRoute>} />
-                    }
+                        <Route path="/member/list" element={<PrivateRoute><MemberList /></PrivateRoute>} />
+                        <Route path="/Member/Register" element={<PrivateRoute><Register /></PrivateRoute>} />
+                        <Route path="/member" element={<PrivateRoute><Member /></PrivateRoute>} />
 
-                    <Route path="/Noticelist" element={<PrivateRoute><Noticelist /></PrivateRoute>} />
-                    <Route path="/NoticeRegister" element={<PrivateRoute><NoticeRegister /></PrivateRoute>} />
-                    <Route path='/testlist' element={<PrivateRoute><Referencelist /></PrivateRoute>} />
+                        <Route path="/student" element={<PrivateRoute><Student /></PrivateRoute>} />
+                        <Route path="/student/register" element={<PrivateRoute><StudentRegister /></PrivateRoute>} />
+                        <Route path="/student/edit/:sno" element={<PrivateRoute><StudentEdit /></PrivateRoute>} />
 
-                    <Route path="/ReferenceList" element={<Referencelist />} />
-                    <Route path="/NoticeRegister" element={<NoticeRegister />} />
-                    <Route path="/Reference/:rno" element={<ReferenceDetail />} />
-                    <Route path="/ReferenceRegister" element={<ReferenceRegister />} />
+                        <Route path="/Noticelist" element={<PrivateRoute><Noticelist /></PrivateRoute>} />
+                        <Route path="/NoticeRegister" element={<PrivateRoute><NoticeRegister /></PrivateRoute>} />
+                        <Route path='/testlist' element={<PrivateRoute><Referencelist /></PrivateRoute>} />
 
-                    <Route path="/counseling/register" element={<PrivateRoute><CounselingRegister /></PrivateRoute>} />
-                    <Route path="/counseling/list" element={<PrivateRoute><CounselingList /></PrivateRoute>} />
-                    <Route path="/counseling/edit/:cno" element={<PrivateRoute><CounselingEdit /></PrivateRoute>} />
-                    <Route path="/pay/register" element={<PrivateRoute><PayRegister /></PrivateRoute>} />
-                    <Route path="/pay/list" element={<PrivateRoute><PayList /></PrivateRoute>} />
-                    <Route path="/pay/edit/:pno" element={<PrivateRoute><PayEdit /></PrivateRoute>} />
+                        <Route path="/ReferenceList" element={<Referencelist />} />
+                        <Route path="/NoticeRegister" element={<NoticeRegister />} />
+                        <Route path="/Reference/:rno" element={<ReferenceDetail />} />
+                        <Route path="/ReferenceRegister" element={<ReferenceRegister />} />
 
-                    <Route path="/lecturelist" element={<PrivateRoute><LectureList /></PrivateRoute>} />
-                    <Route path="/lecture" element={<PrivateRoute><Lecture /></PrivateRoute>} />
+                        <Route path="/counseling/register" element={<PrivateRoute><CounselingRegister /></PrivateRoute>} />
+                        <Route path="/counseling/list" element={<PrivateRoute><CounselingList /></PrivateRoute>} />
+                        <Route path="/counseling/edit/:cno" element={<PrivateRoute><CounselingEdit /></PrivateRoute>} />
+                        <Route path="/pay/register" element={<PrivateRoute><PayRegister /></PrivateRoute>} />
+                        <Route path="/pay/list" element={<PrivateRoute><PayList /></PrivateRoute>} />
+                        <Route path="/pay/edit/:pno" element={<PrivateRoute><PayEdit /></PrivateRoute>} />
+
+                        <Route path="/lecturelist" element={<PrivateRoute><LectureList /></PrivateRoute>} />
+                        <Route path="/lecture" element={<PrivateRoute><Lecture /></PrivateRoute>} />
+                    </Route>
                 </Routes>
-            </Router>
-        </AuthProvider>
-
+            </AuthProvider>
+        </Router>
     );
 };
 

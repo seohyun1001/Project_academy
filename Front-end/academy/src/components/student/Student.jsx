@@ -40,7 +40,6 @@ const Student = () => {
 
     return (
         <div className="vsc-initialized">
-            <Header />
             <div className="container">
                 <div className="d-flex flex-wrap">
                     <StudentList onStudentClick={handleStudentClick} onRegisterClick={handleRegisterClick} />
@@ -57,7 +56,6 @@ const Student = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 };
