@@ -27,11 +27,8 @@ import Referencelist from './components/reference/ReferenceList';
 import ReferenceRegister from './components/reference/ReferenceRegister';
 import ReferenceDetail from './components/reference/ReferenceDetail';
 import ReferenceModify from './components/reference/ReferenceModify';
-import Testlist from './components/reference/TestList';
 import LectureBasic from './components/Basic/Lecture/LectureBasic';
 import RegisterModal from './components/Basic/student/registerModal';
-import TestRegister from './components/reference/TestRegister';
-import TestModify from './components/reference/TestModify';
 
 const App = () => {
     return (
@@ -55,11 +52,8 @@ const App = () => {
                 <Route path="/Noticelist" element={<Noticelist />} />
                 <Route path="/NoticeRegister" element={<NoticeRegister />} />
                 <Route path="/Notice/:nno" element={<NoticeDetail />} />
-                <Route path="/TestRegister" element={<TestRegister/>}/>
                 <Route path="/Reference/modify/:rno" element={<ReferenceModify/>}/>
                 <Route path="/Notice/modify/:nno" element={<NoticeModify/>}/>
-                <Route path="/TestList" element={<Testlist/>}/>
-                <Route path='/TestModify' element={<TestModify/>}/>
                 <Route path="/counseling/register" element={<CounselingRegister />} />
                 <Route path="/counseling/list" element={<CounselingList />} />
                 <Route path="/counseling/edit/:cno" element={<CounselingEdit/>} />

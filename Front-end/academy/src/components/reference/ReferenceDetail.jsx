@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../Basic/Header";
 import Footer from "../Basic/Footer";
 
@@ -79,7 +79,7 @@ const ReferenceDetail = () => {
           ))}
         </div>
         <div class="d-flex flex-wrap justify-content-between btns">
-          <button class="btn btn-outline-dark noticeListBtn" onClick={handleList}>목록으로 돌아가기</button>
+          <Link class="btn btn-outline-dark noticeListBtn" to='/referenceregister'>목록으로 돌아가기</Link>
           <div class="">
             <button className="btn btn-outline-primary noticeModifyBtn" onClick={handleModify}>수정</button>
             <button className="btn btn-outline-danger noticeRemoveBtn" onClick={handleDelete}>삭제</button>
