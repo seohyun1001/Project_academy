@@ -14,7 +14,7 @@ function Referencelist() {
   const uploadRegister = async () => {
     try {
       const result = await axios.get("http://localhost:8092/reference/list");
-      console.log(result.data); // 데이터 확인용
+      console.log(result.data);
       setReferenceList(result.data);
     } catch (error) {
       console.error("Error fetching reference list:", error);
@@ -26,7 +26,6 @@ function Referencelist() {
   }, []);
 
   useEffect(() => {
-    // 필터링 및 페이지네이션 처리
     const filteredList = referenceList.filter(reference =>
       reference.r_title.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -129,8 +128,7 @@ function Referencelist() {
   };
 
   return (
-    <body>
-      <Header />
+
       <div className="container notice_con">
         <div className="d-flex justify-content-between mb-4">
           <h2 className="notice_title" style={{fontSize: "30px"}}>자료실</h2>
@@ -184,9 +182,8 @@ function Referencelist() {
             </Link>
           </div>
         </div>
-        <Footer />
       </div>
-    </body>
+
   );
 }
 

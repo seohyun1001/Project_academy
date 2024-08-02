@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "../Header";
-import Footer from "../Footer";
+import Noticelist from "./NoticeList";
 
 const NoticeRegister = () => {
     const navigate = useNavigate();
@@ -12,6 +11,8 @@ const NoticeRegister = () => {
         writer: localStorage.getItem('m_name') || "",
     });
     const [nr_name, setNrName] = useState(null);
+
+    const [showNoticeList, setShowNoticeList] = useState(false);
 
     const onInputChange = (e) => {
         const { name, value, files } = e.target;
@@ -46,7 +47,7 @@ const NoticeRegister = () => {
             }).then(result => {
                 if (result.status === 201) {
                     alert("공지사항 등록이 성공적으로 완료되었습니다.");
-                    navigate("/Noticelist");
+                    setShowNoticeList(true);
                 }
             });
         } catch (error) {
@@ -56,61 +57,65 @@ const NoticeRegister = () => {
         }
     };
 
+    const handleListClick = () => {
+        setShowNoticeList(true);
+    }
+
     return (
-        <body>
-            <Header />
-            <div class="container notice_con">
-                <h2 class="notice">공지사항</h2>
-                <form onSubmit={onSubmit}>
-                    <div class="container">
-                        <div class="d-flex flex-wrap justify-content-between">
-                            <p className="d-flex notice_title">제목:
-                                <input
+        <>
+            {showNoticeList ? (
+                <Noticelist />
+            ) : (
+                <>
+                    <h2 class="notice">공지사항</h2>
+                    <form onSubmit={onSubmit}>
+                        <div class="container">
+                            <div class="d-flex flex-wrap justify-content-between">
+                                <p className="d-flex notice_title">제목:
+                                    <input
+                                        onChange={onInputChange}
+                                        type="text"
+                                        name="n_title"
+                                        className="form-control"
+                                        value={notice.n_title}
+                                        required
+                                        placeholder="제목"
+                                    />
+                                </p>
+                                <span>작성자 : {notice.writer}</span>
+                            </div>
+                            <p class="notice_content">내용
+                                <textarea
                                     onChange={onInputChange}
-                                    type="text"
-                                    name="n_title"
+                                    id="n_content"
                                     className="form-control"
-                                    value={notice.n_title}
-                                    required
-                                    placeholder="제목"
+                                    placeholder="내용"
+                                    name="n_content"
+                                    value={notice.n_content}
+                                    rows="20"
                                 />
                             </p>
-                            <span>작성자 : {notice.writer}</span>
-                        </div>
-                        <p class="notice_content">내용
-                            <textarea
+                            <a>첨부파일</a>
+                            <input
                                 onChange={onInputChange}
-                                id="n_content"
+                                type="file"
+                                id="nr_name"
                                 className="form-control"
-                                placeholder="내용"
-                                name="n_content"
-                                value={notice.n_content}
-                                rows="20"
+                                name="nr_name"
                             />
-                        </p>
-                        <a>첨부파일</a>
-                        <input
-                            onChange={onInputChange}
-                            type="file"
-                            id="nr_name"
-                            className="form-control"
-                            name="nr_name"
-                        // accept=".pdf,.doc,.docx"
-                        />
-                    </div>
-                    <div class="d-flex flex-wrap justify-content-between btns">
-                    <Link class="btn btn-outline-dark noticeListBtn" to='/noticelist'>목록으로 돌아가기</Link>
-                        <div class="">
-                            <button type="submit" className="btn btn-outline-primary px-3 mx-2">
-                                등록
-                            </button>
-
                         </div>
-                    </div>
-                </form>
-            </div>
-            <Footer />
-        </body>
+                        <div class="d-flex flex-wrap justify-content-between btns">
+                            <button class="btn btn-outline-dark noticeListBtn" onClick={handleListClick}>목록으로 돌아가기</button>
+                            <div class="">
+                                <button type="submit" className="btn btn-outline-primary px-3 mx-2">
+                                    등록
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </>
+            )}
+        </>
     );
 };
 
