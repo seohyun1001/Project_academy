@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom"
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom"
 import Header from "../Basic/Header";
 
 const NoticeModify = () => {
@@ -143,7 +143,7 @@ const NoticeModify = () => {
                         ))}
                     </div>
                     <div className="d-flex flex-wrap justify-content-between btns">
-                        <button type="button" className="btn btn-outline-dark noticeListBtn" onClick={() => navigate('/referencelist')}>목록으로 돌아가기</button>
+                    <Link class="btn btn-outline-dark noticeListBtn" to='/noticelist'>목록으로 돌아가기</Link>
                         <div>
                             <button type="button" className="btn btn-outline-primary px-3 mx-2" onClick={onSubmit}>수정</button>
                         </div>
@@ -151,58 +151,6 @@ const NoticeModify = () => {
                 </form>
             </div>
         </body>
-        // <div className="container">
-        //     <div className="row">
-        //         <h2>수정중</h2>
-        //         <form onSubmit={onSubmit}>
-        //             <div className="mb-3">
-        //                 <input
-        //                     onChange={onInputChange}
-        //                     type="text"
-        //                     name="n_title"
-        //                     value={notice.n_title}
-        //                     required
-        //                     placeholder="제목"
-        //                 />
-        //                 <input
-        //                     onChange={onInputChange}
-        //                     type="text"
-        //                     id="n_content"
-        //                     className="form-control"
-        //                     placeholder="내용"
-        //                     name="n_content"
-        //                     value={notice.n_content}
-        //                 />
-
-        //                 <input
-        //                     onChange={onInputChange}
-        //                     type="file"
-        //                     id="nr_name"
-        //                     className="form-control"
-        //                     name="nr_name"
-        //                 // accept=".pdf,.doc,.docx"
-        //                 />
-        //                 <input
-        //                     onChange={onInputChange}
-        //                     type="hidden"
-        //                     id="writer"
-        //                     className="form-control"
-        //                     name="writer"
-        //                     value={notice.writer}
-        //                 />
-        //             </div>
-        //             <button type="submit" className="btn btn-outline-primary px-3 mx-2">
-        //                 등록
-        //             </button>
-        //         </form>
-        //         {noticeResource.map((nr, index) => (
-        //                     <div>
-        //                     <p key={nr.nrno}>{nr.nr_name}</p>
-        //                     <button type="button" onClick={()=>{deleteSubmit(nr.nrno)}}>삭제</button>
-        //                     </div>
-        //                 ))}
-        //     </div>
-        // </div>
     )
 
 };

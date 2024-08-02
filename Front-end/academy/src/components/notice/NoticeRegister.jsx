@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../Basic/Header";
 import Footer from "../Basic/Footer";
 
@@ -99,7 +99,7 @@ const NoticeRegister = () => {
                         />
                     </div>
                     <div class="d-flex flex-wrap justify-content-between btns">
-                        <button class="btn btn-outline-dark noticeListBtn">목록으로 돌아가기</button>
+                    <Link class="btn btn-outline-dark noticeListBtn" to='/noticelist'>목록으로 돌아가기</Link>
                         <div class="">
                             <button type="submit" className="btn btn-outline-primary px-3 mx-2">
                                 등록

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../Basic/Header";
 import './Reference.css';
 
@@ -152,7 +152,7 @@ const ReferenceModify = () => {
                         ))}
                     </div>
                     <div className="d-flex flex-wrap justify-content-between btns">
-                        <button type="button" className="btn btn-outline-dark noticeListBtn" onClick={() => navigate('/referencelist')}>목록으로 돌아가기</button>
+                    <Link class="btn btn-outline-dark noticeListBtn" to='/referencelist'>목록으로 돌아가기</Link>
                         <div>
                         <button type="button" className="btn btn-outline-primary px-3 mx-2" onClick={onSubmit}>수정</button>
                         </div>

@@ -79,7 +79,7 @@ const ReferenceDetail = () => {
           ))}
         </div>
         <div class="d-flex flex-wrap justify-content-between btns">
-          <Link class="btn btn-outline-dark noticeListBtn" to='/referenceregister'>목록으로 돌아가기</Link>
+          <Link class="btn btn-outline-dark noticeListBtn" to='/referencelist'>목록으로 돌아가기</Link>
           <div class="">
             <button className="btn btn-outline-primary noticeModifyBtn" onClick={handleModify}>수정</button>
             <button className="btn btn-outline-danger noticeRemoveBtn" onClick={handleDelete}>삭제</button>
@@ -88,17 +88,6 @@ const ReferenceDetail = () => {
       </div>
       <Footer />
     </body>
-
-    // <div class="d-flex flex-wrap justify-content-between">
-    //   <span class="notice_title">{reference.r_title}</span>
-    //   <p>{reference.r_content}</p>
-    //   <p>작성자: {reference.writer}</p>
-    //   {referenceResource.map((rr,index) => (
-    //     <p key={index}><a href={'http://localhost:8092/file/'+rr.rr_name}>{rr.rr_name}</a></p>
-    //   ))}
-    //   <button className="btn btn-danger" onClick={handleDelete}>삭제</button>
-    //   <button className="btn btn-primary" onClick={handleModify}>수정</button>
-    // </div>
   );
 };
 
