@@ -3,11 +3,15 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import LectureList from './Lecture/LectureList';
 import Member from './member/Member';
+import Student from './student/Student';
 
 const Header = () => {
     const { user, logout } = useAuth();
-    const [showLectureList, setShowLectureList] = useState(false);
+    const [showLecture, setShowLecture] = useState(false);
     const [showMember, setShowMember] = useState(false);
+    const [showStudent, setShowStudent] = useState(false);
+    const [showNotice, setShowNotice] = useState(false);
+    const [showReference, setShowReference] = useState(false);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -15,10 +19,15 @@ const Header = () => {
         navigate('/member/login');
     };
 
-    const toggleLectureList = () => { // Added function to toggle the LectureList visibility
-        setShowLectureList(prevState => {
+    const toggleLecture = () => {
+        setShowLecture(prevState => {
             const newState = !prevState;
-            if (newState) setShowMember(false); // Hide Member when LectureList is shown
+            if (newState) {
+                setShowStudent(false);
+                setShowMember(false);
+                setShowNotice(false);
+                setShowReference(false);
+            }
             return newState;
         });
     };
@@ -26,7 +35,51 @@ const Header = () => {
     const toggleMember = () => {
         setShowMember(prevState => {
             const newState = !prevState;
-            if (newState) setShowLectureList(false); // Hide LectureList when Member is shown
+            if (newState) {
+                setShowStudent(false);
+                setShowLecture(false);
+                setShowNotice(false);
+                setShowReference(false);
+            }
+            return newState;
+        });
+    };
+
+    const toggleStudent = () => {
+        setShowStudent(prevState => {
+            const newState = !prevState;
+            if(newState) {
+                setShowMember(false);
+                setShowLecture(false);
+                setShowNotice(false);
+                setShowReference(false);
+            };
+            return newState;
+        });
+    };
+
+    const toggleNotice = () => {
+        setShowNotice(prevState => {
+            const newState = !prevState;
+            if(newState) {
+                setShowStudent(false);
+                setShowMember(false);
+                setShowLecture(false);
+                setShowReference(false);
+            };
+            return newState;
+        });
+    };
+
+    const toggleReference = () => {
+        setShowReference(prevState => {
+            const newState = !prevState;
+            if(newState) {
+                setShowStudent(false);
+                setShowMember(false);
+                setShowLecture(false);
+                setShowNotice(false);
+            };
             return newState;
         });
     };
@@ -67,7 +120,7 @@ const Header = () => {
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li class="nav-item">
-                            <Link class="nav-link active nav_link" aria-current="page" to="/student">학생</Link>
+                            <Link class="nav-link active nav_link" aria-current="page" onClick={toggleStudent}>학생</Link>
                         </li>
 
                         <li className="nav-item">
@@ -75,7 +128,7 @@ const Header = () => {
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link active nav_link" aria-current="page" onClick={toggleLectureList}>강의</a>
+                            <a className="nav-link active nav_link" aria-current="page" onClick={toggleLecture}>강의</a>
                         </li>
 
                         <li className="nav-item">
@@ -96,7 +149,8 @@ const Header = () => {
             <div class="container">
                 <div class="d-flex flex-wrap">
                     {showMember && <Member />}
-                    {showLectureList && <LectureList />}
+                    {showLecture && <LectureList />}
+                    {showStudent && <Student />}
                 </div>
             </div>
         </div>

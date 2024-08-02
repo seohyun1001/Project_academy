@@ -12,12 +12,7 @@ const Basic = () => {
             <Header />
             <div class="container">
                 <div class="d-flex flex-wrap">
-                    <SideBar />
-                    <div class="col">
-                        <MainInfo />
-                        <RelatedClasses />
-                        <Counseling />
-                    </div>
+
                 </div>
             </div>
             <Footer />

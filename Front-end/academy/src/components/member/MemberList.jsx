@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import MemberRegister from '../memberRegister/MemberRegister';
 
 const MemberList = ({ members, selectedMember, setSelectedMember, fetchMember, setIsEditing, showRegister, setShowRegister }) => {
     const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태 추가

@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import StudentList from "./StudentList";
-import Header from "../Header";
-import Footer from "../Footer";
+
 import StudentInfo from "./StudentInfo";
 import StudentDetail from "./StudentDetail";
 import StudentRegister from "./StudentRegister";
 import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
 import StudentEdit from "./StudentEdit";
-
 const Student = () => {
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [showRegister, setShowRegister] = useState(false);
@@ -39,24 +37,20 @@ const Student = () => {
     }
 
     return (
-        <div className="vsc-initialized">
-            <div className="container">
-                <div className="d-flex flex-wrap">
-                    <StudentList onStudentClick={handleStudentClick} onRegisterClick={handleRegisterClick} />
-                    <div className="col">
-                        {showRegister ? (
-                            <StudentRegister />
-                        ) : showEdit ? (
-                            <StudentEdit sno={selectedStudent.sno} />
-                        ) : selectedStudent ? (
-                            <StudentDetail student={selectedStudent} onStudentDeleted={handleStudentDeleted} onEditClick={handleEditClick} />
-                        ) : (
-                            <StudentInfo />
-                        )}
-                    </div>
-                </div>
+        <>
+            <StudentList onStudentClick={handleStudentClick} onRegisterClick={handleRegisterClick} />
+            <div className="col">
+                {showRegister ? (
+                    <StudentRegister />
+                ) : showEdit ? (
+                    <StudentEdit sno={selectedStudent.sno} />
+                ) : selectedStudent ? (
+                    <StudentDetail student={selectedStudent} onStudentDeleted={handleStudentDeleted} onEditClick={handleEditClick} />
+                ) : (
+                    <StudentInfo />
+                )}
             </div>
-        </div>
+        </>
     );
 };
 

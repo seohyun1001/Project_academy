@@ -1,12 +1,10 @@
-
-import Read from "./Read/Read";
-import Modify from './Modify/Modify';
-import MemberRegister from "./memberRegister/MemberRegister";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import MemberList from "./List/MemberList";
-import Header from "../Header";
-import Footer from "../Footer";
+
+import MemberRead from "./MemberRead";
+import MemberModify from "./MemberModify";
+import MemberList from "./MemberList";
+import MemberRegister from './MemberRegister';
 
 const Member = () => {
     const [members, setMembers] = useState([]); // 강사 목록
@@ -81,14 +79,14 @@ const Member = () => {
                     ) : (
                         <>
                             {selectedMember && !isEditing && (
-                                <Read
+                                <MemberRead
                                     member={selectedMember}
                                     onEditClick={() => setIsEditing(true)} // 수정 버튼 클릭 시 수정 모드로 전환
                                     onMemberDeleted={handleMemberDeleted}  // 삭제 후 목록 새로고침 콜백 전달
                                 />
                             )}
                             {selectedMember && isEditing && (
-                                <Modify
+                                <MemberModify
                                     member={selectedMember}
                                     onSave={handleMemberUpdated}
                                     onMemberDeleted={handleMemberDeleted} // 삭제 후 목록 새로고침 콜백 전달

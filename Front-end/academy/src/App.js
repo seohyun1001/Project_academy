@@ -4,8 +4,8 @@ import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
-import Register from './components/member/memberRegister/MemberRegister';
-import Login from './components/member/memberLogin/MemberLogin';
+import Register from './components/member/MemberRegister';
+import Login from './components/member/MemberLogin';
 import StudentRegister from './components/student/StudentRegister';
 import StudentEdit from './components/student/StudentEdit';
 import Noticelist from './components/notice/NoticeList';
@@ -33,7 +33,6 @@ import RegisterModal from './components/Basic/student/registerModal';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분
 import Student from './components/student/Student';
 import StudentDetail from './components/student/StudentDetail';
-import MemberList from './components/member/List/MemberList';
 import TestRegister from './components/reference/TestRegister';
 import TestModify from './components/reference/TestModify';
 import LectureList from './components/Lecture/LectureList';
@@ -44,7 +43,7 @@ const Layout = () => (
         <Header />
         <div className="container">
             <div className="d-flex flex-wrap">
-                <Outlet />
+                {/* <Outlet /> */}
             </div>
         </div>
         <Footer />
@@ -61,8 +60,8 @@ const App = () => {
                         <Route path="/basic" element={<PrivateRoute><Basic /></PrivateRoute>} />
                         <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
 
-                        <Route path="/member/list" element={<PrivateRoute><MemberList /></PrivateRoute>} />
-                        <Route path="/Member/Register" element={<PrivateRoute><Register /></PrivateRoute>} />
+                        {/* <Route path="/member/list" element={<PrivateRoute><MemberList /></PrivateRoute>} /> */}
+                        {/* <Route path="/Member/Register" element={<PrivateRoute><Register /></PrivateRoute>} /> */}
                         <Route path="/member" element={<PrivateRoute><Member /></PrivateRoute>} />
 
                         <Route path="/student" element={<PrivateRoute><Student /></PrivateRoute>} />

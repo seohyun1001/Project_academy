@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
-const Modify = ({ member, onSave, setSelectedMember }) => {
+const MemberModify = ({ member, onSave, setSelectedMember }) => {
     const [updateMember, setUpdatedMember] = useState({ ...member });
     const [file, setFile] = useState(null);
     const defaultImage = '/profile_pictures/basicimg.png';
@@ -127,4 +127,4 @@ const Modify = ({ member, onSave, setSelectedMember }) => {
     );
 };
 
-export default Modify;
+export default MemberModify;

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import UndefinedModal from '../UndefinedModal';
 
-const Read = ({ member, onEditClick, onMemberDeleted }) => {
+import UndefinedModal from './UndefinedModal';
+
+const MemberRead = ({ member, onEditClick, onMemberDeleted }) => {
     const [updateMember, setUpdatedMember] = useState({ ...member });
     const defaultImage = '/profile_pictures/basicimg.png'; // 기본 이미지 경로 설정
     const [loggedInMno, setLoggedInMno] = useState(null);
@@ -183,4 +184,4 @@ const Read = ({ member, onEditClick, onMemberDeleted }) => {
     );
 }
 
-export default Read;
+export default MemberRead;
