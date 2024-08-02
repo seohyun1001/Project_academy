@@ -74,6 +74,7 @@ public class NoticeServiceImpl implements NoticeService {
                 .n_content(notice.getN_content())
                 .n_image(notice.getN_image())
                 .writer(notice.getWriter())
+                .regDate(notice.getRegDate())
                 .notice_resource(nrDtoList)
                 .build();
 

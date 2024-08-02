@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import StudentList from "./StudentList";
-import Header from "../Basic/Header";
-import Footer from "../Basic/Footer";
+
 import StudentInfo from "./StudentInfo";
 import StudentDetail from "./StudentDetail";
 import StudentRegister from "./StudentRegister";
 import StudentEdit from "./StudentEdit";
-
 const Student = () => {
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [showRegister, setShowRegister] = useState(false);
@@ -38,26 +36,20 @@ const Student = () => {
     }
 
     return (
-        <div className="vsc-initialized">
-            <Header />
-            <div className="container">
-                <div className="d-flex flex-wrap">
-                    <StudentList onStudentClick={handleStudentClick} onRegisterClick={handleRegisterClick} />
-                    <div className="col">
-                        {showRegister ? (
-                            <StudentRegister />
-                        ) : showEdit ? (
-                            <StudentEdit sno={selectedStudent.sno} />
-                        ) : selectedStudent ? (
-                            <StudentDetail student={selectedStudent} onStudentDeleted={handleStudentDeleted} onEditClick={handleEditClick} />
-                        ) : (
-                            <StudentInfo />
-                        )}
-                    </div>
-                </div>
+        <>
+            <StudentList onStudentClick={handleStudentClick} onRegisterClick={handleRegisterClick} />
+            <div className="col">
+                {showRegister ? (
+                    <StudentRegister />
+                ) : showEdit ? (
+                    <StudentEdit sno={selectedStudent.sno} />
+                ) : selectedStudent ? (
+                    <StudentDetail student={selectedStudent} onStudentDeleted={handleStudentDeleted} onEditClick={handleEditClick} />
+                ) : (
+                    <StudentInfo />
+                )}
             </div>
-            <Footer />
-        </div>
+        </>
     );
 };
 

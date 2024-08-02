@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
-const Modify = ({ member, onSave }) => {
+const MemberModify = ({ member, onSave, setSelectedMember }) => {
     const [updateMember, setUpdatedMember] = useState({ ...member });
     const [file, setFile] = useState(null);
     const defaultImage = '/profile_pictures/basicimg.png';
@@ -56,18 +56,22 @@ const Modify = ({ member, onSave }) => {
             const response = await axios.put(`http://localhost:8092/member/modify/${updateMember.mno}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
-            // 서버 응답에서 새 이미지 URL을 가져옵니다.
-            setUpdatedMember(prevState => ({ ...prevState, m_picture: response.data.updatedPictureUrl }));
-            onSave(); // 수정 완료 후 콜백 호출
+            const updatedMember = {
+                ...updateMember,
+                m_picture: response.data.updatedPictureUrl || updateMember.m_picture // 이미지가 변경되지 않으면 기존 이미지 유지
+            };
+            // setSelectedMember(response.data)
+            // setUpdatedMember(updatedMember);
+            onSave(response.data); // 수정 완료 후 콜백 호출
         } catch (error) {
             console.error('강사 정보를 업데이트하는 중 오류가 발생했습니다.', error);
         }
     };
 
 
-
     const handleCancel = () => {
-        onSave(); // 수정 모드 해제
+        onSave(null); // 수정 모드 해제 및 Read 페이지로 돌아감
+
     };
 
     return (
@@ -123,4 +127,4 @@ const Modify = ({ member, onSave }) => {
     );
 };
 
-export default Modify;
+export default MemberModify;

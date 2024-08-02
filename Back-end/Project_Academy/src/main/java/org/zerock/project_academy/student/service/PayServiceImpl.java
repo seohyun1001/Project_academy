@@ -35,9 +35,12 @@ public class PayServiceImpl implements PayService {
                 .orElseThrow(() -> new RuntimeException("Lecture not found"));
 
         // ModelMapper를 사용하여 PayDTO를 Pay 엔티티로 변환
-        Pay pay = modelMapper.map(payDTO, Pay.class);
+        Pay pay = new Pay();
+//                modelMapper.map(payDTO, Pay.class);
 
         // Student와 Lecture를 수동으로 설정
+        pay.setPno(payDTO.getPno());
+        pay.setPaid(payDTO.isPaid());
         pay.setStudent_p(student);
         pay.setLecture_p(lecture);
 
@@ -125,6 +128,11 @@ public class PayServiceImpl implements PayService {
                         .regdate(pay.getRegDate())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pay> getByLno(String lno) {
+        return payRepository.findByLecture_p_Lno(lno);
     }
 
 }

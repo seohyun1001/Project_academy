@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.zerock.project_academy.student.dto.CounselingDTO;
+import org.zerock.project_academy.student.domain.Pay;
 import org.zerock.project_academy.student.dto.PayDTO;
 import org.zerock.project_academy.student.service.PayService;
 
@@ -74,6 +74,16 @@ public class PayController {
             return ResponseEntity.ok(payList);
         } else {
             return ResponseEntity.ok(payList);
+        }
+    }
+
+    @GetMapping("/lecture/{lno}")
+    public ResponseEntity<List<Pay>> getByLno(@PathVariable String lno) {
+        List<Pay> lectureList = payService.getByLno(lno);
+        if (lectureList != null && !lectureList.isEmpty()) {
+            return ResponseEntity.ok(lectureList);
+        } else {
+            return ResponseEntity.ok(lectureList);
         }
     }
 }

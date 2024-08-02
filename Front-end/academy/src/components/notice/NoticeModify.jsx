@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom"
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom"
+import Header from "../Header";
 
-const NoticeModify = () => {
-    const { nno } = useParams();
-    const navigate = useNavigate();
+const NoticeModify = ({ nno, setShowModify, setShowDetail }) => {
     const [loading, setLoading] = useState(true)
     const [notice, setNotice] = useState({
         n_title: "",
@@ -37,12 +36,12 @@ const NoticeModify = () => {
     };
 
     const deleteSubmit = async (nrno) => {
-        if(window.confirm('삭제하시겠습니까?')) {
-            try{
-                await axios.delete('http://localhost:8092/notice/files/'+nrno);
-                // navigate('/Noticelist')
-                setNoticeResource(noticeResource.filter(notice =>notice.nrno !==  nrno))
-            } catch(error) {
+        if (window.confirm('삭제하시겠습니까?')) {
+            try {
+                await axios.delete('http://localhost:8092/notice/files/' + nrno);
+
+                setNoticeResource(noticeResource.filter(notice => notice.nrno !== nrno))
+            } catch (error) {
                 console.error("파일을 삭제하는 중 오류가 발생했습니다.")
             }
         }
@@ -50,14 +49,7 @@ const NoticeModify = () => {
 
     useEffect(() => {
         getNotice();
-        // axios.get(`http://localhost:8092/notice/read?nno=${nno}`)
-        //     .then(response => {
-        //         console.log("asd");
-        //         setNotice(response.data);
-        //         setNoticeResource(response.notice_resource);
-        //     })
-        //     .catch(error => console.error('니가뭘알아: ', error));[nno]
-    }, []);
+    }, [nno]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -80,7 +72,8 @@ const NoticeModify = () => {
             }).then(result => {
                 if (result.status === 200) {
                     alert("공지사항 등록이 성공적으로 완료되었습니다." + notice.writer);
-                    navigate("/noticelist");
+                    setShowModify(false);
+                    setShowDetail(true);
                 }
             }).catch(error => {
                 console.log(error);
@@ -93,58 +86,60 @@ const NoticeModify = () => {
     };
 
     return (
-        <div className="container">
-            <div className="row">
-                <h2>수정중</h2>
-                <form onSubmit={onSubmit}>
-                    <div className="mb-3">
-                        <input
+        <>
+            <h2 className="notice">수정중</h2>
+            <form onSubmit={(e) => e.preventDefault()}>
+                <div className="container">
+                    <div className="d-flex flex-wrap justify-content-between">
+                        <p className="d-flex notice_title">제목:
+                            <input
+                                onChange={onInputChange}
+                                type="text"
+                                name="n_title"
+                                className="form-control"
+                                value={notice.n_title}
+                                required
+                                placeholder="제목"
+                            />
+                        </p>
+                        <span>작성자 : {notice.writer}</span>
+
+                    </div>
+                    <p className="notice_content" >내용
+                        <textarea
                             onChange={onInputChange}
-                            type="text"
-                            name="n_title"
-                            value={notice.n_title}
-                            required
-                            placeholder="제목"
-                        />
-                        <input
-                            onChange={onInputChange}
-                            type="text"
                             id="n_content"
                             className="form-control"
                             placeholder="내용"
                             name="n_content"
                             value={notice.n_content}
+                            rows="20"
                         />
-
-                        <input
-                            onChange={onInputChange}
-                            type="file"
-                            id="nr_name"
-                            className="form-control"
-                            name="nr_name"
-                        // accept=".pdf,.doc,.docx"
-                        />
-                        <input
-                            onChange={onInputChange}
-                            type="hidden"
-                            id="writer"
-                            className="form-control"
-                            name="writer"
-                            value={notice.writer}
-                        />
+                    </p>
+                    <div>
                     </div>
-                    <button type="submit" className="btn btn-outline-primary px-3 mx-2">
-                        등록
-                    </button>
-                </form>
-                {noticeResource.map((nr, index) => (
-                            <div>
-                            <p key={nr.nrno}>{nr.nr_name}</p>
-                            <button type="button" onClick={()=>{deleteSubmit(nr.nrno)}}>삭제</button>
-                            </div>
-                        ))}
-            </div>
-        </div>
+                    <p>첨부파일</p>
+                    <input
+                        onChange={onInputChange}
+                        type="file"
+                        id="nr_name"
+                        className="form-control"
+                        name="nr_name"
+                    />
+                    {noticeResource.map((nr) => (
+                        <div key={nr.nrno}>
+                            <p>{nr.nr_name} <button type="button" onClick={() => deleteSubmit(nr.nrno)}>X</button></p>
+                        </div>
+                    ))}
+                </div>
+                <div className="d-flex flex-wrap justify-content-between btns">
+                    <button class="btn btn-outline-dark noticeListBtn" onClick={() => setShowModify(false)}>수정 취소</button>
+                    <div>
+                        <button type="button" className="btn btn-outline-primary px-3 mx-2" onClick={onSubmit}>수정</button>
+                    </div>
+                </div>
+            </form>
+        </>
     )
 
 };

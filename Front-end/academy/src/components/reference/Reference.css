@@ -1,0 +1,9 @@
+.pre-wrap-content {
+    white-space: pre-wrap; /* 줄 바꿈과 공백을 유지합니다 */
+    word-wrap: break-word; /* 긴 단어가 줄을 넘기도록 합니다 */
+}
+
+/* 내용 표시를 위한 클래스 */
+.formatted-content {
+    white-space: pre-wrap; /* 줄 바꿈과 공백을 유지합니다 */
+}

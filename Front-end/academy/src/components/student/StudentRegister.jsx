@@ -188,14 +188,14 @@ const StudentRegister = () => {
                                     />
                                 </div>
                                 <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
-                                    <div className="btn-group mt-3">
-                                        <button type="submit" className="btn btn-outline-primary ">등록</button>
-                                    </div>
+                                <div className="btn-group mt-3">
+                                    <button type="submit" className="btn btn-outline-primary ">등록</button>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
+                                </div>
+                    </form>
                 </div>
+            </div>
+        </div>
             </div >
         </div >
     );

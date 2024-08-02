@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import LectureProfile from "./LectureProfile";
 import LectureModify from "./LectureModify";
+import LectureStudentModal from "./LectureStudentModal";
 
 const LectureInfo = ({ lectureId, onModificationComplete }) => {
 
@@ -12,13 +12,32 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
     l_classroom: "",
     l_start: "",
     l_end: "",
-    member_l: {
+    memberL: {
       mno: "",
       m_name: ""
     }
   });
 
+  const [payList, setPayList] = useState([]);
   const [isModifying, setIsModifying] = useState(false);
+  const [showModal, setShowModal] = useState(false); // 추가된 부분
+  const [selectedStudent, setSelectedStudent] = useState(null); // 추가된 부분
+
+  const fetchPayList = async () => {
+    if (lectureId) {
+      try {
+        const response = await axios.get(`/pay/lecture/${lectureId}`);
+        const payData = await Promise.all(response.data.map(async (pay) => {
+          const studentResponse = await axios.get(`/student/${pay.student_p.sno}`);
+          return { ...pay, student_p: studentResponse.data };
+        }));
+        setPayList(payData);
+      } catch (error) {
+        console.error("Error fetching the pay list:", error);
+        window.alert("Error fetching pay list for lecture with id " + lectureId);
+      }
+    }
+  };
 
   const fetchLecture = async () => {
     if (lectureId) {
@@ -34,10 +53,12 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
 
   useEffect(() => {
     fetchLecture();
+    fetchPayList();
   }, [lectureId]);
 
   const handleModificationComplete = () => {
     fetchLecture();
+    fetchPayList();
     onModificationComplete();
   };
 
@@ -53,6 +74,16 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
         window.alert('알 수 없는 이유로 강의가 삭제되지 않았습니다.');
       }
     }
+  };
+
+  const handleShowModal = (student) => { // 추가된 부분
+    setSelectedStudent(student);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => { // 추가된 부분
+    setShowModal(false);
+    setSelectedStudent(null);
   };
 
   if (!lectureId) {
@@ -102,12 +133,12 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
 
                 <div class="input-group">
                   <label for="" class="form-label info_detail">강사 사번</label>
-                  <p>{lecture.member_l.mno}</p>
+                  <p>{lecture.memberL.mno}</p>
                 </div>
 
                 <div class="input-group">
                   <label for="" class="form-label info_detail">담당 강사</label>
-                  <p>{lecture.member_l.m_name}</p>
+                  <p>{lecture.memberL.m_name}</p>
                 </div>
 
 
@@ -117,17 +148,45 @@ const LectureInfo = ({ lectureId, onModificationComplete }) => {
                 </div>
               </div>
             </div>
+            
             <div class="d-flex justify-content-end l_info_btns">
               <div>
-                <button class="btn btn-outline-primary l_info_btn" onClick={() => setIsModifying(true)}>수정하기</button>
-                <button class="btn btn-outline-danger l_info_btn" onClick={handleDelete} >삭제하기</button>
+                <button class="btn btn-outline-primary l_info_btn" onClick={() => setIsModifying(true)}>수정</button>
+                <button class="btn btn-outline-danger l_info_btn" onClick={handleDelete} >삭제</button>
               </div>
             </div>
           </div>
 
 
-          <LectureProfile />
+          <div class="card profile_card2">
+            <h4>수강 학생</h4>
+            <div class="container">
+              <div class="row">
+              {payList.map((pay, index) => ( // 추가된 부분
+                  <div key={index} className="col-lg-4">
+                    <img
+                      className="bd-placeholder-img rounded-circle"
+                      width="100"
+                      height="100"
+                      src={pay.student_p.s_profileImage}
+                      alt="Student profile"
+                      onClick={() => handleShowModal(pay.student_p)} // 수정된 부분
+                      style={{ cursor: 'pointer' }} // 추가된 부분
+                    />
+                    <h5 className="fw-normal" style={{ color: pay.paid ? 'black' : 'red' }}>{pay.student_p.s_name}</h5> {/* 수정된 부분 */}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </>
+      )}
+      {selectedStudent && ( // 추가된 부분
+        <LectureStudentModal
+          show={showModal}
+          handleClose={handleCloseModal}
+          student={selectedStudent}
+        />
       )}
     </>
   )

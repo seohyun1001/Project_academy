@@ -38,7 +38,7 @@ const PayList = () => {
     const handleDelete = async () => {
         if (window.confirm('정말로 이 결제를 삭제하시겠습니까?')) {
             try {
-                await axios.delete(`http://localhost:8092/pay/${selectedPay.pno}`);
+                await axios.delete(`/pay/${selectedPay.pno}`);
                 alert('삭제 성공');
                 setSelectedPay(null);
                 fetchPays();

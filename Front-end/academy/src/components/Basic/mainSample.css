@@ -1,3 +1,7 @@
+.mainBody{
+  min-height: 900px;
+}
+
 .container-fluid {
   padding-left: 50px;
   padding-right: 50px;
@@ -87,6 +91,10 @@
   margin-left: 30px;
 }
 
+.member_read_addLectureBtn{
+  margin-right: 30px;
+}
+
 .list {
   font-size: 20px;
   padding-bottom: 5px;
@@ -123,10 +131,12 @@ td {
 .d-flex.flex-column.align-items-stretch.flex-shrink-0.bg-body-tertiary {
   /* width: 380px; */
   padding-bottom: 15px;
+  min-width: 301px;
 }
 
 
 .notice_con {
+  min-height: 800px;
   max-width: 1000px;
   margin-top: 30px;
   margin-bottom: 30px;
@@ -180,7 +190,8 @@ td {
 }
 
 .notice_title {
-  font-size: 30px;
+  font-size: 20px;
+  white-space: nowrap;
 }
 
 
@@ -201,3 +212,8 @@ td {
 .l_info_btn{
   margin-right: 5px;
 }
+
+.taked_lecture{
+  margin: 0;
+}
+

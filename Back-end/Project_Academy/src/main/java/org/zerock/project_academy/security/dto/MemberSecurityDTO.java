@@ -22,6 +22,7 @@ public class MemberSecurityDTO extends User {
     private String m_email;
     private String m_address1;
     private String m_address2;
+    private Set<MemberRole> roleSet;
 
     public MemberSecurityDTO(String username,
                              String m_name,
@@ -30,6 +31,7 @@ public class MemberSecurityDTO extends User {
                              String email,
                              String address1,
                              String address2,
+                             Set<MemberRole> roleSet,
                              Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
 
@@ -40,5 +42,6 @@ public class MemberSecurityDTO extends User {
         this.m_email = email;
         this.m_address1 = address1;
         this.m_address2 = address2;
+        this.roleSet = roleSet;
     }
 }

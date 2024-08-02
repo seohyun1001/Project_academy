@@ -63,7 +63,8 @@ const MemberRegister = () => {
             const response = await axios.post('/member/register', member);
             if (response.status === 201) {
                 alert('회원 등록이 성공적으로 완료되었습니다.');
-                navigate('/'); // 회원 등록 후 홈 페이지로 이동
+                navigate('/member'); // 회원 등록 후 홈 페이지로 이동
+                window.location.reload();
             }
         } catch (error) {
             console.error('회원 등록 중 오류가 발생했습니다.', error);
@@ -121,7 +122,7 @@ const MemberRegister = () => {
                             required
                         />
                     </div>
-                    {!passwordMatch && <p className="error">비밀번호가 일치하지 않습니다.</p>}
+                    {!passwordMatch && <p className="error" style={{ marginLeft: '150px', color:'red'}}>비밀번호가 일치하지 않습니다.</p>}
                     <div className="form-group">
                         <label className="form-label info_detail me-3" style={{ minWidth: '80px', textAlign: 'right' }}>이메일</label>
                         <input
