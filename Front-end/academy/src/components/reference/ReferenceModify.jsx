@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Header from "../Header";
-
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Header from "../Basic/Header";
+import './Reference.css';
 
 const ReferenceModify = () => {
     const { rno } = useParams();
@@ -73,9 +73,7 @@ const ReferenceModify = () => {
         getReference();
     }, []);
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
-
+    const onSubmit = async () => {  // 수정: 폼 제출 시 사용될 함수
         try {
             const formData = new FormData();
             formData.append("r_title", reference.r_title);
@@ -102,39 +100,43 @@ const ReferenceModify = () => {
             alert("수정 중 오류가 발생했습니다.");
         }
     };
-
+    
+    
     return (
         <body>
             <Header />
             <div className="container notice_con">
                 <h2 className="notice">수정중</h2>
-                <form onSubmit={onSubmit}>
+                <form onSubmit={(e) => e.preventDefault()}>
                     <div className="container">
                         <div className="d-flex flex-wrap justify-content-between">
-                            <p className="notice_title">제목:
+                            <p className="d-flex notice_title">제목:
                                 <input
                                     onChange={onInputChange}
                                     type="text"
                                     name="r_title"
+                                    className="form-control"
                                     value={reference.r_title}
                                     required
                                     placeholder="제목"
                                 />
                             </p>
                             <span>작성자 : {reference.writer}</span>
-                            <span>등록일 : {reference.regDate ? formatDate(reference.regDate) : 'Date not available'}</span>
+                            {/* <span>등록일 : {reference.regDate ? for matDate(reference.regDate) : 'Date not available'}</span> */}
                         </div>
-                        <p className="notice_content">내용
-                            <input
+                        <p className="notice_content" >내용
+                            <textarea
                                 onChange={onInputChange}
-                                type="text"
                                 id="r_content"
                                 className="form-control"
                                 placeholder="내용"
                                 name="r_content"
                                 value={reference.r_content}
+                                rows="20" 
                             />
                         </p>
+                        <div>
+                        </div>
                         <p>첨부파일</p>
                         <input
                             onChange={onInputChange}
@@ -150,9 +152,9 @@ const ReferenceModify = () => {
                         ))}
                     </div>
                     <div className="d-flex flex-wrap justify-content-between btns">
-                        <button type="button" className="btn btn-outline-dark noticeListBtn" onClick={() => navigate('/referencelist')}>목록으로 돌아가기</button>
+                    <Link class="btn btn-outline-dark noticeListBtn" to='/referencelist'>목록으로 돌아가기</Link>
                         <div>
-                            <button type="submit" className="btn btn-outline-primary px-3 mx-2">수정</button>
+                        <button type="button" className="btn btn-outline-primary px-3 mx-2" onClick={onSubmit}>수정</button>
                         </div>
                     </div>
                 </form>

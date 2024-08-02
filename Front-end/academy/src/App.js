@@ -27,7 +27,6 @@ import Referencelist from './components/reference/ReferenceList';
 import ReferenceRegister from './components/reference/ReferenceRegister';
 import ReferenceDetail from './components/reference/ReferenceDetail';
 import ReferenceModify from './components/reference/ReferenceModify';
-import Testlist from './components/reference/TestList';
 import LectureBasic from './components/Basic/Lecture/LectureBasic';
 import RegisterModal from './components/Basic/student/registerModal';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분

@@ -132,11 +132,11 @@ const Header = () => {
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link active nav_link" aria-current="page" href="#">공지사항</a>
+                            <Link className="nav-link active nav_link" aria-current="page" to="/noticelist">공지사항</Link>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link active nav_link nav_link_last" aria-current="page" href="#">자료실</a>
+                            <Link className="nav-link active nav_link nav_link_last" aria-current="page" to="/referencelist">자료실</Link>
                         </li>
                     </ul>
                     <form className="d-flex" role="search">
