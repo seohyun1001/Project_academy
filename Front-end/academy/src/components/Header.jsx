@@ -22,6 +22,7 @@ const Header = () => {
             return newState;
         });
     };
+    
     const toggleMember = () => {
         setShowMember(prevState => {
             const newState = !prevState;
