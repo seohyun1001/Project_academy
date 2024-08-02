@@ -4,7 +4,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
 
-
 const ReferenceDetail = () => {
   const navigate = useNavigate();
   const { rno } = useParams();
