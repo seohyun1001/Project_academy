@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Header from "../Header";
-import Footer from "../Footer";
+import Referencelist from "./ReferenceList";
 
 
 const ReferenceDetail = () => {
@@ -18,11 +17,11 @@ const ReferenceDetail = () => {
     setReference(response);
     setReferenceResource(response.references_resource);
     setLoading(false);
-
   };
+  const [showRegisterList, setShowRegisterList] = useState(false);
 
-  const handleList = () => {
-    navigate(`/ReferenceList`)
+  const handleListClick = () => {
+    setShowRegisterList(true)
   }
   const handleModify = () => {
     navigate(`/reference/modify/${reference.rno}`)
@@ -64,9 +63,11 @@ const ReferenceDetail = () => {
 
 
   return (
-    <body>
-      <Header />
-      <div class="container notice_con">
+      <>
+        {showRegisterList ? (
+          <Referencelist/>
+        ):(
+        <>
         <h2 class="notice">자료실</h2>
         <div class="container">
           <div class="d-flex flex-wrap justify-content-between">
@@ -80,15 +81,15 @@ const ReferenceDetail = () => {
           ))}
         </div>
         <div class="d-flex flex-wrap justify-content-between btns">
-          <Link class="btn btn-outline-dark noticeListBtn" to='/referencelist'>목록으로 돌아가기</Link>
+        <button class="btn btn-outline-dark noticeListBtn" onClick={handleListClick}>목록으로 돌아가기</button>
           <div class="">
             <button className="btn btn-outline-primary noticeModifyBtn" onClick={handleModify}>수정</button>
             <button className="btn btn-outline-danger noticeRemoveBtn" onClick={handleDelete}>삭제</button>
           </div>
         </div>
-      </div>
-      <Footer />
-    </body>
+        </>
+        )}
+      </>
   );
 };
 

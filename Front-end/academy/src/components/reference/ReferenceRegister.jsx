@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "../Header";
-import Footer from "../Footer";
+import Referencelist from "./ReferenceList";
 
 const TestRegister = () => {
     const navigate = useNavigate();
@@ -12,6 +11,7 @@ const TestRegister = () => {
         writer: localStorage.getItem('m_name') || "",
     });
     const [rr_name, setRrName] = useState(null);
+    const [showRegister, setShowRegister] = useState(false);
 
     const onInputChange = (e) => {
         const { name, value, files } = e.target;
@@ -46,7 +46,7 @@ const TestRegister = () => {
             }).then(result => {
                 if (result.status === 201) {
                     alert("공지사항 등록이 성공적으로 완료되었습니다.");
-                    navigate("/Referencelist");
+                    setShowRegister(true);
                 }
             });
         } catch (error) {
@@ -55,11 +55,16 @@ const TestRegister = () => {
             alert("등록 중 오류가 발생했습니다.");
         }
     };
+    const handleListClick = () =>{
+        setShowRegister(true);
+    }
 
     return (
-        <body>
-            <Header />
-            <div class="container notice_con">
+            <>
+            {showRegister ? (
+                <Referencelist/>
+            ):(
+                <>
                 <h2 class="notice">자료실</h2>
                 <form onSubmit={onSubmit}>
                     <div class="container">
@@ -98,7 +103,7 @@ const TestRegister = () => {
                         />
                     </div>
                     <div class="d-flex flex-wrap justify-content-between btns">
-                    <Link class="btn btn-outline-dark noticeListBtn" to='/referencelist'>목록으로 돌아가기</Link>
+                    <button class="btn btn-outline-dark noticeListBtn" onClick={handleListClick}>목록으로 돌아가기</button>
                         <div class="">
                             <button type="submit" className="btn btn-outline-primary px-3 mx-2">
                                 등록
@@ -107,9 +112,9 @@ const TestRegister = () => {
                         </div>
                     </div>
                 </form>
-            </div>
-            <Footer />
-        </body>
+                </>
+                )}
+            </>
     );
 };
 
