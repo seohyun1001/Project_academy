@@ -32,6 +32,7 @@ import LectureBasic from './components/Basic/Lecture/LectureBasic';
 import RegisterModal from './components/Basic/student/registerModal';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분
 import Student from './components/student/Student';
+import StudentDetail from './components/student/StudentDetail';
 import MemberList from './components/member/List/MemberList';
 import TestRegister from './components/reference/TestRegister';
 import TestModify from './components/reference/TestModify';
@@ -64,6 +65,8 @@ const App = () => {
                     <Route path="/student" element={<PrivateRoute><Student /></PrivateRoute>} />
                     <Route path="/student/register" element={<PrivateRoute><StudentRegister /></PrivateRoute>} />
                     <Route path="/student/edit/:sno" element={<PrivateRoute><StudentEdit /></PrivateRoute>} />
+                    <Route path='/studentDetail' element={<PrivateRoute><StudentDetail/></PrivateRoute>} />
+                    }
 
                     <Route path="/Noticelist" element={<PrivateRoute><Noticelist /></PrivateRoute>} />
                     <Route path="/NoticeRegister" element={<PrivateRoute><NoticeRegister /></PrivateRoute>} />

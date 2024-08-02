@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Await, useNavigate, useParams } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './StudentRegister.css';
 
-const StudentEdit = () => {
-    const { sno } = useParams(); // URL 파라미터로부터 sno 추출
+
+const StudentEdit = ({sno}) => {
+    // const { sno } = useParams(); // URL 파라미터로부터 sno 추출
     const [student, setStudent] = useState({
         s_name: "",
         s_birthday: "",
@@ -18,7 +17,7 @@ const StudentEdit = () => {
     });
 
     const [profileImage, setProfileImage] = useState(null);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`http://localhost:8092/student/${sno}`)
@@ -58,7 +57,7 @@ const StudentEdit = () => {
             }
 
             alert('학생 정보가 성공적으로 수정되었습니다.');
-            navigate('/student');
+            window.location.reload();
         } catch (error) {
             console.error('학생 정보 수정 중 오류가 발생했습니다: ', error);
             alert('학생 정보 수정 중 오류가 발생했습니다.');
@@ -170,7 +169,7 @@ const StudentEdit = () => {
                                 />
                             </div>
                             <button type="submit" className="btn btn-primary btn-block">수정</button>
-                            <button type="button" className="btn btn-secondary btn-block" onClick={() => navigate('/student')}>취소</button>
+                            <button type="button" className="btn btn-secondary btn-block" onClick={() => window.location.reload()}>취소</button>
                         </form>
                     </div>
                 </div>
