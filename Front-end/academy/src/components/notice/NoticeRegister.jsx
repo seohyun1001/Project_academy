@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Noticelist from "./NoticeList";
+import NoticeDetail from "./NoticeDetail";
 
 const NoticeRegister = () => {
     const navigate = useNavigate();
@@ -13,6 +14,9 @@ const NoticeRegister = () => {
     const [nr_name, setNrName] = useState(null);
 
     const [showNoticeList, setShowNoticeList] = useState(false);
+    const [showNoticeDetail, setShowNoticeDetail] = useState(false);
+    const [registeredNno, setRegisteredNno] = useState(null); // 등록된 공지사항 번호 저장
+
 
     const onInputChange = (e) => {
         const { name, value, files } = e.target;
@@ -40,16 +44,29 @@ const NoticeRegister = () => {
                 formData.append("files", nr_name);
             }
 
+            // const response = await axios.post("/notice/register", formData, {
+            //     headers: {
+            //         "Content-Type": "multipart/form-data",
+            //     },
+            // }).then(result => {
+            //     if (result.status === 201) {
+            //         alert("공지사항 등록이 성공적으로 완료되었습니다.");
+            //         console.log(response.data.nno)
+            //         setRegisteredNno(response.data.nno); // 등록된 공지사항 번호 저장
+            //         setShowNoticeDetail(true); // 등록 후 NoticeDetail 컴포넌트 표시
+            //     }
+            // });
             const response = await axios.post("/notice/register", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-            }).then(result => {
-                if (result.status === 201) {
-                    alert("공지사항 등록이 성공적으로 완료되었습니다.");
-                    setShowNoticeList(true);
-                }
             });
+
+            if (response.status === 201) {
+                alert("공지사항 등록이 성공적으로 완료되었습니다.");
+                setRegisteredNno(response.data.nno); // 등록된 공지사항 번호 저장
+                setShowNoticeDetail(true); // 등록 후 NoticeDetail 컴포넌트 표시
+            }
         } catch (error) {
 
             console.error("등록 중 오류가 발생했습니다.", error);
@@ -61,60 +78,61 @@ const NoticeRegister = () => {
         setShowNoticeList(true);
     }
 
-    return (<>
-        {showNoticeList ? (
-            <Noticelist />
-        ) : (
+    return (
         <>
-            <h2 class="notice">공지사항</h2>
-            <form onSubmit={onSubmit}>
-                <div class="container">
-                    <div class="d-flex flex-wrap justify-content-between">
-                        <p className="d-flex notice_title">제목:
+            {showNoticeDetail  ? (
+                <NoticeDetail nno={registeredNno} />
+            ) : (
+                <>
+                    <h2 class="notice">공지사항</h2>
+                    <form onSubmit={onSubmit}>
+                        <div class="container">
+                            <div class="d-flex flex-wrap justify-content-between">
+                                <p className="d-flex notice_title">제목:
+                                    <input
+                                        onChange={onInputChange}
+                                        type="text"
+                                        name="n_title"
+                                        className="form-control"
+                                        value={notice.n_title}
+                                        required
+                                        placeholder="제목"
+                                    />
+                                </p>
+                                <span>작성자 : {notice.writer}</span>
+                            </div>
+                            <p class="notice_content">내용
+                                <textarea
+                                    onChange={onInputChange}
+                                    id="n_content"
+                                    className="form-control"
+                                    placeholder="내용"
+                                    name="n_content"
+                                    value={notice.n_content}
+                                    rows="20"
+                                />
+                            </p>
+                            <a>첨부파일</a>
                             <input
                                 onChange={onInputChange}
-                                type="text"
-                                name="n_title"
+                                type="file"
+                                id="nr_name"
                                 className="form-control"
-                                value={notice.n_title}
-                                required
-                                placeholder="제목"
+                                name="nr_name"
                             />
-                        </p>
-                        <span>작성자 : {notice.writer}</span>
-                    </div>
-                    <p class="notice_content">내용
-                        <textarea
-                            onChange={onInputChange}
-                            id="n_content"
-                            className="form-control"
-                            placeholder="내용"
-                            name="n_content"
-                            value={notice.n_content}
-                            rows="20"
-                        />
-                    </p>
-                    <a>첨부파일</a>
-                    <input
-                        onChange={onInputChange}
-                        type="file"
-                        id="nr_name"
-                        className="form-control"
-                        name="nr_name"
-                    />
-                </div>
-                <div class="d-flex flex-wrap justify-content-between btns">
-                    <button class="btn btn-outline-dark noticeListBtn" onClick={handleListClick}>목록으로 돌아가기</button>
-                    <div class="">
-                        <button type="submit" className="btn btn-outline-primary px-3 mx-2">
-                            등록
-                        </button>
-                    </div>
-                </div>
-            </form>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-between btns">
+                            <button class="btn btn-outline-dark noticeListBtn" onClick={handleListClick}>목록으로 돌아가기</button>
+                            <div class="">
+                                <button type="button" className="btn btn-outline-primary px-3 mx-2" onClick={onSubmit}>
+                                    등록
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </>
+            )}
         </>
-        )}
-    </>
     );
 };
 
