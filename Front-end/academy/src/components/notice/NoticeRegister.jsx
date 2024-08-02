@@ -45,7 +45,7 @@ const NoticeRegister = () => {
                 },
             }).then(result => {
                 if (result.status === 201) {
-                    alert("공지사항 등록이 성공적으로 완료되었습니다." + notice.writer);
+                    alert("공지사항 등록이 성공적으로 완료되었습니다.");
                     navigate("/Noticelist");
                 }
             });

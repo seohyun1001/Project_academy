@@ -28,7 +28,7 @@ const ReferenceDetail = () => {
   }
 
   const handleDelete = async () => {
-    if (window.confirm(`${reference.rno} 공지사항을 삭제 하시겠습니까?`))
+    if (window.confirm(`${reference.rno}번의 공지사항을 삭제 하시겠습니까?`))
       try {
         await axios.delete(`http://localhost:8092/reference/${rno}`)
         console.log(`${reference.rno} 공지사항 삭제 완료`);

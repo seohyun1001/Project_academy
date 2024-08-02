@@ -28,7 +28,7 @@ const NoticeDetail = () => {
   }
   
   const handleDelete = async () =>{
-    if(window.confirm(`${notice.nno} 공지사항을 삭제 하시겠습니까?`))
+    if(window.confirm(`${notice.nno}번의 공지사항을 삭제 하시겠습니까?`))
       try{
         await axios.delete(`http://localhost:8092/notice/${nno}`)
         console.log(`${notice.nno} 공지사항 삭제 완료`);
