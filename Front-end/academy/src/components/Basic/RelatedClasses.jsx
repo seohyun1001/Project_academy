@@ -26,6 +26,7 @@ const RelatedClasses = ({ sno }) => {
     const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedPay, setSelectedPay] = useState(null);
+    const [studentInfo, setStudentInfo] = useState({ sno: '', s_name: '' });
 
     useEffect(() => {
         const fetchClassData = async () => {
@@ -42,6 +43,9 @@ const RelatedClasses = ({ sno }) => {
                 const response = await axios.get(`http://localhost:8092/pay/student/${sno}`);
                 setClasses(response.data);
                 setCache(prevCache => ({ ...prevCache, [sno]: response.data }));
+                // 학생 정보 가져오기
+                const studentResponse = await axios.get(`/student/${sno}`);
+                setStudentInfo({ sno: studentResponse.data.sno, s_name: studentResponse.data.s_name });
             } catch (error) {
                 console.error("There was an error fetching the data!", error);
                 setError(error);
@@ -128,7 +132,11 @@ const RelatedClasses = ({ sno }) => {
                 contentLabel="Pay Register"
                 ariaHideApp={false}
             >
-                <PayRegister onClose={() => setIsRegisterModalOpen(false)} />
+                <PayRegister
+                    sno={studentInfo.sno}
+                    s_name={studentInfo.s_name}
+                    onClose={() => setIsRegisterModalOpen(false)}
+                />
             </Modal>
             <Modal
                 isOpen={isEditModalOpen}
