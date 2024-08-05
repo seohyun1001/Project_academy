@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const StudentList = ({ onStudentClick, onRegisterClick }) => {
+const StudentList = ({ onStudentClick, onRegisterClick, ShowRegister }) => {
     const [students, setStudents] = useState([]);
     const [filteredStudents, setFilteredStudents] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -53,12 +53,13 @@ const StudentList = ({ onStudentClick, onRegisterClick }) => {
                     <input
                         className="form-control me-2"
                         type="search"
-                        placeholder="검색어를 입력해주세요."
+                        placeholder="Search"
                         aria-label="Search"
                         value={searchTerm}
                         onChange={handleSearchChange}
                     />
-                    <button className="btn btn-outline-dark l_register_btn" onClick={handleRegister}>등록</button>
+                    <button className="btn btn-outline-dark l_register_btn" onClick={handleRegister}>
+                        {ShowRegister ? '취소' : '등록'}</button>
                 </a>
 
                 <div className="list-group list-group-flush border-bottom scrollarea scrollBar">

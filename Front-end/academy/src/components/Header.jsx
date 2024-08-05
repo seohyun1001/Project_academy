@@ -141,10 +141,10 @@ const Header = () => {
                             <a className="nav-link active nav_link nav_link_last" aria-current="page" onClick={toggleReference}>자료실</a>
                         </li>
                     </ul>
-                    <form className="d-flex" role="search">
+                    {/* <form className="d-flex" role="search">
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                         <button className="btn btn-outline-dark" type="submit">Search</button>
-                    </form>
+                    </form> */}
                 </div>
             </div>
 
