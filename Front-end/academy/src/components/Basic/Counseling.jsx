@@ -124,7 +124,8 @@ const Counseling = ({ sno }) => {
                 contentLabel="Counseling Register"
                 ariaHideApp={false}
             >
-                <CounselingRegister onClose={() => {
+                {/* sno prop을 CounselingRegister에 전달 */}
+                <CounselingRegister sno={sno} onClose={() => {
                     setIsRegisterModalOpen(false);
                     window.location.reload(); // 모달 닫은 후 새로고침
                 }} />
