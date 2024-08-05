@@ -91,18 +91,18 @@ const Counseling = ({ sno }) => {
                         {counselingList.length === 0 ? (
                             <div><h5>상담 이력이 존재하지 않습니다.</h5></div>
                         ) : (
-                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <table className='counselingTable'>
                                 <thead>
                                     <tr>
-                                        <th style={{ padding: '10px', textAlign: 'left' }}>상담내용</th>
-                                        <th style={{ padding: '10px', textAlign: 'right' }}>상담일자</th>
+                                        <th className='counseling_content'>상담내용</th>
+                                        <th>상담일자</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {counselingList.map(counseling => (
                                         <tr key={counseling.cno} onClick={() => handleEditClick(counseling.cno)}>
-                                            <td style={{ padding: '10px', textAlign: 'left' }}>{counseling.c_content}</td>
-                                            <td style={{ padding: '10px', textAlign: 'right' }}>{new Date(counseling.regdate).toLocaleDateString()}</td>
+                                            <td className='counseling_content'><a>{counseling.c_content}</a></td>
+                                            <td>{new Date(counseling.regdate).toLocaleDateString()}</td>
                                         </tr>
                                     ))}
                                 </tbody>
