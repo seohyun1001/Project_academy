@@ -229,3 +229,13 @@ td {
   width: 75%;
   padding-right: 15px;
 }
+
+.counselingRegister{
+  margin: 5px;
+  min-width: 75px;
+}
+
+.counseling_head{
+padding-top: 10px;
+padding-left: 10px;
+}
