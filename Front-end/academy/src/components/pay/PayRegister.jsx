@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const PayRegister = ({ sno, onClose }) => {
+const PayRegister = ({ sno, s_name, onClose }) => {
     const [pay, setPay] = useState({
         paid: false,
         lno: '',
         l_name: '',
-        sno: '',
-        s_name: ''
+        sno: sno || '',
+        s_name: s_name || ''
     });
 
     const [lectures, setLectures] = useState([]);
-    const [students, setStudents] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,17 +24,7 @@ const PayRegister = ({ sno, onClose }) => {
             }
         };
 
-        const fetchStudents = async () => {
-            try {
-                const response = await axios.get('/student');
-                setStudents(response.data);
-            } catch (error) {
-                console.error('Failed to fetch students', error);
-            }
-        };
-
         fetchLectures();
-        fetchStudents();
     }, []);
 
     const handleChange = (e) => {
@@ -46,11 +35,6 @@ const PayRegister = ({ sno, onClose }) => {
     const handleLectureChange = (e) => {
         const selectedLecture = lectures.find(lecture => lecture.lno === e.target.value);
         setPay({ ...pay, lno: selectedLecture.lno, l_name: selectedLecture.l_name });
-    };
-
-    const handleStudentChange = (e) => {
-        const selectedStudent = students.find(student => student.sno.toString() === e.target.value);
-        setPay({ ...pay, sno: selectedStudent.sno, s_name: selectedStudent.s_name });
     };
 
     const handleSubmit = async (e) => {
@@ -80,15 +64,8 @@ const PayRegister = ({ sno, onClose }) => {
                 <div className='card-body'>
                     <form onSubmit={handleSubmit}>
                         <div>
-                            <label className='counselingRegister'>학생 선택:</label>
-                            <select name="sno" value={pay.sno} onChange={handleStudentChange} required>
-                                <option value="">학생을 선택하세요</option>
-                                {students.map(student => (
-                                    <option key={student.sno} value={student.sno.toString()}>
-                                        {student.sno} - {student.s_name}
-                                    </option>
-                                ))}
-                            </select>
+                            <label className='counselingRegister'>학생:</label>
+                            <span>{pay.sno} - {pay.s_name}</span>
                         </div>
                         <div>
                             <label className='counselingRegister'>강의 선택:</label>
@@ -110,9 +87,11 @@ const PayRegister = ({ sno, onClose }) => {
                                 onChange={handleChange}
                             />
                         </div>
+
+
                         <div className='counselingRegister'>
-                            <button type="submit" style={{margin:"5px"}}>등록</button>
-                            <button type="button" style={{margin:"5px"}} onClick={onClose}>닫기</button>
+                            <button type="submit" style={{ margin: "5px" }}>등록</button>
+                            <button type="button" style={{ margin: "5px" }} onClick={onClose}>닫기</button>
                         </div>
                     </form>
                 </div>
