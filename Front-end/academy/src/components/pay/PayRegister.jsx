@@ -74,42 +74,48 @@ const PayRegister = ({ sno, onClose }) => {
     return (
         <div className="container">
             <div className="card">
-                <h2>결제 등록</h2>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>결제 여부:</label>
-                        <input
-                            type="checkbox"
-                            name="paid"
-                            checked={pay.paid}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label>강의 선택:</label>
-                        <select name="lno" value={pay.lno} onChange={handleLectureChange} required>
-                            <option value="">강의를 선택하세요</option>
-                            {lectures.map(lecture => (
-                                <option key={lecture.lno} value={lecture.lno}>
-                                    {lecture.lno} - {lecture.l_name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div>
-                        <label>학생 선택:</label>
-                        <select name="sno" value={pay.sno} onChange={handleStudentChange} required>
-                            <option value="">학생을 선택하세요</option>
-                            {students.map(student => (
-                                <option key={student.sno} value={student.sno.toString()}>
-                                    {student.sno} - {student.s_name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <button type="submit">등록</button>
-                    <button type="button" onClick={onClose}>닫기</button>
-                </form>
+                <div className='card-head counseling_head'>
+                    <h2>결제 등록</h2>
+                </div>
+                <div className='card-body'>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label className='counselingRegister'>학생 선택:</label>
+                            <select name="sno" value={pay.sno} onChange={handleStudentChange} required>
+                                <option value="">학생을 선택하세요</option>
+                                {students.map(student => (
+                                    <option key={student.sno} value={student.sno.toString()}>
+                                        {student.sno} - {student.s_name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label className='counselingRegister'>강의 선택:</label>
+                            <select name="lno" value={pay.lno} onChange={handleLectureChange} required>
+                                <option value="">강의를 선택하세요</option>
+                                {lectures.map(lecture => (
+                                    <option key={lecture.lno} value={lecture.lno}>
+                                        {lecture.lno} - {lecture.l_name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label className='counselingRegister'>결제 여부:</label>
+                            <input
+                                type="checkbox"
+                                name="paid"
+                                checked={pay.paid}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className='counselingRegister'>
+                            <button type="submit" style={{margin:"5px"}}>등록</button>
+                            <button type="button" style={{margin:"5px"}} onClick={onClose}>닫기</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );
