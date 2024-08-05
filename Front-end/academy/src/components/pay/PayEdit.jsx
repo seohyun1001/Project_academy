@@ -95,30 +95,33 @@ const PayEdit = ({ pno, onClose }) => {
     return (
         <div className="container">
             <div className="card">
-                <h2>결제 수정</h2>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>결제 여부:</label>
-                        <input
-                            type="checkbox"
-                            name="paid"
-                            checked={pay.paid}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label>강의 선택:</label>
-                        <select name="lno" value={pay.lno} onChange={handleLectureChange} required>
-                            <option value="">강의를 선택하세요</option>
-                            {lectures.map(lecture => (
-                                <option key={lecture.lno} value={lecture.lno}>
-                                    {lecture.lno} - {lecture.l_name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div>
-                        {/* <label>학생 선택:</label>
+                <div className='card-head counseling_head'>
+                    <h2>결제 등록</h2>
+                </div>
+                <div className='card-body'>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label className='counselingRegister'>결제 여부:</label>
+                            <input
+                                type="checkbox"
+                                name="paid"
+                                checked={pay.paid}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label className='counselingRegister'>강의 선택:</label>
+                            <select name="lno" value={pay.lno} onChange={handleLectureChange} required>
+                                <option value="">강의를 선택하세요</option>
+                                {lectures.map(lecture => (
+                                    <option key={lecture.lno} value={lecture.lno}>
+                                        {lecture.lno} - {lecture.l_name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            {/* <label>학생 선택:</label>
                         <select name="sno" value={pay.sno} onChange={handleStudentChange} required>
                             <option value="">학생을 선택하세요</option>
                             {students.map(student => (
@@ -127,11 +130,17 @@ const PayEdit = ({ pno, onClose }) => {
                                 </option>
                             ))}
                         </select> */}
-                    </div>
-                    <button type="submit">수정</button>
-                    <button type="button" onClick={onClose}>닫기</button>
-                    <button type="button" onClick={handleDelete}>삭제</button>
-                </form>
+                        </div>
+                        <div className='d-flex justify-content-between counselingRegister'>
+                            <div>
+                                <button type="submit" style={{ marginRight: "5px" }}>수정</button>
+                                <button type="button" style={{ marginRight: "5px" }} onClick={handleDelete}>삭제</button>
+                            </div>
+                            
+                            <button type="button" style={{ marginRight: "5px" }} onClick={onClose}>닫기</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );

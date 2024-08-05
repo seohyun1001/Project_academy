@@ -69,9 +69,11 @@ const NoticeDetail = ({ nno }) => {
         <>
           <h2 class="notice">공지사항</h2>
           <div class="container">
-            <div className="d-flex flex-wrap justify-content-between">
-              <span className="notice_title">{notice.n_title}</span>
-              <span>작성자 : {notice.writer}</span>
+            <div className="d-flex flex-wrap justify-content-between ">
+              <div className="form-control">
+                <span className="notice_title">{notice.n_title}</span>
+                <span>작성자 : {notice.writer}</span>
+              </div>
             </div>
             <span> 등록일 : {formatDate(notice.regDate)} </span>
             <pre className="notice_content">{notice.n_content}</pre>
