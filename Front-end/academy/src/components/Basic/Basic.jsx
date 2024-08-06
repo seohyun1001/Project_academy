@@ -11,7 +11,7 @@ const Basic = () => {
         <div className='d-flex flex-column justify-content-between mainBody vsc-initialized'>
             <Header setShowMainContent={setShowMainContent} />
             <div className="container">
-                <div className="d-flex flex-column align-items-end">
+                <div className="d-flex flex-column align-items-start">
                     {showMainContent && (
                         <>
                             <div className="mb-3">

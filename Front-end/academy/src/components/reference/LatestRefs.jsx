@@ -20,7 +20,7 @@ const LatestRefs = () => {
 
     return (
         <div>
-            <h2>Latest Refs</h2>
+            <h3>자료실</h3>
             <ul>
                 {latestRefs.map(reference => (
                     <li key={reference.id}>

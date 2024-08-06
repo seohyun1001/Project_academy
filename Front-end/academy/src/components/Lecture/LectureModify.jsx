@@ -97,36 +97,36 @@ const LectureModify = ({ lectureId, setIsModifying, onModificationComplete }) =>
 
                         <div class="input-group">
                             <label class="form-label info_detail">강의코드</label>
-                            <p>{lecture.lno}</p>
+                            <input type="text" class="form-control" value={lecture.lno} readOnly />
                         </div>
 
                         <div class="input-group">
                             <label class="form-label info_detail">강의명</label>
-                            <input type="text" name="l_name" value={lecture.l_name} onChange={handleChange} />
+                            <input type="text" name="l_name" class="form-control" value={lecture.l_name} onChange={handleChange} />
                         </div>
 
 
 
                         <div class="input-group">
                             <label class="form-label info_detail">강의실</label>
-                            <input type="text" name="l_classroom" value={lecture.l_classroom} onChange={handleChange} />
+                            <input type="text" name="l_classroom" class="form-control" value={lecture.l_classroom} onChange={handleChange} />
                         </div>
 
                         <div class="input-group">
                             <label class="form-label info_detail">시작일</label>
-                            <input type="date" name="l_start" value={lecture.l_start} onChange={handleChange} />
+                            <input type="date" name="l_start" class="form-control" value={lecture.l_start} onChange={handleChange} />
                         </div>
                     </div>
 
                     <div class="d-flex flex-column lecture_info_list">
                         <div class="input-group">
                             <label class="form-label info_detail">강의 분류</label>
-                            <input type="text" name="l_category" value={lecture.l_category} onChange={handleChange} />
+                            <input type="text" name="l_category" class="form-control" value={lecture.l_category} onChange={handleChange} />
                         </div>
 
                         <div class="input-group">
                             <label class="form-label info_detail">강사 사번</label>
-                            <select name="mno" value={lecture.memberL.mno} onChange={handleMemberChange}>
+                            <select name="mno" class="form-control" value={lecture.memberL.mno} onChange={handleMemberChange}>
                                 <option value="">Select Instructor</option>
                                 {members.map((member) => (
                                     <option key={member.mno} value={member.mno}>
@@ -138,18 +138,18 @@ const LectureModify = ({ lectureId, setIsModifying, onModificationComplete }) =>
 
                         <div class="input-group">
                             <label class="form-label info_detail">담당 강사</label>
-                            <p>{lecture.memberL.m_name}</p>
+                            <input type="text" class="form-control" value={lecture.memberL.m_name} readOnly/>
                         </div>
 
                         <div class="input-group">
                             <label class="form-label info_detail">종료일</label>
-                            <input type="date" name="l_end" value={lecture.l_end} onChange={handleChange} />
+                            <input type="date" name="l_end" class="form-control" value={lecture.l_end} onChange={handleChange} />
                         </div>
                     </div>
                 </div>
             </div>
-            <button type="submit">Save Changes</button>
-            <button type="button" onClick={() => setIsModifying(false)}>Cancel</button>
+            <button type="submit" className="btn btn-outline-primary" style={{marginRight:'5px'}}>수정</button>
+            <button type="button" className="btn btn-outline-dark" onClick={() => setIsModifying(false)}>취소</button>
         </form>
     );
 };

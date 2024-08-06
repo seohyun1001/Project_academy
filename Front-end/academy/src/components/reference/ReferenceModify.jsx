@@ -71,7 +71,7 @@ const ReferenceModify = ({ rno, setShowModify, setShowDetail }) => {
         },
       }).then(result => {
         if (result.status === 200) {
-          alert("공지사항 수정이 성공적으로 완료되었습니다.");
+          alert("자료실 수정이 성공적으로 완료되었습니다.");
           setShowModify(false);
           setShowDetail(true);
         }

@@ -19,7 +19,7 @@ const LatestNotices = () => {
 
     return (
         <div>
-            <h2>Latest Notices</h2>
+            <h3>공지사항</h3>
             <ul>
                 {latestNotices.map(notice => (
                     <li key={notice.id}>

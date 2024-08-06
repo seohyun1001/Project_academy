@@ -82,63 +82,66 @@ const LectureInfoRegister = ({ onRegisterComplete, setShowRegister }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} class="card profile_card">
-      <div class="d-flex flex-wrap lecture_main_info">
-        <div class="d-flex flex-column lecture_info_list">
-          <div class="input-group">
-            <label for="" class="form-label info_detail">강의명</label>
-            <input type="text" class="form-control" name="l_name" value={lecture.l_name} onChange={handleChange} />
+    <form onSubmit={handleSubmit}>
+      <div class="card profile_card">
+        <div class="d-flex flex-wrap lecture_main_info">
+
+          <div class="d-flex flex-column lecture_info_list">
+            <div class="input-group">
+              <label for="" class="form-label info_detail">강의명</label>
+              <input type="text" class="form-control" name="l_name" value={lecture.l_name} onChange={handleChange} />
+            </div>
+
+            <div class="input-group">
+              <label for="" class="form-label info_detail">강의코드</label>
+              <input type="text" class="form-control" name="lno" value={lecture.lno} onChange={handleChange} />
+            </div>
+
+            <div class="input-group">
+              <label for="" class="form-label info_detail">강의실</label>
+              <input type="text" class="form-control" name="l_classroom" value={lecture.l_classroom} onChange={handleChange} />
+            </div>
+
+            <div class="input-group">
+              <label for="" class="form-label info_detail">시작일</label>
+              <input type="date" class="form-control" name="l_start" value={lecture.l_start} onChange={handleChange} />
+            </div>
           </div>
 
-          <div class="input-group">
-            <label for="" class="form-label info_detail">강의코드</label>
-            <input type="text" class="form-control" name="lno" value={lecture.lno} onChange={handleChange} />
-          </div>
+          <div class="d-flex flex-column lecture_info_list">
+            <div class="input-group">
+              <label for="" class="form-label info_detail">강의 분류</label>
+              <input type="text" class="form-control" name="l_category" value={lecture.l_category} onChange={handleChange} />
+            </div>
 
-          <div class="input-group">
-            <label for="" class="form-label info_detail">강의실</label>
-            <input type="text" class="form-control" name="l_classroom" value={lecture.l_classroom} onChange={handleChange} />
-          </div>
+            <div class="input-group">
+              <label for="" class="form-label info_detail">강사 사번</label>
+              <select name="mno" class="form-control" value={lecture.mno} onChange={handleMemberChange}>
+                <option value="">Select Instructor</option>
+                {members.map((member) => (
+                  <option key={member.mno} value={member.mno}>
+                    {member.mno} - {member.m_name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div class="input-group">
-            <label for="" class="form-label info_detail">시작일</label>
-            <input type="date" class="form-control" name="l_start" value={lecture.l_start} onChange={handleChange} />
-          </div>
-        </div>
+            <div class="input-group">
+              <label for="" class="form-label info_detail">담당 강사</label>
+              <input type="text" class="form-control" name="mno" value={lecture.mno} onChange={handleChange} readonly />
+            </div>
 
-        <div class="d-flex flex-column lecture_info_list">
-          <div class="input-group">
-            <label for="" class="form-label info_detail">강의 분류</label>
-            <input type="text" class="form-control" name="l_category" value={lecture.l_category} onChange={handleChange} />
-          </div>
+            <div class="input-group">
+              <label for="" class="form-label info_detail">종료일</label>
+              <input type="date" class="form-control" name="l_end" value={lecture.l_end} onChange={handleChange} />
+            </div>
 
-          <div class="input-group">
-            <label for="" class="form-label info_detail">강사 사번</label>
-            <select name="mno" class="form-control" value={lecture.mno} onChange={handleMemberChange}>
-              <option value="">Select Instructor</option>
-              {members.map((member) => (
-                <option key={member.mno} value={member.mno}>
-                  {member.mno} - {member.m_name}
-                </option>
-              ))}
-            </select>
           </div>
-
-          <div class="input-group">
-            <label for="" class="form-label info_detail">담당 강사</label>
-            <input type="text" class="form-control" name="mno" value={lecture.mno} onChange={handleChange} readonly />
-          </div>
-
-          <div class="input-group">
-            <label for="" class="form-label info_detail">종료일</label>
-            <input type="date" class="form-control" name="l_end" value={lecture.l_end} onChange={handleChange} />
-          </div>
-
-        </div>
-        <div class="container">
+          <div class="container">
             <button class="btn btn-outline-primary" type="submit">등록하기</button>
-        </div>
+          </div>
 
+        </div>
       </div>
     </form>
 

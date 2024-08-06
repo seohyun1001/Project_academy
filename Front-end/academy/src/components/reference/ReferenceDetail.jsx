@@ -5,7 +5,7 @@ import Referencelist from "./ReferenceList";
 import ReferenceModify from "./ReferenceModify";
 
 
-const ReferenceDetail = ({rno, setShowDetail}) => {
+const ReferenceDetail = ({ rno, setShowDetail }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true)
   const [reference, setReference] = useState({});
@@ -20,15 +20,15 @@ const ReferenceDetail = ({rno, setShowDetail}) => {
     setLoading(false);
   };
 
-  const handleModify = () => { 
+  const handleModify = () => {
     setShowModify(true); // 2. 편집 모드 상태를 true로 설정
   };
 
   const handleDelete = async () => {
-    if (window.confirm(`${reference.rno}번의 공지사항을 삭제 하시겠습니까?`))
+    if (window.confirm(`${reference.rno}번의 자료실을 삭제 하시겠습니까?`))
       try {
         await axios.delete(`http://localhost:8092/reference/${rno}`)
-        console.log(`${reference.rno} 공지사항 삭제 완료`);
+        console.log(`${reference.rno} 자료실 삭제 완료`);
         alert(`${reference.rno}가 삭제되었습니다.`);
         setShowList(true);
       } catch (error) {
@@ -63,25 +63,35 @@ const ReferenceDetail = ({rno, setShowDetail}) => {
     <>
       {loading ? (
         <p>Loading...</p>
-      ) : showList ? ( 
+      ) : showList ? (
         <Referencelist />
-      ) : showModify ? ( 
+      ) : showModify ? (
         <ReferenceModify rno={rno} setShowModify={setShowModify} setShowDetail={() => setShowList(false)} /> // setShowModify, setShowDetail prop 추가
       ) : (
         <>
-          <h2 class="notice">공지사항</h2>
+          <h2 class="notice">자료실</h2>
           <div class="container">
-            <div className="d-flex flex-wrap justify-content-between">
-              <span className="notice_title">{reference.r_title}</span>
-              <span>작성자 : {reference.writer}</span>
+            <div className="form-control">
+              <div className="d-flex flex-wrap justify-content-between">
+                <span className="notice_title">{reference.r_title}</span>
+                <span>작성자 : {reference.writer}</span>
+              </div>
             </div>
-            <span> 등록일 : {formatDate(reference.regDate)} </span>
-            <pre className="notice_content">{reference.r_content}</pre>
-            {referenceResource.map((rr, index) => (
-              <p key={index}>
-                <a href={'http://localhost:8092/file/' + rr.rr_name}>{rr.rr_name}</a>
-              </p>
-            ))}
+            <div className="form-control">
+              <span> 등록일 : {formatDate(reference.regDate)} </span>
+            </div>
+            <div className="form-control">
+
+              <pre className="notice_content">{reference.r_content}</pre>
+            </div>
+            <div className="form-control">
+
+              {referenceResource.map((rr, index) => (
+                <p key={index}>
+                  <a href={'http://localhost:8092/file/' + rr.rr_name}>{rr.rr_name}</a>
+                </p>
+              ))}
+            </div>
           </div>
 
 

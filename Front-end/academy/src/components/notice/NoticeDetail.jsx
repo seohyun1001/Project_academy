@@ -69,19 +69,25 @@ const NoticeDetail = ({ nno }) => {
         <>
           <h2 class="notice">공지사항</h2>
           <div class="container">
-            <div className="d-flex flex-wrap justify-content-between ">
-              <div className="form-control">
+            <div className="form-control ">
+              <div className="d-flex flex-wrap justify-content-between">
                 <span className="notice_title">{notice.n_title}</span>
                 <span>작성자 : {notice.writer}</span>
               </div>
             </div>
-            <span> 등록일 : {formatDate(notice.regDate)} </span>
-            <pre className="notice_content">{notice.n_content}</pre>
-            {noticeResource.map((nr, index) => (
-              <p key={index}>
-                <a href={'http://localhost:8092/file/' + nr.nr_name}>{nr.nr_name}</a>
-              </p>
-            ))}
+            <div className="form-control ">
+              <span> 등록일 : {formatDate(notice.regDate)} </span>
+            </div>
+            <div className="form-control ">
+              <pre className="notice_content">{notice.n_content}</pre>
+            </div>
+            <div className="form-control ">
+              {noticeResource.map((nr, index) => (
+                <p key={index}>
+                  <a href={'http://localhost:8092/file/' + nr.nr_name}>{nr.nr_name}</a>
+                </p>
+              ))}
+            </div>
           </div>
 
 
