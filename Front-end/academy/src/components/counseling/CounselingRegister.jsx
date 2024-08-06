@@ -124,9 +124,9 @@ const CounselingRegister = ({ sno, onClose }) => {
                             </select>
                         </div>
 
-                        <div className='counselingRegister'>
-                            <button type="submit" style={{margin:"5px"}}>등록</button>
-                            <button type="button" style={{margin:"5px"}} onClick={onClose}>닫기</button>
+                        <div className='d-flex justify-content-between counselingRegister'>
+                            <button type="submit">등록</button>
+                            <button type="button" onClick={onClose}>닫기</button>
                         </div>
                     </form>
                 </div>
