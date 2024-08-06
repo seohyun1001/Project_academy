@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.project_academy.notice.domain.Notice;
 import org.zerock.project_academy.reference.domain.Reference;
 import org.zerock.project_academy.reference.dto.ReferenceDTO;
 import org.zerock.project_academy.reference.dto.ReferenceListDTO;
@@ -109,5 +110,10 @@ public class ReferenceController {
         }catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/latest")
+    public List<ReferenceListDTO> getLatestRefs() {
+        return referenceService.findLatestRefs();
     }
 }

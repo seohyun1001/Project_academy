@@ -105,4 +105,10 @@ public class NoticeServiceImpl implements NoticeService {
          return savedNotice;
     }
 
+    // 최신 공지사항 5개를 가져오는 메서드
+    @Override
+    public List<Notice> findLatestNotices() {
+        return noticeRepository.findTop5ByOrderByRegDateDesc();
+    }
+
 }

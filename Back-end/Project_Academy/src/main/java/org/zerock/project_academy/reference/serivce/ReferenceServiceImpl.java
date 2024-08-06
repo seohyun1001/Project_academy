@@ -101,4 +101,15 @@ public class ReferenceServiceImpl implements ReferenceService {
         Reference savedReference = referenceRepository.save(reference);
         return savedReference;
     }
+
+    // 최신 공지사항 5개를 가져오는 메서드
+    @Override
+    public List<ReferenceListDTO> findLatestRefs() {
+        List<Reference> references = referenceRepository.findTop5ByOrderByRegDateDesc();
+        return references.stream()
+                .map(reference -> modelMapper.map(reference, ReferenceListDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
 }

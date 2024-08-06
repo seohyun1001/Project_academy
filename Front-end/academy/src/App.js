@@ -32,8 +32,8 @@ import ReferenceDetail from './components/reference/ReferenceDetail';
 import PrivateRoute from './PrivateRoute'; // 추가된 부분
 import Student from './components/student/Student';
 import StudentDetail from './components/student/StudentDetail';
-
 import LectureList from './components/Lecture/LectureList';
+import NoticeDetail from './components/notice/NoticeDetail';
 
 
 const Layout = () => (
@@ -54,8 +54,9 @@ const App = () => {
             <AuthProvider>
                 <Routes>
                     <Route path="/member/login" element={<Login />} />
+                    <Route path="/" element={<PrivateRoute><Basic /></PrivateRoute>} />
                     <Route element={<Layout />}>
-                        <Route path="/" element={<PrivateRoute><Basic /></PrivateRoute>} />
+                        
                         <Route path="/noticeBasic" element={<PrivateRoute><NoticeBasic /></PrivateRoute>} />
 
                         {/* <Route path="/member/list" element={<PrivateRoute><MemberList /></PrivateRoute>} /> */}
@@ -68,6 +69,7 @@ const App = () => {
 
                         <Route path="/Noticelist" element={<PrivateRoute><Noticelist /></PrivateRoute>} />
                         <Route path="/NoticeRegister" element={<PrivateRoute><NoticeRegister /></PrivateRoute>} />
+                        <Route path="/notice/:nno" element={<PrivateRoute><NoticeDetail /></PrivateRoute>} />
                         <Route path='/testlist' element={<PrivateRoute><Referencelist /></PrivateRoute>} />
 
                         <Route path="/ReferenceList" element={<PrivateRoute><Referencelist /></PrivateRoute>} />

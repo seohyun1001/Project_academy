@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LectureList from './Lecture/LectureList';
 import Member from './member/Member';
 import Student from './student/Student';
 import Noticelist from './notice/NoticeList';
 import Referencelist from './reference/ReferenceList';
 
-const Header = () => {
+const Header = ({ setShowMainContent }) => {
     const { user, logout } = useAuth();
     const [showLecture, setShowLecture] = useState(false);
     const [showMember, setShowMember] = useState(false);
@@ -25,6 +25,7 @@ const Header = () => {
         setShowLecture(prevState => {
             const newState = !prevState;
             if (newState) {
+                setShowMainContent(false);
                 setShowStudent(false);
                 setShowMember(false);
                 setShowNotice(false);
@@ -38,6 +39,7 @@ const Header = () => {
         setShowMember(prevState => {
             const newState = !prevState;
             if (newState) {
+                setShowMainContent(false);
                 setShowStudent(false);
                 setShowLecture(false);
                 setShowNotice(false);
@@ -50,12 +52,13 @@ const Header = () => {
     const toggleStudent = () => {
         setShowStudent(prevState => {
             const newState = !prevState;
-            if(newState) {
+            if (newState) {
+                setShowMainContent(false);
                 setShowMember(false);
                 setShowLecture(false);
                 setShowNotice(false);
                 setShowReference(false);
-            };
+            }
             return newState;
         });
     };
@@ -63,12 +66,13 @@ const Header = () => {
     const toggleNotice = () => {
         setShowNotice(prevState => {
             const newState = !prevState;
-            if(newState) {
+            if (newState) {
+                setShowMainContent(false);
                 setShowStudent(false);
                 setShowMember(false);
                 setShowLecture(false);
                 setShowReference(false);
-            };
+            }
             return newState;
         });
     };
@@ -76,12 +80,13 @@ const Header = () => {
     const toggleReference = () => {
         setShowReference(prevState => {
             const newState = !prevState;
-            if(newState) {
+            if (newState) {
+                setShowMainContent(false);
                 setShowStudent(false);
                 setShowMember(false);
                 setShowLecture(false);
                 setShowNotice(false);
-            };
+            }
             return newState;
         });
     };
@@ -111,45 +116,35 @@ const Header = () => {
                             ) : (
                                 <></>
                             )}
-
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="container con_menubar">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li class="nav-item">
-                            <a class="nav-link active nav_link" aria-current="page" onClick={toggleStudent}>학생</a>
-                        </li>
-
+            <div className="container con_menubar">
+                <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li className="nav-item">
-                        <a className="nav-link active nav_link" aria-current="page" onClick={toggleMember}>강사</a>
+                            <a className="nav-link active nav_link" aria-current="page" onClick={toggleStudent}>학생</a>
                         </li>
-
+                        <li className="nav-item">
+                            <a className="nav-link active nav_link" aria-current="page" onClick={toggleMember}>강사</a>
+                        </li>
                         <li className="nav-item">
                             <a className="nav-link active nav_link" aria-current="page" onClick={toggleLecture}>강의</a>
                         </li>
-
                         <li className="nav-item">
                             <a className="nav-link active nav_link" aria-current="page" onClick={toggleNotice}>공지사항</a>
                         </li>
-
                         <li className="nav-item">
                             <a className="nav-link active nav_link nav_link_last" aria-current="page" onClick={toggleReference}>자료실</a>
                         </li>
                     </ul>
-                    {/* <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-dark" type="submit">Search</button>
-                    </form> */}
                 </div>
             </div>
 
-            <div class="container">
-                <div class="d-flex flex-wrap">
+            <div className="container">
+                <div className="d-flex flex-wrap">
                     {showMember && <Member />}
                     {showLecture && <LectureList />}
                     {showStudent && <Student />}

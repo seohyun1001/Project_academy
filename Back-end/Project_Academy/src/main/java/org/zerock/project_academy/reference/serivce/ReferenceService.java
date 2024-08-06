@@ -14,4 +14,6 @@ public interface ReferenceService {
     ReferenceListDTO findOneReferenceById(Long rno);
     void deleteReference(Long rno);
     Reference modifyReference(ReferenceDTO referenceDTO);
+    List<ReferenceListDTO> findLatestRefs();
+
 }

@@ -120,4 +120,9 @@ public class NoticeController {
         }
     }
 
+    @GetMapping("/latest")
+    public List<Notice> getLatestNotices() {
+        return noticeService.findLatestNotices();
+    }
+
 }
