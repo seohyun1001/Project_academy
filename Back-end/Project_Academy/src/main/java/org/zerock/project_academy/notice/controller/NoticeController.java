@@ -121,7 +121,7 @@ public class NoticeController {
     }
 
     @GetMapping("/latest")
-    public List<Notice> getLatestNotices() {
+    public List<NoticeListDTO> getLatestNotices() {
         return noticeService.findLatestNotices();
     }
 

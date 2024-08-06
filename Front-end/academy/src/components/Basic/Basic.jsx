@@ -11,11 +11,15 @@ const Basic = () => {
         <div className='d-flex flex-column justify-content-between mainBody vsc-initialized'>
             <Header setShowMainContent={setShowMainContent} />
             <div className="container">
-                <div className="d-flex flex-wrap">
+                <div className="d-flex flex-column align-items-end">
                     {showMainContent && (
                         <>
-                            <LatestNotices />
-                            <LatestRefs />
+                            <div className="mb-3">
+                                <LatestNotices />
+                            </div>
+                            <div style={{ marginRight: '70px' }}>
+                                <LatestRefs />
+                            </div>
                         </>
                     )}
                 </div>

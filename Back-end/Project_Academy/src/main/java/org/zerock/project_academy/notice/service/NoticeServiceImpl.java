@@ -16,6 +16,7 @@ import org.zerock.project_academy.notice.dto.NoticeResourceListDTO;
 import org.zerock.project_academy.notice.repository.NoticeRepository;
 import org.zerock.project_academy.notice.repository.NoticeResourceRepository;
 
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -107,8 +108,11 @@ public class NoticeServiceImpl implements NoticeService {
 
     // 최신 공지사항 5개를 가져오는 메서드
     @Override
-    public List<Notice> findLatestNotices() {
-        return noticeRepository.findTop5ByOrderByRegDateDesc();
+    public List<NoticeListDTO> findLatestNotices() {
+        List<Notice> notices = noticeRepository.findTop5ByOrderByRegDateDesc();
+        return notices.stream()
+                .map(notice -> modelMapper.map(notice, NoticeListDTO.class))
+                .collect(Collectors.toList());
     }
 
 }

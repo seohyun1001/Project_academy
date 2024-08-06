@@ -15,5 +15,5 @@ public interface NoticeService {
     NoticeListDTO findOneNoticeById(Long nno);
     void deleteNotice(Long nno);
     Notice modifyNotice(NoticeDTO noticeDTO);
-    List<Notice> findLatestNotices();
+    List<NoticeListDTO> findLatestNotices();
 }
